@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <!-- the version of maven's project object model -->
+
+  <pomVersion>3</pomVersion>
+  <!-- a unique name for this project -->
+
+  <id>xmlbeans</id>
+  <groupId>gpon</groupId>
+  <!-- a short but descriptive name for the project -->
+
+  <name>xmlbeans</name>
+
+  <!-- CURRENT VERSION INHERITED --> 
+  <extend>${basedir}/../mother/project.xml</extend>
+  <!-- details about the organization that 'owns' the project -->
+  <organization>
+    <name>GPON Project</name>
+    <url>http://gpon.sourceforge.net</url>
+    <logo></logo>
+  </organization>
+  <inceptionYear>2005</inceptionYear>
+  <package>net.sf.gpon.xmlbeans</package>
+  <logo></logo>
+  <description>gpon xmlbeans classes</description>
+  <url></url>
+  <issueTrackingUrl></issueTrackingUrl>
+  <siteAddress></siteAddress>
+  <siteDirectory></siteDirectory>
+  <distributionDirectory></distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/examples</connection>
+    <url>http://cvs.apache.org/viewcvs/maven-plugins/examples/</url>
+  </repository>
+  <!-- any mailing lists for the project -->
+
+  <mailingLists/>
+  <!-- who the developers are for the project -->
+
+  <developers>
+  </developers>
+  
+  <dependencies>
+    	<dependency><groupId>xmlbeans</groupId><artifactId>jsr173</artifactId><version>1.0</version><jar>jsr173_1.0_api.jar</jar></dependency> 
+	<!-- <dependency><groupId>xmlbeans</groupId><artifactId>resolver</artifactId><version> -->
+	<dependency><groupId>xmlbeans</groupId><artifactId>xbean</artifactId><version>2.1.0</version></dependency> 
+	<dependency><groupId>xmlbeans</groupId><artifactId>xbean_xpath</artifactId><version>2.1.0</version></dependency> 
+	<dependency><groupId>xmlbeans</groupId><artifactId>xmlpublic</artifactId><version>2.1.0</version></dependency> 
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <!--
+    <unitTestSourceDirectory>test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+     </unitTest>
+     -->
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+</project>
