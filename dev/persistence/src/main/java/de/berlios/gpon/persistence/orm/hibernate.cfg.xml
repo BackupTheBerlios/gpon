@@ -23,12 +23,12 @@
         <!--
         <property name="hbm2ddl.auto">create</property>
         -->
-        <mapping resource="net/sf/gpon/persistence/ItemType.hbm.xml"/>
-        <mapping resource="net/sf/gpon/persistence/ItemPropertyDecl.hbm.xml"/>
-        <mapping resource="net/sf/gpon/persistence/AssociationType.hbm.xml"/>
-        <mapping resource="net/sf/gpon/persistence/Association.hbm.xml"/>
-        <mapping resource="net/sf/gpon/persistence/ItemProperty.hbm.xml"/>
-        <mapping resource="net/sf/gpon/persistence/Item.hbm.xml"/>
+        <mapping resource="de/berlios/gpon/persistence/ItemType.hbm.xml"/>
+        <mapping resource="de/berlios/gpon/persistence/ItemPropertyDecl.hbm.xml"/>
+        <mapping resource="de/berlios/gpon/persistence/AssociationType.hbm.xml"/>
+        <mapping resource="de/berlios/gpon/persistence/Association.hbm.xml"/>
+        <mapping resource="de/berlios/gpon/persistence/ItemProperty.hbm.xml"/>
+        <mapping resource="de/berlios/gpon/persistence/Item.hbm.xml"/>
       </session-factory>
 
 </hibernate-configuration>

@@ -57,7 +57,7 @@ public class GponModelDaoTest
     context = new ClassPathXmlApplicationContext("persistence-test-context.xml"); 
   }
 
-  public void _testAllItemTypes() 
+  public void testAllItemTypes() 
   {
     GponModelDao dao = getTxModelDao();
     GponDataDao  dDao = getTxDataDao();
