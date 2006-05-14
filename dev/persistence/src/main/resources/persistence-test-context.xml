@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+     <property name="mappingResources">
+      <list>
+        <value>net/sf/gpon/persistence/orm/ItemType.hbm.xml</value>
+        <value>net/sf/gpon/persistence/orm/ItemPropertyDecl.hbm.xml</value>
+        <value>net/sf/gpon/persistence/orm/AssociationType.hbm.xml</value>
+        <value>net/sf/gpon/persistence/orm/Association.hbm.xml</value>
+        <value>net/sf/gpon/persistence/orm/Item.hbm.xml</value>
+        <value>net/sf/gpon/persistence/orm/ItemProperty.hbm.xml</value>
+       </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <!-- Manually configured datasource -->
+        <prop key="hibernate.connection.driver_class">org.postgresql.Driver</prop>
+        <prop key="hibernate.connection.url">jdbc:postgresql://127.0.0.1/gpon_a</prop>
+        <prop key="hibernate.connection.username">gpon</prop>
+        <prop key="hibernate.connection.password">gpon</prop>
+        <!-- JDBC connection pool (use the built-in) -->
+        <prop key="hibernate.connection.pool_size">1</prop>
+        <!-- PostgreSQL Batc Update Problem -->
+        <prop key="hibernate.jdbc.batch_size">0</prop>
+        
+        <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+        <prop key="show_sql">true</prop>
+      </props>
+    </property>
+  </bean>
+
+  <!-- Model Part Data Access Object -->
+  <bean id="gponModelDao" class="de.berlios.gpon.persistence.GponModelDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
+  <!-- Data Part Data Access Object -->
+  <bean id="gponDataDao" class="de.berlios.gpon.persistence.GponDataDaoImpl">
+    <property name="sessionFactory" ref="sessionFactory"/>
+    <property name="modelDao" ref="gponModelDao"/>
+  </bean>
+  <!-- -->
+  <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory"/>
+  </bean>
+
+  <!-- TX declaration -->
+  <bean id="txGponDataDao"
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager" ref="myTxManager"/>
+    <property name="target" ref="gponDataDao"/>
+    <property name="transactionAttributes">
+      <props>
+     
+        <prop key="add*">PROPAGATION_REQUIRED</prop>
+        <prop key="update*">PROPAGATION_REQUIRED</prop>
+        <prop key="delete*">PROPAGATION_REQUIRED</prop>
+       
+        <prop key="*">PROPAGATION_SUPPORTS,readOnly</prop>
+      </props>
+    </property>
+  </bean>
+  
+  <!-- TX declaration -->
+  <bean id="txGponModelDao"
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager" ref="myTxManager"/>
+    <property name="target" ref="gponModelDao"/>
+    <property name="transactionAttributes">
+      <props>
+     
+        <prop key="add*">PROPAGATION_REQUIRED</prop>
+        <prop key="update*">PROPAGATION_REQUIRED</prop>
+        <prop key="delete*">PROPAGATION_REQUIRED</prop>
+       
+        <prop key="*">PROPAGATION_SUPPORTS,readOnly</prop>
+      </props>
+    </property>
+  </bean>
+  
+  
+</beans>

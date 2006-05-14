@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="de.berlios.gpon.common">
+  <class name="ItemPropertyDecl" table="T_ITEM_PROPERTY_DECL">
+    <id name="id" column="ID">
+     <generator class="sequence">
+      <param name="sequence">id_source_sq</param>
+     </generator>
+    </id>
+    <property name="name" column="NAME"/>
+    <property name="description" column="DESCRIPTION"/>
+    <property name="propertyValueTypeId" column="property_value_type_id"/>
+    <property name="mandatoryCharacter" column="MANDATORY"/>
+    <property name="typicCharacter" column="TYPIC"/>
+    <property name="rank" column="RANK"/>
+    <many-to-one name="itemType" class="ItemType" insert="false" update="false"
+      column="item_type_id"/>
+  </class>  
+    
+</hibernate-mapping>

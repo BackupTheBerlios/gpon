@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="de.berlios.gpon.common">
+  <class name="Association" table="T_ASSOCIATION">
+    <id name="id" column="ID">
+     <generator class="sequence">
+      <param name="sequence">id_source_sq</param>
+     </generator>
+    </id>
+    
+    <many-to-one name="itemA" class="Item"
+      column="item_a_id"/>
+    
+    <many-to-one name="itemB" class="Item"
+      column="item_b_id"/>
+    
+    <many-to-one name="associationType" class="AssociationType"
+      column="association_type_id"/>
+  </class>
+</hibernate-mapping>

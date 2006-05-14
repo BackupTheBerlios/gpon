@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="de.berlios.gpon.common">
+  <class name="Item" table="T_ITEM">
+    <id name="id" column="ID">
+     <generator class="sequence">
+      <param name="sequence">id_source_sq</param>
+     </generator>
+    </id>
+    <many-to-one name="itemType" class="ItemType"
+      column="item_type_id"/>
+    <set name="properties" cascade="all,delete-orphan">
+      <key column="item_id"
+        not-null="true"/>
+      <one-to-many class="ItemProperty"/>
+    </set>
+    <set name="associationsA" inverse="true" cascade="all,delete-orphan">
+      <key column="item_a_id"/>
+      <one-to-many class="Association"/>
+    </set>
+    <set name="associationsB" inverse="true" cascade="all,delete-orphan">
+      <key column="item_b_id"/>
+      <one-to-many class="Association"/>
+    </set>
+  </class>
+</hibernate-mapping>
