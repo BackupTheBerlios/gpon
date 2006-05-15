@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Daniel Schulz (Family Works :)) -->
+<GponScript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xmlns="http://sf.net/gpon/xmlscript"
+            xsi:noNamespaceSchemaLocation="../xmlbeans/xsd/gponscript.xsd" >
+	<Processing>
+		<Commit>auto</Commit>
+		<Results>
+			<Smtp/>
+		</Results>
+	</Processing>
+	<Difference id="diff_1">
+		<Union id="union_1">
+			<Query id="q1" type="server.unix" spec="${name} like '%'"/>
+			<Query id="mounts" type="server.unix.mountpoint" spec="${host} &lt;&gt; 'yvis'"/>
+		</Union>
+		<Reference refid="ee"/>
+	</Difference>
+	<Query id="q1" type="server.unix" spec="${name} like '%'"/>
+	<Query id="mounts" type="server.unix.mountpoint" spec="${host} &lt;&gt; 'yvis'"/>
+	<Query id="all_mounts" type="server.unix.mountpoint"/>
+	<Query type="server.unix" spec="tac_to_number(${cpu.count},'999999') &gt;= 2">
+	 <Xor id="xor_1">
+	  <Not id="not_1">
+	  <Associated by="server.unix.mounted" role="Server">
+	   <Query id="mounts" type="server.unix.mountpoint" spec="${host} &lt;&gt; 'yvis'"/>
+	  </Associated>
+	  </Not>
+	  
+	  <Associated by="server.unix.mounted" role="Server">
+	   <Reference refid="all_mounts"/>
+	  </Associated>
+	  
+	 </Xor>
+	 
+	</Query>
+	<Creation id="new_server_list" type="ci.base">
+	 <CreateObject>
+	  <Property name="inventory.no" value="BLALABER"/>
+	  <Property name="update.date" value="17.10.2004"/>
+	  <AssociateWith role="bla">
+	   <Creation type="ci.base" id="new_network_device_list">
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER1"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER2"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER3"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER4"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER5"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER6"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER7"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER8"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER9"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER10"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	    <CreateObject>
+ 	     <Property name="inventory.no" value="BLALABER11"/>
+	     <Property name="update.date" value="17.10.2004"/>
+	    </CreateObject>
+	   </Creation>
+	  </AssociateWith>
+	 </CreateObject>
+	</Creation>
+</GponScript>

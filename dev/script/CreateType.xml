@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GponScript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xmlns="http://berlios.de/gpon/xmlscript"
+            xsi:noNamespaceSchemaLocation="../xmlbeans/xsd/gponscript.xsd" >
+	<Processing>
+		<Commit>auto</Commit>
+		<Results>
+			<Smtp/>
+		</Results>
+	</Processing>
+    <!-- -->
+    <RemoveObjectType name="Car"/> 
+    <RemoveObjectType name="Person"/> 
+    <RemoveAssociationType name="driver"/>
+    
+    <CreateObjectType description="car" name="Car">
+    	<DeclareProperty name="license.plate.no" description="Kennzeichen" mandatory="true" rank="1" type="ShortText"/>
+    	<DeclareProperty name="chassis.no" description="Fahrgestellnummer" mandatory="true" rank="2" type="ShortText"/>
+        <DeclareProperty name="yom" description="Year of Manufacture" mandatory="true" rank="3" type="DateType"/>
+        <DeclareProperty name="color" description="Color" mandatory="false" rank="4" type="ShortText"/>
+    </CreateObjectType>
+    
+    <CreateObjectType description="person" name="Person">
+        <DeclareProperty name="name" description="Name" mandatory="true" rank="1" type="ShortText"/>
+        <DeclareProperty name="firstname" description="Vorname" mandatory="true"  rank="2" type="ShortText"/>
+        <DeclareProperty name="birthday" description="Birthday" mandatory="true"  rank="3" type="DateType"/>
+    </CreateObjectType>
+    
+    <CreateAssociationType 
+    	name="driver"
+    	description="Driver"
+    	multiplicity="ManyToMany"
+    	roleOfA="driver"
+    	typeOfA="Person"
+    	roleOfB="car"
+    	typeOfB="Car"
+    	visibility="abba"
+    />
+</GponScript>
