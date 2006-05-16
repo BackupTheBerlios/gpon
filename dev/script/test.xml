@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Daniel Schulz (Family Works :)) -->
 <GponScript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-            xmlns="http://sf.net/gpon/xmlscript"
+            xmlns="http://berlios.de/gpon/xmlscript"
             xsi:noNamespaceSchemaLocation="../xmlbeans/xsd/gponscript.xsd" >
 	<Processing>
 		<Commit>auto</Commit>

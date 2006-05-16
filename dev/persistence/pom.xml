@@ -7,6 +7,11 @@
   <version>0.1-SNAPSHOT</version>
   <name>GPON persistence classes</name>
   <url>http://gpon.berlios.de</url>
+   <parent>
+        <groupId>de.berlios.gpon</groupId>
+        <artifactId>root</artifactId>
+        <version>0.1-SNAPSHOT</version>
+  </parent>
   <dependencies>
   <dependency>
   <artifactId>common</artifactId>
