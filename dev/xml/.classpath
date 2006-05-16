@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="xsd"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry sourcepath="MAVEN_REPO/xmlbeans/java-sources/jsr173-1.0-sources.jar" kind="var" path="MAVEN_REPO/xmlbeans/jars/jsr173_1.0_api.jar"/>
-	<classpathentry sourcepath="MAVEN_REPO/xmlbeans/java-sources/xbean-2.1.0-sources.jar" kind="var" path="MAVEN_REPO/xmlbeans/jars/xbean-2.1.0.jar"/>
-	<classpathentry sourcepath="MAVEN_REPO/xmlbeans/java-sources/xbean_xpath-2.1.0-sources.jar" kind="var" path="MAVEN_REPO/xmlbeans/jars/xbean_xpath-2.1.0.jar"/>
-	<classpathentry sourcepath="MAVEN_REPO/xmlbeans/java-sources/xmlpublic-2.1.0-sources.jar" kind="var" path="MAVEN_REPO/xmlbeans/jars/xmlpublic-2.1.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xmlbeans/xmlbeans-jsr173-api/2.0-dev/xmlbeans-jsr173-api-2.0-dev.jar"/>
+	<classpathentry kind="var" path="M2_REPO/xmlbeans/xbean/2.0.0/xbean-2.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
