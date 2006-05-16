@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 package de.berlios.gpon.common.types.repository.test;
 import java.util.List;
 
+import junit.framework.TestCase;
 import de.berlios.gpon.common.types.ValueType;
 import de.berlios.gpon.common.types.repository.ValueTypeRepository;
-import junit.framework.TestCase;
 
 
 public class ValueTypeRepositoryTest extends TestCase 

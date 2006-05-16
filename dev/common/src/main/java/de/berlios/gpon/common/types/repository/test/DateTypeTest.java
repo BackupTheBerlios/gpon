@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 package de.berlios.gpon.common.types.repository.test;
+import junit.framework.TestCase;
 import de.berlios.gpon.common.types.Value;
 import de.berlios.gpon.common.types.repository.DateType;
 import de.berlios.gpon.common.types.repository.ValueTypeRepository;
-import junit.framework.TestCase;
 
 
 public class DateTypeTest extends TestCase 

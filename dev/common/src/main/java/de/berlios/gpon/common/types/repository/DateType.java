@@ -22,7 +22,6 @@ package de.berlios.gpon.common.types.repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import de.berlios.gpon.common.types.Value;

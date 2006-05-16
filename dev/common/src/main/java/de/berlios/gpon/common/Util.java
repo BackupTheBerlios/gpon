@@ -20,12 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 package de.berlios.gpon.common;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 
 public class Util 
 {
@@ -35,51 +30,6 @@ public class Util
   
   public static String beanToString(Object bean, List dontDisplay) 
   {
-    StringBuffer out = new StringBuffer("");
-  
-    if (bean!=null) 
-    {
-      PropertyDescriptor[] propDescs =
-        BeanUtils.getPropertyDescriptors(bean.getClass());
-      
-  
-      
-      if (propDescs!=null) 
-      {
-        int displayed = 0;
-      
-        for (int i = 0;i < propDescs.length; i++) 
-        {    
-
-          try
-          {
-          
-            if (dontDisplay==null ||
-                !dontDisplay.contains(propDescs[i].getName())) 
-            {
-              if (displayed>0) 
-              {
-                out.append(", ");
-              }
-              
-              Object o = propDescs[i].getReadMethod().invoke(bean,null);
-              
-              out.append(propDescs[i].getName()).append(": '").append((o!=null)?o.toString():"").append("'\n");  
-              
-              displayed++;
-            }          
-          }
-          catch (InvocationTargetException e)
-          {
-            throw new UndeclaredThrowableException(e);          
-          }
-          catch (IllegalAccessException e)
-          {
-            throw new UndeclaredThrowableException(e);
-          }
-        }
-      }
-    }
-    return out.toString();
+	  return bean.toString();
   }
 }

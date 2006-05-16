@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 package de.berlios.gpon.common.types.repository;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import de.berlios.gpon.common.types.Value;
 import de.berlios.gpon.common.types.ValueType;

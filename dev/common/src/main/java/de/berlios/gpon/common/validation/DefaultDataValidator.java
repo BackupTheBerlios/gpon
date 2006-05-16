@@ -24,12 +24,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.berlios.gpon.common.Item;
-import de.berlios.gpon.common.ItemProperty;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.types.Value;
 import de.berlios.gpon.common.types.ValueTypeValidationException;

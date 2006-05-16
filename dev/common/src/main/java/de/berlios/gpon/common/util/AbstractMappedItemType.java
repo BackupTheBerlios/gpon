@@ -24,13 +24,9 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import de.berlios.gpon.common.ItemProperty;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
-import de.berlios.gpon.common.types.Value;
-import de.berlios.gpon.common.types.repository.ValueTypeRepository;
 
 
 public abstract class AbstractMappedItemType 
