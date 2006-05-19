@@ -15,7 +15,7 @@
 	<dependencies>
 	
 		<dependency>
-			<artifactId>persistence</artifactId>
+			<artifactId>script</artifactId>
 			<groupId>de.berlios.gpon</groupId>
 			<version>${project.version}</version>
 		</dependency>
@@ -48,6 +48,12 @@
 			<artifactId>jdbc-stdext</artifactId>
 			</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<artifactId>struts-el</artifactId>
+			<groupId>struts</groupId>
+			<version>1.1</version>
 		</dependency>
 
   <!-- Servlet API (2.3)-->

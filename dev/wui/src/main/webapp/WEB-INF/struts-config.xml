@@ -238,9 +238,6 @@
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
 		<set-property property="pathnames"
 			value="/WEB-INF/struts-validation.xml" />
-	</plug-in>
-	<plug-in className="net.sf.navigator.menu.MenuPlugIn">
-		<set-property property="menuConfig"
-			value="/WEB-INF/menu-config.xml" />
-	</plug-in>
+	
+	</plug-in>	
 </struts-config>
