@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns:j="jelly:core" 
+         xmlns:ant="jelly:ant" 
+	 xmlns:u="jelly:util"
+	 xmlns:maven="jelly:maven"
+	 xmlns:artifact="artifact">
+	 
+	 <goal name="w2j">
+	 <ant:taskdef name="wsdl2java" classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask">
+	 	<ant:classpath>
+	 		<ant:path refid="maven.dependency.classpath"/>
+		</ant:classpath>
+         </ant:taskdef>
+	 <ant:wsdl2java url="${basedir}/src/wsdl/gpon.wsdl"
+            output="${basedir}/target"
+            serverSide="yes"
+            testcase="no">
+            <mapping namespace="http://sf.net/gpon" package="net.sf.gpon"/>
+            <nsexclude namespace="http://sf.net/gpon/xmlscript"/>
+        </ant:wsdl2java>
+	</goal>
+</project>

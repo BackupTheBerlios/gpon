@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://berlios.de/gpon/xmlscript" 
+	targetNamespace="http://berlios.de/gpon/xmlscript" 
+	elementFormDefault="qualified">
+	<xs:include schemaLocation="gponscript.xsd"/>
+	<xs:element name="GponScriptOutput">
+		<xs:complexType>
+			<xs:sequence>
+			    <!--  copy of the script -->
+				<xs:element ref="GponScript"/>
+				<!--  result sets  -->
+				<xs:element ref="Set" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Set">
+	 <xs:complexType>
+	  <xs:sequence>
+	   <xs:element ref="Object" maxOccurs="unbounded"/>
+	  </xs:sequence>
+	  <xs:attribute name="id" type="xs:string" use="required"/>
+	 </xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Object">
+	  <xs:complexType>
+	   <xs:sequence>
+	    <!-- Property is defined in GponScript -->
+	    <xs:element ref="Property" maxOccurs="unbounded"/>
+	   </xs:sequence>
+	   <xs:attribute name="id" type="xs:string" use="required"/>
+	  </xs:complexType>
+	</xs:element>
+</xs:schema>

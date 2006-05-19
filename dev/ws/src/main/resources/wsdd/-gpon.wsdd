@@ -1,0 +1,7 @@
+<undeployment
+    xmlns="http://xml.apache.org/axis/wsdd/">
+
+  <!-- Services from Gpon WSDL service -->
+
+  <service name="GponPort"/>
+</undeployment>

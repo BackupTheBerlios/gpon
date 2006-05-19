@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://berlios.de/gpon/xmlscript" targetNamespace="http://berlios.de/gpon/xmlscript" elementFormDefault="qualified">
+	<!-- GponScript Document-->
+	<xs:element name="GponScript">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Processing"/>
+				<xs:choice maxOccurs="unbounded">
+				    <xs:group ref="DmlLikeGroup"/>
+					<xs:group ref="SetLikeGroup"/>
+					<xs:group ref="AssociationLikeGroup"/>
+					<!-- Delete, Update -->
+					<xs:group ref="VoidGroup"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Processing -->
+	<xs:element name="Processing">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Commit"/>
+				<xs:element ref="Results"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Commit">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="auto"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="Results">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Smtp"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- Smtp Address -->
+	<xs:element name="Smtp" type="xs:string"/>
+	
+	<!--  DDL -->
+	<xs:element name="CreateObjectType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DeclareProperty"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="description" type="xs:string"/>
+			<xs:attribute name="baseType" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DeclareProperty">
+		<xs:complexType>
+			<xs:attribute name="name"        type="xs:string"/>
+			<xs:attribute name="description" type="xs:string"/>
+			<xs:attribute name="type"        type="xs:string"/>
+			<xs:attribute name="mandatory"   type="xs:boolean"/>
+			<xs:attribute name="rank"        type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+
+    <xs:element name="RemoveObjectType">
+		<xs:complexType>
+		  <xs:attribute name="name" type="xs:string"/>
+	    </xs:complexType>
+    </xs:element>
+    
+	<xs:element name="CreateAssociationType">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="description" type="xs:string"/>
+			<xs:attribute name="multiplicity">
+			 <xs:simpleType>
+        	  <xs:restriction base="xs:NMTOKEN">
+          		<xs:enumeration value="OneToOne"/>
+          		<xs:enumeration value="OneToMany"/>
+          		<xs:enumeration value="ManyToMany"/>
+        	  </xs:restriction>
+      		 </xs:simpleType>
+            </xs:attribute>
+			<xs:attribute name="visibility">
+			 <xs:simpleType>
+        	  <xs:restriction base="xs:NMTOKEN">
+          		<xs:enumeration value="ab"/>
+          		<xs:enumeration value="ba"/>
+          		<xs:enumeration value="abba"/>
+        	  </xs:restriction>
+      		 </xs:simpleType>
+            </xs:attribute>
+   			<xs:attribute name="typeOfA" type="xs:string"/>
+   			<xs:attribute name="roleOfA" type="xs:string"/>
+   			<xs:attribute name="typeOfB" type="xs:string"/>
+   			<xs:attribute name="roleOfB" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="RemoveAssociationType">
+	  <xs:complexType>
+			<xs:attribute name="name" type="xs:string"/>
+	  </xs:complexType>
+	</xs:element>
+	
+	<!--  DML constructs -->
+	<xs:group name="DmlLikeGroup">
+		<xs:choice>
+			<xs:element ref="CreateObjectType"/>
+			<xs:element ref="CreateAssociationType"/>
+			<xs:element ref="RemoveObjectType"/>
+			<xs:element ref="RemoveAssociationType"/>
+		</xs:choice>
+	</xs:group>
+	
+	<!--  Voids -->
+	<xs:group name="VoidGroup">
+		<xs:choice>
+			<xs:element ref="Removal"/>
+		</xs:choice>
+	</xs:group>
+
+    <!-- Removal -->
+    <xs:element name="Removal">
+      <xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+	  </xs:complexType>
+    </xs:element>
+	
+	<!-- non visible abstraction of a set like construct -->
+	<xs:group name="SetLikeGroup">
+		<xs:choice>
+			<!-- set operations -->
+			<xs:element ref="Union"/>
+			<xs:element ref="Intersection"/>
+			<xs:element ref="Difference"/>
+			<!-- objects -->
+			<xs:element ref="Query"/>
+			<xs:element ref="Creation"/>
+			<xs:element ref="Update"/>
+			<xs:element ref="Reference"/>
+		</xs:choice>
+	</xs:group>
+	<xs:group name="AssociationLikeGroup">
+		<xs:choice>
+			<!-- associations  -->
+			<xs:element ref="Associate"/>
+			<xs:element ref="Dissociate"/>
+		</xs:choice>
+	</xs:group>
+	<!-- Union -->
+	<xs:element name="Union">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup" maxOccurs="50"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Intersection -->
+	<xs:element name="Intersection">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup" maxOccurs="50"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Difference -->
+	<xs:element name="Difference">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup" minOccurs="2" maxOccurs="2"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Set Reference -->
+	<xs:element name="Reference">
+		<xs:complexType>
+			<xs:attribute name="refid">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!-- Query -->
+	<xs:element name="Query">
+		<xs:complexType>
+			<xs:group ref="AssociatedExpr" minOccurs="0"/>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="spec" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:group name="AssociatedExpr">
+		<xs:choice>
+			<xs:element ref="Associated"/>
+			<xs:element ref="Or"/>
+			<xs:element ref="Xor"/>
+			<xs:element ref="And"/>
+			<xs:element ref="Not"/>
+		</xs:choice>
+	</xs:group>
+	<xs:element name="And">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="AssociatedExpr"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Associated">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="by" type="xs:string" use="required"/>
+			<xs:attribute name="role" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Creation -->
+	<xs:element name="Creation">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OrUpdateUsingKeys"/>
+				<xs:element ref="CreateObject" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="when" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CreateObject">
+		<xs:complexType>
+			<xs:sequence>
+				<!-- Properties -->
+				<xs:element ref="Property" maxOccurs="unbounded"/>
+				<!-- Associated Objects -->
+				<xs:element ref="AssociateWith" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AssociateWith">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="role" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DissociateFrom">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="role" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Update -->
+	<xs:element name="Update">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="On"/>
+				<xs:element ref="UpdateObject" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="UpdateObject">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Property"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Property">
+		<xs:complexType mixed="true">
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="optional"/>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<!-- Associate Sets -->
+	<xs:element name="Associate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup"/>
+				<xs:element ref="AssociateWith"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Or">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="AssociatedExpr"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Xor">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="AssociatedExpr"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Not">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="AssociatedExpr" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Dissociate">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:group ref="SetLikeGroup"/>
+				<xs:element ref="DissociateFrom"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Key">
+	 <xs:complexType>
+	  <xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	</xs:element>
+	<xs:element name="On">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Reference"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrUpdateUsingKeys">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Key" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

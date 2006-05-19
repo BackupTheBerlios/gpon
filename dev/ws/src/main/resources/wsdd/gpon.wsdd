@@ -1,0 +1,40 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+  <!-- Services from Gpon WSDL service -->
+  <service name="Gpon" provider="java:RPC" style="document" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://berlios.de/gpon"/>
+      <parameter name="wsdlServiceElement" value="Gpon"/>
+      <parameter name="wsdlServicePort" value="GponPort"/>
+      <parameter name="className" value="de.berlios.gpon.ws.GponBindingImpl"/>
+      <parameter name="wsdlPortType" value="GponPortType"/>
+      <operation name="runScript" qname="runScript" returnQName="retNS:GponScriptOutput" xmlns:retNS="http://berlios.de/gpon/xmlscript" returnType="rtns:>GponScriptOutput" xmlns:rtns="http://berlios.de/gpon/xmlscript" >
+        <parameter qname="pns:GponScript" xmlns:pns="http://berlios.de/gpon/xmlscript" type="tns:>GponScript" xmlns:tns="http://berlios.de/gpon/xmlscript"/>
+      </operation>
+      <parameter name="allowedMethods" value="runScript"/>  
+      <typeMapping
+        xmlns:ns="http://berlios.de/gpon/xmlscript"
+        qname="ns:>GponScript"
+        type="java:de.berlios.gpon.xmlscript.GponScript"
+        serializer="org.apache.axis.encoding.ser.xbeans.XmlBeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.xbeans.XmlBeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://berlios.de/gpon/xmlscript"
+        qname="ns:>GponScriptOutput"
+        type="java:de.berlios.gpon.xmlscript.GponScriptOutput"
+        serializer="org.apache.axis.encoding.ser.xbeans.XmlBeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.xbeans.XmlBeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

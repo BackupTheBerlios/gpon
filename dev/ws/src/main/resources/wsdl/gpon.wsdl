@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	     xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	     xmlns:tns="http://berlios.de/gpon" 
+	     xmlns:script="http://berlios.de/gpon/xmlscript" 
+	     targetNamespace="http://berlios.de/gpon" name="foo">
+	<types>
+		<xs:schema>
+			<xs:import namespace="http://berlios.de/gpon/xmlscript" schemaLocation="gponscriptout.xsd"/>
+		</xs:schema>
+	</types>
+	<message name="gponRequest">
+	  <part name="request" element="script:GponScript"/>
+	</message>
+	<message name="gponResponse">
+		<part name="response" element="script:GponScriptOutput"/>
+	</message>
+	<portType name="GponPortType">
+		<operation name="runScript">
+			<input message="tns:gponRequest"/>
+			<output message="tns:gponResponse"/>
+		</operation>
+	</portType>
+	<binding name="GponBinding" type="tns:GponPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="runScript">
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="Gpon">
+		<port name="GponPort" binding="tns:GponBinding">
+			<soap:address location="http://localhost:9080/axis/services/GponPort"/>
+		</port>
+	</service>
+</definitions>
