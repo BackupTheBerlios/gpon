@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Dojo ComboBox Widget Test</title>
+<link href="remote-combo-ii.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript"> var djConfig = {isDebug: true}; </script>
+<script type="text/javascript" src="../dojo/dojo.js"></script>
+<script type="text/javascript">
+	dojo.require("dojo.event.*");
+	dojo.require("dojo.io.*");
+	dojo.require("dojo.widget.*");
+	dojo.require("dojo.widget.ComboBox");
+	dojo.require("dojo.widget.html.ComboBox");
+	dojo.require("dojo.widget.html.SplitSortableTable");
+	dojo.require("dojo.fx.*");
+	
+	dojo.hostenv.writeIncludes();
+	
+	var myEntryId = 30;
+	
+	var temporaryObject = null;
+	
+	function showSelected(){
+			var w=dojo.widget.byId("testTable");
+			if(w){
+				var o=w.getSelection();
+				if(o){
+					var s="({\n";
+					var a=[];
+					for(var p in o){
+						a.push("\t\""+p+"\":\""+o[p]+"\"");
+					}
+					s+=a.join(",\n");
+					s+="\n})";
+					alert(s);
+				}else{
+					alert("No rows are selected.");
+				}
+			}
+		}
+		
+		function cloneObject(what) 
+		{
+		  for (i in what) {
+		  this[i] = what[i];
+		  }
+		}
+		
+		function fillIds(tableId,fieldId) 
+		{
+		  var table=dojo.widget.byId(tableId);
+		  var fielddiv=document.getElementById(fieldId);
+		  
+		  var ids='';
+		  
+		  for(var i=0; i<table.data.length; i++)
+		  {
+		   var row = table.data[i];
+		   
+		   if (i!=0) {
+		   	ids=ids+',';
+		   }
+		   ids=ids+row['Id'];
+		  }
+		  
+		  var field=fielddiv.getElementsByTagName("input")[0];
+		  
+		  field.value=ids;
+		}
+		
+		function addSelectionToTable(targetTable, srcComboBox) {
+		  var table=dojo.widget.byId(targetTable);
+		  var combo=dojo.widget.byId(srcComboBox);
+		  
+		  var id = combo.comboBoxSelectionValue.value;
+		  
+		  if (id) 
+		  {
+			// lookup
+			var kw = {
+				url: "lookup-json.js",
+				mimetype: "text/json",
+				load: function(type, json, http) {
+				  for(var key in json) {
+				  	if (key == id) {
+				  		dojo.debug(key, ":", json[key]);
+						for(var i=0; i<table.data.length; i++)
+						{
+						 var row = table.data[i];
+						 if (row["Id"]==id) {
+						   return;
+						 } 
+						}
+						
+						table.data.reverse();
+						table.data.push(json[key]);
+						table.data.reverse();
+						table.renderWoSort();
+					}
+				  }
+				}
+			};
+			
+			dojo.io.bind(kw);
+			
+		  }
+		  else
+		  {
+		  	alert ("No selected item to insert!")
+		  }
+		  
+		}
+		
+		function removeSelectionFromTable(tableId) {
+		  var table=dojo.widget.byId(tableId);
+		  var o = table.getSelection();
+		  
+		  var newData = new Array();
+		  
+		  var id = o["Id"] + 0;
+		  
+		  for(var i=0; i<table.data.length; i++)
+		  {
+		    var row = table.data[i];
+		    var rowid = row["Id"]+0;
+		    if (rowid!=id) {
+		      newData.push(row);
+		    }
+		    else {
+		    //	
+		    }
+		  }
+		  
+		  table.parseData(newData);
+		  table.renderWoSort();
+		  
+		  fillIds('table_25','table_result_25');
+		}
+	
+	var assocTables = [];
+		
+	function initAssocTables() 
+	{
+	  for (var i = 0; i < assocTables.length; i++) 
+	  {
+	  	alert("Table :"+assocTables[i]);
+	  }
+	
+	}
+		
+	dojo.event.connect(dojo, "loaded", "initAssocTables")
+		
+</script>
+</head>
+<body>
+<p>
+Clicking any letter in the box below will display a select-list generated from user specified java code.
+Note that the same select-list is always displayed.
+This isn't a dojo bug; it's just because remoteComboBoxData.js (our dummy test code)
+isn't filtering based on the search string like it should.
+</p>
+
+<form id="form_25" action="http://127.0.0.1:8080/echo.html" onSubmit="return true;">
+        <a href="javascript:void(dojo.fx.html.wipeOut(document.getElementById('sst_25'), 1))">
+	wo
+	</a>
+	<a href="javascript:void(dojo.fx.html.wipeIn(document.getElementById('sst_25'), 1))">
+	wi
+	</a>
+	<div id="table_result_25">
+	 <input name="associations('a|computer')" type="hidden" value=""/>
+	</div>
+	<div id="sst_25">
+	<table>
+	<tr>
+	<td style="width:500px;">
+	<table id="table_25" maxRows="5" dojoType="SplitSortableTable" containerClass="container" headClass="header" tbodyClass="dates_ns" enableAlternateRows="true" rowAlternateClass="alternateRow" cellpadding="0" cellspacing="0" border="0">
+	<thead>
+		<tr>
+			<th class="column" field="Id" dataType="Number">Id</th>
+			<th class="column" field="Name" dataType="String">Name</th>
+			<th class="column" field="Email" dataType="String">Email</th>
+			<th class="column" field="Phone" dataType="String">Phone</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>2</td><td>Betty</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>3</td><td>Carla</td><td>b@c.de</td><td>jjjjjjjjjjjjjjjjjjjjjjj b@c.de</td></tr>
+		<tr><td>4</td><td>David</td><td>b@c.de</td><td>b@c.de</td></tr>
+<!--
+		<tr><td>5</td><td>Esther</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>6</td><td>Fred</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>7</td><td>Greg</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>8</td><td>Helga</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>9</td><td>Ianna</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>10</td><td>Jane</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>11</td><td>Kathy</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>12</td><td>Leonard</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>13</td><td>Mike</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>14</td><td>Nancy</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>15</td><td>Oswald</td><td>b@c.de</td><td>b@c.de</td></tr>
+		<tr><td>16</td><td>Peter</td><td>b@c.de</td><td>b@c.de</td></tr>
+-->		
+	</tbody>
+</table>
+<script type="text/javascript">
+  assocTables.push('t1');
+  assocTables.push('t2');
+</script>
+</td>
+<td>
+Suggest:
+<table>
+<tr>
+<td>
+<div><button onclick="addSelectionToTable('table_25','combo_25');return false;">&lt;[add]&lt;</button></div>
+</td>
+<td>
+<input id="combo_25" dojoType="combobox" value="this should be replaced!"
+			dataUrl="data-json-gpon.js?searchStr=%{searchString}" mode="remote">
+</td>
+</tr>
+<tr>
+<td>
+<div><button onclick="removeSelectionFromTable('table_25');return false;">&gt;[remove]&gt;</button></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="3"><input type="submit"/></td>
+</tr>
+</table>
+</div>
+</form>
+<form id="form_26">
+	<table>
+	<tr>
+	<td style="width:500px;">
+	<table id="table_26" dojoType="SplitSortableTable" containerClass="container" headClass="header" tbodyClass="dates" enableAlternateRows="true" rowAlternateClass="alternateRow" cellpadding="0" cellspacing="0" border="0">
+	<thead>
+		<tr>
+			<th class="column" field="Id" dataType="Number">Id</th>
+			<th class="column" field="Name" dataType="String">Name</th>
+			<th class="column" field="Email" dataType="String">Email</th>
+			<th class="column" field="Phone" dataType="String">Phone</th>
+			<th class="column" field="Image" dataType="String">Image</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>1</td><td>Adammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>2</td><td>Betty</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>3</td><td>Carla</td><td>b@c.de</td><td>jjjjjjjjjjjjjjjjjjjjjjj b@c.de</td><td>p1</td></tr>
+		<tr><td>4</td><td>David</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>5</td><td>Esther</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>6</td><td>Fred</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>7</td><td>Greg</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>8</td><td>Helga</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>9</td><td>Ianna</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>10</td><td>Jane</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>11</td><td>Kathy</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>12</td><td>Leonard</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>13</td><td>Mike</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>14</td><td>Nancy</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>15</td><td>Oswald</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+		<tr><td>16</td><td>Peter</td><td>b@c.de</td><td>b@c.de</td><td>p1</td></tr>
+	</tbody>
+</table>
+</td>
+<td>
+Suggest:
+<table>
+<tr>
+<td>
+<div><button onclick="addSelectionToTable('table_26','combo_26');return false;">&lt;[add]&lt;</button></div>
+</td>
+<td>
+<input id="combo_26" dojoType="combobox" value="this should be replaced!"
+			dataUrl="data-json-gpon.js?searchStr=%{searchString}" mode="remote">
+</td>
+</tr>
+<tr>
+<td>
+<div><button onclick="removeSelectionFromTable('table_26');return false;">&gt;[remove]&gt;</button></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+
+<p>this is some text below the combo box. It shouldn't get pushed out of the way when search results get returned.</p>
+
+</body>
+<html>

@@ -1,0 +1,136 @@
+/*Basic styles separated to make sample code easier to follow*/
+
+body {
+	margin: 1em 6%;
+	font-size: 90%;
+	color: #444;
+	background: white url(../images/bluefade.gif) top left repeat-x;
+	line-height: 1.2;
+	}
+	
+#container {
+	border: double 3px #bcc;
+	background-color: white;
+	padding: 1em 5%;
+	}
+
+h2,h3 {
+	color: #699; 
+	text-align: center;
+	margin-bottom: .2em;
+}
+
+h3,h4 {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+a:link, a.back {color: #39c}
+a:hover {color: Coral}
+
+pre {font-size: 85%}
+small {font-size: 70%;}
+code {color: #330099}
+
+	
+
+.container	{
+	margin: 0;
+	padding: 10px 0 0 0;
+	width: 475px;
+	height: 190px;
+	/* float: right; */
+	background: #ffffff;
+	}
+
+.header table	{
+	border-collapse: collapse;
+	}
+
+
+	
+.dates_scroll	{
+	
+	height: 100px;
+	overflow: auto;
+	/* border: dotted #000; */
+	border-width: 1px 0;
+	}
+	
+.dates_scroll td	{
+	border: dotted #666;
+	border-width: 0px 1px 1px 0px;
+	overflow:hidden;
+	}
+
+.dates_scroll tr.selected	{
+	color: red;
+	}
+
+.dates_noscroll	{
+	border-width: 1px 0;
+	}
+	
+.dates_noscroll td	{
+	border: dotted #666;
+	border-width: 0px 1px 1px 0px;
+	overflow:hidden;
+	}
+
+.dates_noscroll tr.selected	{
+	color: red;
+	}
+
+	
+.header th {
+	vertical-align: top;
+	text-align: left;
+	
+	}
+
+.header  {
+	background-color: #B1C2D8;
+	color: #000;
+	font-family: Arial;
+	}
+	
+.container td	{
+	vertical-align: top;
+	text-align: left;
+	padding: 5px;
+	}
+
+.dates_scroll th, .dates_noscroll th	{
+	padding: 0 5px;
+	overflow:hidden;
+	}
+
+.column	{ 
+ overflow:hidden;
+ width: 50px; 
+}
+
+.scrolling 
+{
+	color:yellow;
+	width: 50px;
+	overflow:scroll;
+}
+
+.dates_scroll table,.dates_noscroll table, .header table {
+ 	table-layout:fixed;
+	width:100%; 
+	border: 1px;
+}
+
+td {
+	/* border: dotted #666;
+	border-width: 0px 1px 1px 0px;*/
+	vertical-align:top;
+	height:20px;
+}
+
+
+table.dojoComboBox {
+ width: 200px;
+}

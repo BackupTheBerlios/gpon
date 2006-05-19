@@ -1,0 +1,15 @@
+<decorators defaultdir="/site-decorators">
+    <decorator name="main" page="mainDecorator.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    <decorator name="panel" page="panelDecorator.jsp"/>
+    <decorator name="popup" page="popupDecorator.jsp"/>
+    <!-- 
+    <decorator name="none">
+      <pattern>/struts-menu-test.jsp</pattern>
+    </decorator>
+    -->
+    <decorator name="none">
+      <pattern>/ajax/*</pattern>
+    </decorator>
+</decorators>
