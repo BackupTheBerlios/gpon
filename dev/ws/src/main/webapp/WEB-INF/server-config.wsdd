@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="C:\Projekte\gpon_berlios\dev\ws\.deployables\ws\WEB-INF\attachments"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <service name="Gpon" provider="java:RPC" style="document" use="literal">
+  <operation name="runScript" qname="runScript" returnQName="ns1:GponScriptOutput" returnType="ns1:GponScriptOutput" soapAction="" xmlns:ns1="http://berlios.de/gpon/xmlscript">
+   <parameter qname="ns1:GponScript" type="ns1:GponScript"/>
+  </operation>
+  <parameter name="allowedMethods" value="runScript"/>
+  <parameter name="wsdlPortType" value="GponPortType"/>
+  <parameter name="className" value="de.berlios.gpon.ws.GponBindingImpl"/>
+  <parameter name="wsdlServicePort" value="GponPort"/>
+  <parameter name="wsdlTargetNamespace" value="http://berlios.de/gpon"/>
+  <parameter name="wsdlServiceElement" value="Gpon"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.xbeans.XmlBeanDeserializerFactory" encodingStyle="" qname="ns2:&gt;GponScript" serializer="org.apache.axis.encoding.ser.xbeans.XmlBeanSerializerFactory" type="java:de.berlios.gpon.xmlscript.GponScript" xmlns:ns2="http://berlios.de/gpon/xmlscript"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.xbeans.XmlBeanDeserializerFactory" encodingStyle="" qname="ns3:&gt;GponScriptOutput" serializer="org.apache.axis.encoding.ser.xbeans.XmlBeanSerializerFactory" type="java:de.berlios.gpon.xmlscript.GponScriptOutput" xmlns:ns3="http://berlios.de/gpon/xmlscript"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>
