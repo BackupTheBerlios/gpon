@@ -21,8 +21,8 @@ extends TestCase
 	
 	public void testGponRunScript() throws Exception {
 
-		//if (true)
-		//	return;
+	   if (true)
+		return;
 		
 		GponBindingStub binding;
         try {
