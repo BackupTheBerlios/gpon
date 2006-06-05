@@ -64,6 +64,35 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!--  Derby Database -->
+	<servlet>
+	<servlet-name>derbynet</servlet-name>
+	<servlet-class>org.apache.derby.drda.NetServlet</servlet-class>
+	<init-param>
+	  <param-name>startNetworkServerOnInit</param-name>
+	  <param-value>true</param-value>
+	  <description>Starts the Network Server at servlet 
+				initialization if 'true'.
+	  </description>
+	</init-param>
+	<init-param>
+	  <param-name>portNumber</param-name>
+	  <param-value>1527</param-value>
+	  <description>Port number to use. The default is 1527.</description>
+	</init-param>
+	<init-param>
+	  <param-name>tracingDirectory</param-name>
+	  <param-value></param-value>
+	</init-param>
+	</servlet>
+
+	<servlet-mapping>
+	<servlet-name>derbynet</servlet-name>
+	<url-pattern>/derbynet</url-pattern>
+</servlet-mapping>
+	
+	
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>

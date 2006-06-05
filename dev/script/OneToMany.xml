@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GponScript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            xmlns="http://berlios.de/gpon/xmlscript"
+            xsi:noNamespaceSchemaLocation="../xml/xsd/gponscript.xsd" >
+	<Processing>
+		<Commit>auto</Commit>
+		<Results>
+			<Smtp/>
+		</Results>
+	</Processing>
+   <CreateObjectType description="One" name="one">
+        <DeclareProperty name="name" description="Name" mandatory="true" rank="1" type="ShortText"/>
+    </CreateObjectType>
+    
+    <CreateObjectType description="Many" name="many">
+        <DeclareProperty name="name" description="Name" mandatory="true" rank="1" type="ShortText"/>
+    </CreateObjectType>
+    <CreateAssociationType 
+    	name="one-to-many"
+    	description="One To Many"
+    	multiplicity="OneToMany"
+    	roleOfA="one"
+    	typeOfA="one"
+    	roleOfB="many"
+    	typeOfB="many"
+    	visibility="abba"
+    />
+	<Creation id="many" type="many">
+	 <OrUpdateUsingKeys>
+	  <Key name="name"/>
+	 </OrUpdateUsingKeys>
+	 <CreateObject>
+	  <Property name="name"      value="m1"/>
+	 </CreateObject>
+	 <CreateObject> 
+	  <Property name="name"      value="m2"/>
+	 </CreateObject>
+	 <CreateObject> 
+	  <Property name="name"      value="m3"/>
+	 </CreateObject>
+	</Creation>
+
+	<Creation id="one" type="one">
+	 <OrUpdateUsingKeys>
+	  <Key name="name"/>
+	 </OrUpdateUsingKeys>
+	 <CreateObject>
+        <Property name="name" value="o1"/>
+	    <AssociateWith type="one-to-many" role="one">
+		 <Reference refid="many"/>
+	    </AssociateWith>
+	 </CreateObject>
+	</Creation>
+	
+	<Query id="manies" type="many">
+	 <Associated by="one-to-many" role="many"/>
+	</Query>
+</GponScript>

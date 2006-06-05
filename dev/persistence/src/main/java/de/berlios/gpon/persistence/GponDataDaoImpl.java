@@ -26,11 +26,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
-import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -281,8 +279,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 								;
 
 								// condition
-
-								// TODO: tac_to_number for numeric values
+			
 								hqlBuffer
 										.append(query
 												.getReplacedSpec(propNameReplacementHash));

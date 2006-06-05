@@ -94,8 +94,8 @@ public class QueryStringHelper {
 				case SearchOp.OP_EQUALS:
 					if (vt.isNumeric()) {
 						return 
-							"tac_to_number(${"+pc.getName()+"},'9999999999.99999') ="+
-							"tac_to_number('"+pc.getValue()+"','9999999999.99999')";
+							"gpon_to_number(${"+pc.getName()+"},'9999999999.99999') ="+
+							"gpon_to_number('"+pc.getValue()+"','9999999999.99999')";
 						
 					} else {
 						return "${"+pc.getName()+"} = '"+pc.getValue()+"'";
@@ -103,8 +103,8 @@ public class QueryStringHelper {
 				case SearchOp.OP_NOT_EQUALS:
 					if (vt.isNumeric()) {
 						return 
-							"tac_to_number(${"+pc.getName()+"},'9999999999.99999') <>"+
-							"tac_to_number('"+pc.getValue()+"','9999999999.99999')";
+							"gpon_to_number(${"+pc.getName()+"},'9999999999.99999') <>"+
+							"gpon_to_number('"+pc.getValue()+"','9999999999.99999')";
 						
 					} else {
 						return "${"+pc.getName()+"} <> '"+pc.getValue()+"'";
@@ -112,8 +112,8 @@ public class QueryStringHelper {
 				case SearchOp.OP_GREATER_THAN:
 					if (vt.isNumeric()) {
 						return 
-							"tac_to_number(${"+pc.getName()+"},'9999999999.99999') >"+
-							"tac_to_number('"+pc.getValue()+"','9999999999.99999')";
+							"gpon_to_number(${"+pc.getName()+"},'9999999999.99999') >"+
+							"gpon_to_number('"+pc.getValue()+"','9999999999.99999')";
 						
 					} else {
 						return "${"+pc.getName()+"} > '"+pc.getValue()+"'";
@@ -121,8 +121,8 @@ public class QueryStringHelper {
 				case SearchOp.OP_LESS_THAN:
 					if (vt.isNumeric()) {
 						return 
-							"tac_to_number(${"+pc.getName()+"},'9999999999.99999') <"+
-							"tac_to_number('"+pc.getValue()+"','9999999999.99999')";
+							"gpon_to_number(${"+pc.getName()+"},'9999999999.99999') <"+
+							"gpon_to_number('"+pc.getValue()+"','9999999999.99999')";
 						
 					} else {
 						return "${"+pc.getName()+"} < '"+pc.getValue()+"'";

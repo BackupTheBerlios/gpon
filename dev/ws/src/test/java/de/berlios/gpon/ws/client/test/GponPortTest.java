@@ -2,18 +2,13 @@ package de.berlios.gpon.ws.client.test;
 
 import java.io.File;
 
+import junit.framework.TestCase;
 import de.berlios.gpon.ws.GponBindingStub;
 import de.berlios.gpon.ws.GponLocator;
-import de.berlios.gpon.xmlscript.io.Loader;
-
 import de.berlios.gpon.xmlscript.GponScript;
 import de.berlios.gpon.xmlscript.GponScriptDocument;
-import de.berlios.gpon.xmlscript.GponScriptOutput;
 import de.berlios.gpon.xmlscript.GponScriptOutputDocument;
-import de.berlios.gpon.xmlscript.Processing;
 import de.berlios.gpon.xmlscript.Reference;
-import de.berlios.gpon.xmlscript.CommitDocument.Commit;
-import junit.framework.TestCase;
 
 public class GponPortTest 
 extends TestCase

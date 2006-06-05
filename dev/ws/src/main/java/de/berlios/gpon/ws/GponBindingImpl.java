@@ -9,7 +9,6 @@ package de.berlios.gpon.ws;
 
 import de.berlios.gpon.xmlscript.LookupService;
 import de.berlios.gpon.xmlscript.Processor;
-import de.berlios.gpon.xmlscript.GponScriptOutput;
 
 public class GponBindingImpl implements de.berlios.gpon.ws.GponPortType{
     public de.berlios.gpon.xmlscript.GponScriptOutput runScript(de.berlios.gpon.xmlscript.GponScript request) throws java.rmi.RemoteException {

@@ -41,10 +41,20 @@ extends TestCase {
 		
 	}
 	
-	public void testDmlCarsAndDrivers() 
+	public void testOneToMany() 
 	{
-		if (true)
-			return;
+		GponScriptDocument gsd = new Loader().load("OneToMany.xml");
+		
+		Processor p = 
+			(Processor)LookupService.getBeanForId("txScriptProcessor");
+		
+		p.process(gsd.getGponScript());
+		
+	}
+	
+	public void _testDmlCarsAndDrivers() 
+	{
+
 		
 		GponScriptDocument gsd = new Loader().load("CreateDriversAndCars.xml");
 		

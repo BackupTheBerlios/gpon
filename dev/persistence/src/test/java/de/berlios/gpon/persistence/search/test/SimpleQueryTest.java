@@ -22,9 +22,8 @@ package de.berlios.gpon.persistence.search.test;
 
 import java.util.Hashtable;
 
-import de.berlios.gpon.persistence.search.SimpleQuery;
-
 import junit.framework.TestCase;
+import de.berlios.gpon.persistence.search.SimpleQuery;
 
 public class SimpleQueryTest 
 	extends TestCase

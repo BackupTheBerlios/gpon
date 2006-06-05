@@ -6,9 +6,7 @@
   <class name="ItemProperty" table="T_ITEM_PROPERTY">
     <!-- id -->
     <id name="id" column="ID">
-     <generator class="sequence">
-      <param name="sequence">id_source_sq</param>
-     </generator>
+              <generator class="increment"/>
     </id>
     <!-- value -->
     <property name="value" column="VALUE"/>

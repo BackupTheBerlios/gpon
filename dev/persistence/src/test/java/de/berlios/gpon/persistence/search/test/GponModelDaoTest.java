@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 package de.berlios.gpon.persistence.search.test;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -226,12 +227,14 @@ public class GponModelDaoTest
     System.out.println("Item: "+item);
   }
   
-  public void _testRealAddItemType() 
+  public void testRealAddItemType() 
   {
+	Date date = new Date();
+	  
 	// construct head  
     ItemType type = new ItemType();
-    type.setDescription("Test type");
-    type.setName("types.Test");
+    type.setDescription("Test type ("+date.getTime()+")");
+    type.setName("types.Test."+date.getTime());
     
     // define one property
     Set decls = new HashSet();

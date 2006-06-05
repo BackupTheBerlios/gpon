@@ -9,7 +9,6 @@ package de.berlios.gpon.ws;
 
 import de.berlios.gpon.xmlscript.GponScript;
 import de.berlios.gpon.xmlscript.Processing;
-import de.berlios.gpon.xmlscript.impl.GponScriptImpl;
 
 public class GponBindingStub extends org.apache.axis.client.Stub implements de.berlios.gpon.ws.GponPortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();

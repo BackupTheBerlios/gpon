@@ -4,9 +4,7 @@
 <hibernate-mapping package="de.berlios.gpon.common">
   <class name="AssociationType" table="T_ASSOCIATION_TYPE">
     <id name="id" column="ID">
-     <generator class="sequence">
-      <param name="sequence">id_source_sq</param>
-     </generator>
+               <generator class="increment"/>
     </id>
     <property name="name" column="NAME"/>
     <property name="multiplicity" column="MULTIPLICITY"/>
