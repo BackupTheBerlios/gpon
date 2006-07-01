@@ -164,7 +164,7 @@ public abstract class AbstractMappedItem  {
 				
 				valueObject.setDataInInputForm(value);
 				
-				prop.setValue(valueObject.toNormal());
+				prop.setValue(valueObject.getNormal());
 			}
 			
 			
@@ -305,7 +305,7 @@ public abstract class AbstractMappedItem  {
 				String key = (String)list.get(i);
 				buf.append("\""+key+"\" : ");
 				if (getValueObject(key)!=null) {
-					buf.append("\""+getValueObject(key).toInput()+"\"");
+					buf.append("\""+getValueObject(key).getInput()+"\"");
 				}
 				else
 				{

@@ -82,17 +82,17 @@ public class URL
     _data = dataInIf;
   }
   
-  public String toInput()
+  public String getInput()
   {
     return _data;
   }
   
-  public String toHtml()
+  public String getHtml()
   {
     return "<a href=\""+_data+"\">"+_data+"</a>";
   }
   
-  public String toNormal()
+  public String getNormal()
   {
     return _data;
   }

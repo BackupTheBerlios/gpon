@@ -51,7 +51,7 @@ public class DateTypeTest extends TestCase
     v.setDataInInputForm("01.02.1974 12:38:05");
     
     System.out.println("Date       : "+v.getCoreValue());
-    System.out.println("Date (HTML): "+v.toHtml());
+    System.out.println("Date (HTML): "+v.getHtml());
   }
   
 }

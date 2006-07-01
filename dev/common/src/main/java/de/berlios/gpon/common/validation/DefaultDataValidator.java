@@ -68,7 +68,7 @@ public class DefaultDataValidator implements DataValidator {
 				
 				Value value = mappedItem.getValueObject(declIdKey.toString());
 				
-				if (value == null || value.toInput().trim().length() == 0) {
+				if (value == null || value.getInput().trim().length() == 0) {
 					// no value, but mandatory
 					if (itemPropertyDecl.getMandatory().equals(Boolean.TRUE)) {
 						errors.add(new DataValidationError(

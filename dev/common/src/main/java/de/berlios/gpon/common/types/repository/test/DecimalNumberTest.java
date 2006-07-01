@@ -34,16 +34,16 @@ public class DecimalNumberTest extends TestCase
     DecimalNumber dn = new DecimalNumber();
     
     dn.setDataInInputForm("-123.56");
-    System.out.println(dn.toNormal());
+    System.out.println(dn.getNormal());
     
     dn.setDataInInputForm("0.0");
-    System.out.println(dn.toNormal());
+    System.out.println(dn.getNormal());
     
     dn.setDataInInputForm("20");
-    System.out.println(dn.toNormal());
+    System.out.println(dn.getNormal());
     
     dn.setDataInInputForm("+10006565.000002323");
-    System.out.println(dn.toNormal());
+    System.out.println(dn.getNormal());
 
     
   }

@@ -33,9 +33,9 @@ public interface Value
   
   public void validate() throws ValueTypeValidationException;
   
-  public String toHtml();
-  public String toInput();
-  public String toNormal();
+  public String getHtml();
+  public String getInput();
+  public String getNormal();
   
   public Object getCoreValue();
   

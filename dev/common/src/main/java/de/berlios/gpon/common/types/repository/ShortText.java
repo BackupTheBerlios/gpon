@@ -60,18 +60,18 @@ public class ShortText
     setDataInInputForm(dataInNf);
   }
   
-  public String toNormal() 
+  public String getNormal() 
   {
     // Application format == DB format
     return _data;
   }
   
-  public String toHtml() 
+  public String getHtml() 
   {
     return _data;
   }
 
-  public String toInput() 
+  public String getInput() 
   {
     return _data;
   }

@@ -14,6 +14,7 @@
 
 <p><c:out value="${typeDescription}"/></p>
 
+<div id="itemListContainer">
 <display-el:table   export="true" sort="list" pagesize="${ItemSearchForm.resultsPerPage}" id="itemList" 
                name="${ItemSearchForm.resultList}"
                decorator="de.berlios.gpon.wui.displaytag.decorators.UniversalDecorator">
@@ -45,6 +46,7 @@
   	</tr>
   </display-el:footer>
 </display-el:table>
+</div>
 </c:if>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class ValueColumnDecorator
     private static Log log = LogFactory.getLog(ValueColumnDecorator.class);
 
     /**
-     * transform the given object into a String representation. The object is supposed to be a date.
+     * transform the given object into a String representation.
      * @param columnValue Object
      * @return String
      */
@@ -44,10 +44,10 @@ public class ValueColumnDecorator
           try {
             Value value = (Value)columnValue;
             
-            return value.toHtml();
+            return value.getHtml();
             
           } catch (Exception ex) {
-            log.error("Unable to decorate DecimalNumber correctly.");
+            log.error("Unable to decorate value object correctly.");
             return columnValue.toString();
           }
         }

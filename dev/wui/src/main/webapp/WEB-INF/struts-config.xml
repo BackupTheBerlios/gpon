@@ -162,6 +162,15 @@
 				path="/data/search/search.jsp?result=true" />
 		</action>
 
+        <!--  item details  -->
+	    <action name="ItemForm" 
+	            path="/data/search/itemDetails" 
+	            scope="session" 
+	            type="de.berlios.gpon.wui.actions.data.ItemSelectAction">
+      		<forward 
+      			name="success" 
+      			path="/data/itemDetails.jsp"/>
+    	</action>
 
 		<!--  item creation -->
 		<action path="/data/pre-create"

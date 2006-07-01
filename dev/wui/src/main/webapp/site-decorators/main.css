@@ -19,6 +19,15 @@ body {
   background-color: #fff;
 }
 
+div#content 
+{
+
+}
+
+div#centeredDialog 
+{
+	text-align: center;
+}
 
 h1 {
   font-weight: bold;
@@ -69,14 +78,16 @@ div#navigation {
 }
 
 div#pageTitle {
-  position: absolute;
-  background: #8395A8;    
-  top: 77px;
-  left: 190px;
-  height: 30px;
-	border-width: 0px;
-	padding-left : 50px;
-  padding-top: 7px;
+  background: #eeee00;
+  font-weight: bold;
+  font-size: 8pt;    
+  width: 50%;
+  border-width: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20pt;
+  margin-bottom: 20pt;
+
 }
 
 div#workArea {
@@ -91,31 +102,6 @@ div#popupBody {
     background: #ffffff;    
     position: absolute;
     top: 107px;
-}
-
-td.tac_leftpanelnav_node_selected,
-div#pageTitle {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-td.tac_leftpanelnav_node a:visited,
-td.tac_leftpanelnav_node a:link,
-div#pageTitle a:visited,
-div#pageTitle a:link {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  border: 0px;
-  padding-top: 3px;
-  padding-left: 3px;
-  padding-bottom: 3px;
-  text-decoration: none;  
-}
-
-td.tac_leftpanelnav_node a:hover,
-div#pageTitle a:hover {
-  color: #ee5555;
 }
 
 td#footer {
@@ -163,15 +149,49 @@ p {
 
 table {
 	border: 0px;
-	width: 100%;
+	/* width: 100%; */
 	margin: 0px 0px 10px 0px;
 }
 
+table.searchForm 
+{
+   table-layout:fixed;
+   /* CSS 2 centered table */
+   width: 50%;
+   margin-left: auto;
+   margin-right: auto;
+}
+
 td {
+	border: 1px;
 	padding: 2px 4px 2px 4px;
 	text-align: left;
-	vertical-align: top;  
+	vertical-align: top;
+	background-color: green;  
 }
+
+td.searchLabel {
+	padding: 2px 4px 2px 4px;
+	text-align: right;
+	vertical-align: top;
+	background-color: red;  
+}
+
+td.searchOp {
+	padding: 2px 4px 2px 4px;
+	text-align: center;
+	vertical-align: top;
+	background-color: green;  
+}
+
+td.searchValue {
+	padding: 2px 4px 2px 4px;
+	text-align: left;
+	vertical-align: top;
+	background-color: yellow;  
+}
+
+
 
 th {
   color: Black;
@@ -246,7 +266,9 @@ span.pagebanner {
 	background-color: #E0E0E0;
 	border: 0px;
 	padding: 2px 4px 2px 4px;
-	width: 100%;
+	width: 50%; 
+    margin-left:  auto;
+	margin-right: auto;
 	margin-top: 10px;
 	display:block;
 	font-weight: bold;
@@ -257,10 +279,23 @@ span.pagelinks {
 	background-color: #E0E0E0;
 	border: 0px;
 	padding: 2px 4px 2px 4px;
-	width: 100%;
+	width: 50%;
+    margin-left:  auto;
+	margin-right: auto;
 	display:block;
 	margin-bottom: 15px;
   text-align: center;
+}
+
+div#itemListContainer 
+{
+    min-width: 50%;
+    margin-left:  auto;
+	margin-right: auto;
+} 
+
+table#itemList 
+{
 }
 
 tfoot {
@@ -287,6 +322,9 @@ div.exportlinks {
   background: #B5B5B5;
   padding-right: 10px;
   text-align: center;
+  width: 50%;
+  margin-left:  auto;
+  margin-right: auto;
 }
 
 span.export {
@@ -361,6 +399,7 @@ img.GPON_IMAGE_STYLE
 #gponContent {
   clear: both;
   display: block;
+  text-align: center;
 }
 
 
@@ -375,7 +414,7 @@ img {
   margin: 0;
   padding: 0;
   height: 23px;
-  background: #B7B7B7 url("/layout/images/nav_fill.png") top left repeat-x;
+  background: #B7B7B7 url("/layout/images/nav_fill.png") top left no-repeat;
   overflow: visible;
   margin-top: 2px;
 }

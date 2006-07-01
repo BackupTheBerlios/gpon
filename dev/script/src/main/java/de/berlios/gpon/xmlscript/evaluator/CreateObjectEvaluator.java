@@ -96,7 +96,7 @@ public class CreateObjectEvaluator implements Evaluator {
 				
 				if (valueObject!=null) 
 				{
-					String value = valueObject.toNormal();
+					String value = valueObject.getNormal();
 					try {
 					if (!(valueObject.getType().isNumeric())) 
 					{

@@ -154,7 +154,7 @@ public class ItemFulltextSearchAction extends BaseAction {
 					
 					if (itemMapped.hasProperty(ipd.getId().toString())) 
 					{
-						jsonBuffer.append(itemMapped.getValueObject(ipd.getId().toString()).toInput());
+						jsonBuffer.append(itemMapped.getValueObject(ipd.getId().toString()).getInput());
 					}
 					else 
 					{

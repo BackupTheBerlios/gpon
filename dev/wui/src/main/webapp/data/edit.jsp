@@ -204,7 +204,7 @@
 											<c:forEach var="propDecl"
 												items="${associationTypeB.itemAType.inheritedItemPropertyDecls}">
 												<c:if test="${propDecl.typic}">
-													<td><c:out value="${itemA[propDecl.id]}" /></td>
+													<td><c:out escapeXml="false" value="${itemA[propDecl.id]}" /></td>
 												</c:if>
 											</c:forEach>
 										</tr>

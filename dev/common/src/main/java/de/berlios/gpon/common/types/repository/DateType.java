@@ -74,7 +74,7 @@ public class DateType
     }
   }
 
-  public String toNormal()
+  public String getNormal()
   {
     computeCore();
     
@@ -99,12 +99,12 @@ public class DateType
   
   }
 
-  public String toHtml()
+  public String getHtml()
   {
-    return toInput();
+    return getInput();
   }
   
-  public String toInput() 
+  public String getInput() 
   {
     computeData();
     return _data;

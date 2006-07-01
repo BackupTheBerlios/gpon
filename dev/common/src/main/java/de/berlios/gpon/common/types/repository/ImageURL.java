@@ -39,8 +39,8 @@ public class ImageURL extends URL
   {
   }
   
-  public String toHtml() {
-    return "<img alt=\""+toInput()+"\" src=\""+toInput()+"\" class=\"GPON_IMAGE_STYLE\"/>";
+  public String getHtml() {
+    return "<img alt=\""+getInput()+"\" src=\""+getInput()+"\" class=\"GPON_IMAGE_STYLE\"/>";
   }
   
   public ValueType getType()

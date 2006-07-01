@@ -119,7 +119,7 @@ public class DefaultPluggableProcessor
 					
 					prop.setName(key.toString());
 					
-					String value = valObject.toInput();
+					String value = valObject.getInput();
 					
 					// Handling multiline values
 					if (value.indexOf("\n")>=0) 

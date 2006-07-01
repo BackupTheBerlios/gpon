@@ -7,13 +7,6 @@
 		<title><decorator:title default="{ Unknown Page - shouldn't see this, since pages should define title }" /></title>
 		<link 	href="<%= request.getContextPath() %>/site-decorators/main.css" 
 				rel="stylesheet" type="text/css">
-		
-		<link 	rel="stylesheet" type="text/css" media="screen" 
-        		href="<%= request.getContextPath() %>/css/tabs.css" />    
-        		
-
-    <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/tabs.js"></script>
-		<%--pulls the header from the page we are decorating and inserts it here --%>
         <decorator:head />
 	</head>
     
@@ -30,10 +23,10 @@
         </div>
         <div id="gponTopNav">
           <div id="gponTopNavLeft">
-            <img src="<%= request.getContextPath() %>/img/nav_lft.png" alt="" height="23" width="7">
+            <!--  <img src="<%= request.getContextPath() %>/img/nav_lft.png" alt="" height="23" width="7"> -->
           </div>
           <div id="gponTopNavRight">
-            <img src="<%= request.getContextPath() %>/img/nav_rgt.png" alt="" height="23" width="7">
+            <!--  <img src="<%= request.getContextPath() %>/img/nav_rgt.png" alt="" height="23" width="7"> -->
           </div>
           <ul id="gponTopNavList">
   <li>
@@ -49,7 +42,7 @@
 
         </div>
       </div>
-    <div id="content">
+    <div id="gponContent">
      <%--pulls the body from the page we are decorating and inserts it here --%>
      <decorator:body />
     </div> 

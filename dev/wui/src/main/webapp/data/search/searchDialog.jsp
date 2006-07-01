@@ -11,28 +11,54 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="pageTitle">
+<bean-el:message key="pagetitles.itemsearch"/>
+</div>
 
+<div id="centeredDialog">
 <html-el:form action="/data/search/pre-searchDialog.do">
+<table class="searchForm">
+  <tr>
+  <td class="searchLabel">
+  <bean-el:message key="itemtype"/>
+  </td>
+  <td class="searchOp">
    <c:set var="itemTypes" value="${GPON_MODEL_VIEW.allItemTypes}" scope="page"/>
-    <html-el:select property="itemTypeId">
+    <html-el:select property="itemTypeId" onchange="this.form.submit();">
      <html-el:options collection="itemTypes" property="id" labelProperty="description"/>
-    </html-el:select>  
+    </html-el:select>
+   </td>
+   <td class="searchValue">   
    <html-el:submit  value="ausw&auml;hlen"/> 
+   </td>
+   </tr>
+   </table>
 </html-el:form>   
 
 <c:if test="${!empty ItemSearchForm}">
 
   <jsp:useBean id="Operators" class="de.berlios.gpon.common.util.search.ComparisonOperators"/>
     <html-el:form action="/data/search/search.do">
-      <table>
+      <table class="searchForm">
+        <thead>
+        <th>
+         Feld
+        </th>
+        <th>
+          Operator
+        </th>
+        <th>
+          Wert
+        </th>
+        </thead>
         <!-- Properties -->
         <c:forEach var="pDecl" items="${ItemSearchForm.itemType.inheritedItemPropertyDecls}">
           <tr>
-            <td>
+            <td class="searchLabel">
               <c:out value="${pDecl.description}"/>
               <html-el:hidden property="criterion(${pDecl.name}).name" value="${pDecl.name}"/>
             </td>
-            <td>
+            <td class="searchOp">
               <c:set var="ops" value="${Operators.operators}"/>
               <html-el:select property="criterion(${pDecl.name}).op">
                  <logic-el:iterate id="op" collection="${ops}" indexId="i">
@@ -41,7 +67,9 @@
                   </html-el:option>
                  </logic-el:iterate>
                  
-              </html-el:select> 
+              </html-el:select>
+              </td>
+              <td class="searchValue"> 
                <html-el:text property="criterion(${pDecl.name}).value"/>
             </td>
           </tr>
@@ -62,7 +90,6 @@
       </table>
     </html-el:form>
 </c:if>
-
-
+</div>
 </body>
 </html>

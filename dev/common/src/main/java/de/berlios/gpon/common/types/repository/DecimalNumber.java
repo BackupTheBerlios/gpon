@@ -58,7 +58,7 @@ public class DecimalNumber
     _data = dataInNf;
   }
 
-  public String toNormal()
+  public String getNormal()
   {
     return _data;
   }
@@ -80,12 +80,12 @@ public class DecimalNumber
     }
   }
 
-  public String toHtml()
+  public String getHtml()
   {
     return _data;
   }
   
-  public String toInput() 
+  public String getInput() 
   {
     return _data;
   }

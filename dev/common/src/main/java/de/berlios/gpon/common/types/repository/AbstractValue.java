@@ -25,14 +25,14 @@ public abstract class AbstractValue
   implements Comparable
 {
   public String toString() {
-    return toNormal();    
+    return getNormal();    
   }
   
-  public abstract String toNormal();
+  public abstract String getNormal();
   
   public Object getCoreValue() 
   {
-    return toNormal();
+    return getNormal();
   }
   
   public int compareTo(Object o) {

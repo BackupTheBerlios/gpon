@@ -33,10 +33,12 @@ import org.apache.struts.action.ActionMapping;
 import de.berlios.gpon.common.Item;
 import de.berlios.gpon.common.ItemProperty;
 import de.berlios.gpon.common.types.Value;
+import de.berlios.gpon.common.util.ItemMappedById;
 import de.berlios.gpon.common.util.ItemMappedByName;
 import de.berlios.gpon.persistence.GponDataDao;
 import de.berlios.gpon.wui.actions.BaseAction;
 import de.berlios.gpon.wui.forms.ItemForm;
+import de.berlios.gpon.wui.util.ItemMap;
 
 public class ItemSelectAction extends BaseAction {
 
@@ -72,7 +74,7 @@ public class ItemSelectAction extends BaseAction {
 			String value = "";
 			
 			if (v!=null) {
-				value = v.toInput();
+				value = v.getInput();
 			}
 			
 			ip.setValue(value);
@@ -84,6 +86,7 @@ public class ItemSelectAction extends BaseAction {
 		itemForm.setItem(item);
 		
 		request.setAttribute("json",imbn.getJson());
+		request.setAttribute("itemAsMap",new ItemMap(new ItemMappedById(item)));
 		
 		return mapping.findForward("success");
 	}
