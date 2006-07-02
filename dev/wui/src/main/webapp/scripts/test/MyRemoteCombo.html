@@ -181,11 +181,11 @@ isn't filtering based on the search string like it should.
 			<th class="column" field="Id" dataType="Number">Id</th>
 			<th class="column" field="Name" dataType="String">Name</th>
 			<th class="column" field="Email" dataType="String">Email</th>
-			<th class="column" field="Phone" dataType="String">Phone</th>
+			<th class="column" field="Phone" dataType="String" nodeClass="pic20" nodeType="img">Phone</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr><td>2</td><td>Betty</td><td>b@c.de</td><td><img src="http://www.hyarbor.it/modules/Forums/images/avatars/gallery/Atta.gif"/></td></tr>
+		<tr><td>2</td><td>Betty</td><td>b@c.de</td><td>http://images.google.de/images/google_sm.gif</td></tr>
 		<tr><td>3</td><td>Carla</td><td>b@c.de</td><td>jjjjjjjjjjjjjjjjjjjjjjj b@c.de</td></tr>
 		<tr><td>4</td><td>David</td><td>b@c.de</td><td>b@c.de</td></tr>
 <!--
@@ -217,8 +217,9 @@ Suggest:
 <div><button onclick="addSelectionToTable('table_25','combo_25');return false;">&lt;[add]&lt;</button></div>
 </td>
 <td>
-<input id="combo_25" dojoType="combobox" value="this should be replaced!"
+<select id="combo_25" dojoType="combobox" value="this should be replaced!"
 			dataUrl="data-json-gpon.js?searchStr=%{searchString}" mode="remote">
+</select>
 </td>
 </tr>
 <tr>

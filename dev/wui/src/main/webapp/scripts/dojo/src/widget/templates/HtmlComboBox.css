@@ -10,7 +10,7 @@ input.comboBoxInput {
 	border: 1px solid #afafaf;
 	position: absolute;
 	z-index: 1000; 
-	overflow: auto;
+	overflow: hidden;
 	-moz-opacity: 0;
 	cursor: default;
 }
@@ -22,6 +22,7 @@ table.dojoComboBox {
 .cbItem {
 	padding-left: 2px;
 	padding-top: 2px;
+	font-size: 8pt;
 	margin: 0px;
 }
 

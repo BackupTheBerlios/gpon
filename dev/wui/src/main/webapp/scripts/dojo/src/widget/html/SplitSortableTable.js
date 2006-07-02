@@ -115,11 +115,26 @@ dojo.lang.extend(dojo.widget.html.SplitSortableTable, {
 				sortType:"String",
 				dataType:String,
 				label:null,
+				nodeType:"default",
+				nodeClass:null,
 				getField:function(){ return this.field||this.label; },
-				getType:function(){ return this.dataType; }
+				getType:function(){ return this.dataType; },
+				getNodeType:function(){ return this.nodeType; },
+				getNodeClass:function(){ return this.nodeClass; }
+				
 			};
 			if(dojo.html.hasAttribute(cells[i], "field")){
 				o.field=dojo.html.getAttribute(cells[i],"field");
+			}
+			
+			/* nodetype for URL and Image display */
+			if(dojo.html.hasAttribute(cells[i], "nodeType")){
+				o.nodeType=dojo.html.getAttribute(cells[i],"nodeType");
+			}
+			
+			/* nodeclass for URL and Image display */
+			if(dojo.html.hasAttribute(cells[i], "nodeClass")){
+				o.nodeClass=dojo.html.getAttribute(cells[i],"nodeClass");
 			}
 			
 			if(cells[i].className){
@@ -242,7 +257,27 @@ dojo.lang.extend(dojo.widget.html.SplitSortableTable, {
 					if(this.columns[j].format) format=this.columns[j].format;
 					cell.appendChild(document.createTextNode(dojo.date.format(data[i][this.columns[j].getField()], format)));
 				}else{
-					cell.appendChild(document.createTextNode(data[i][this.columns[j].getField()]));
+				    /* img ? */
+					if(this.columns[j].getNodeType()=="img")
+					{
+						var imageNode=document.createElement("img");
+						imageNode.className=this.columns[j].getNodeClass();
+						imageNode.src=data[i][this.columns[j].getField()];
+						imageNode.alt=data[i][this.columns[j].getField()];
+						cell.appendChild(imageNode);
+					}
+					else if(this.columns[j].getNodeType()=="a")
+					{
+						var aNode=document.createElement("a");
+						aNode.className=this.columns[j].getNodeClass();
+						aNode.href=data[i][this.columns[j].getField()];
+						aNode.target="__BLANK__";
+						aNode.appendChild(document.createTextNode(data[i][this.columns[j].getField()]));
+						cell.appendChild(aNode);
+					} 
+					else {
+						cell.appendChild(document.createTextNode(data[i][this.columns[j].getField()]));
+					}
 				}
 				cell.className=this.columns[j].className;
 				row.appendChild(cell);
