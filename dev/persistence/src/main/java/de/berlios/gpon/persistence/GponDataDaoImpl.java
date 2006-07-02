@@ -355,7 +355,10 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 						  " a: "+assoc.getItemA().getId()+
 						  " b: "+assoc.getItemB().getId());
 				
-				if (item.getId().equals(assoc.getItemA())) 
+				log.debug("before: a: "+item.getAssociationsA().size()+
+						  " b: "+item.getAssociationsB().size());
+				
+				if (item.getId().equals(assoc.getItemA().getId())) 
 				{
 					item.getAssociationsA().remove(assoc);
 				}
@@ -363,6 +366,10 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 				{
 					item.getAssociationsB().remove(assoc);
 				}
+				
+				log.debug("after: a: "+item.getAssociationsA().size()+
+						  " b: "+item.getAssociationsB().size());
+				
 				
 				// _removeAssociation(assoc); 
 			}
@@ -396,7 +403,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 					}
 					
 					
-					// _addAssociation(assoc);
+//					_addAssociation(assoc);
 				}
 			}
 		}
