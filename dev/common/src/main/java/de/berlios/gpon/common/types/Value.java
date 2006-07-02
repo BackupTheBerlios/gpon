@@ -38,5 +38,4 @@ public interface Value
   public String getNormal();
   
   public Object getCoreValue();
-  
 }

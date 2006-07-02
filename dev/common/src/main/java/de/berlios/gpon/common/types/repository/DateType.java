@@ -50,6 +50,7 @@ public class DateType
     new ValueType(DATETYPE_TYPE_ID,
                             DateType.class.getName(),
                             "date/time",
+                            "",
                             false
                             );
   Date   _core=null;

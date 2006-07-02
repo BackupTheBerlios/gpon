@@ -22,6 +22,7 @@ package de.berlios.gpon.common.types.repository;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import de.berlios.gpon.common.types.Value;
 import de.berlios.gpon.common.types.ValueType;
@@ -110,5 +111,8 @@ public class ValueTypeRepository
 	  return (ValueType)typedefsByClassName.get(name);
   } 
   
-  
+  public static Map getValueTypeByTypeIdMap() 
+  {
+	return typedefsById;  
+  }
 }

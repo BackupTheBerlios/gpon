@@ -26,7 +26,8 @@ public class ValueType
   Long    id;
   String  className;
   String  description;
-
+  String  nodeType;
+  
   boolean numeric;
 
   public ValueType()
@@ -36,12 +37,14 @@ public class ValueType
   public ValueType(Long    pId,
                              String pClassName, 
                              String pDescription, 
+                             String pNodeType,
                              boolean numeric
                              )
   {
       setId(pId);
       setClassName(pClassName);
       setDescription(pDescription);
+      setNodeType(pNodeType);
       setNumeric(numeric);
   }
 
@@ -91,5 +94,13 @@ public class ValueType
   {
     return numeric;
   }
+
+public String getNodeType() {
+	return nodeType;
+}
+
+public void setNodeType(String nodeType) {
+	this.nodeType = nodeType;
+}
   
 }
