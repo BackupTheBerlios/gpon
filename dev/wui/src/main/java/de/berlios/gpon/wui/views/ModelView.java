@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 package de.berlios.gpon.wui.views;
 
 import java.util.List;
+import java.util.Map;
 
 import de.berlios.gpon.persistence.GponModelDao;
 
@@ -40,5 +41,7 @@ public interface ModelView {
 	public List getAllVisibilities();
 	
 	public List getAllPropertyValueTypes();
+	
+	public Map getAllPropertyValueTypesMap();
 
 }

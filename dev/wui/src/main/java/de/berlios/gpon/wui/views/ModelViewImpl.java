@@ -22,6 +22,7 @@ package de.berlios.gpon.wui.views;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import de.berlios.gpon.common.AssociationType;
 import de.berlios.gpon.common.types.repository.ValueTypeRepository;
@@ -55,6 +56,11 @@ public class ModelViewImpl implements ModelView {
 	    return ValueTypeRepository.getAllValueTypeDefinitions();  
 	  }
 
+	public Map getAllPropertyValueTypesMap() 
+	{
+	    return ValueTypeRepository.getValueTypeByTypeIdMap();  
+	}
+	
 	public List getAllAssociationTypes() {
 		return model.findAllAssociationTypes(); 
 	}

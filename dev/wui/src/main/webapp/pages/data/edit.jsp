@@ -80,9 +80,12 @@
 										<th class="column" field="Id" dataType="Number">Id</th>
 										<c:forEach var="propDecl"
 											items="${associationTypeA.itemBType.inheritedItemPropertyDecls}">
-											<c:if test="${propDecl.typic}">
+											<c:if test="${propDecl.typic}">											
 												<th class="column" field="<c:out value="${propDecl.name}"/>"
-													dataType="String"><c:out value="${propDecl.description}" />
+													dataType="String"
+													nodeType="<c:out value="${GPON_MODEL_VIEW.allPropertyValueTypesMap[propDecl.propertyValueTypeId].nodeType}"/>"
+													>
+												 <c:out value="${propDecl.description}" />
 												</th>
 											</c:if>
 										</c:forEach>
@@ -98,7 +101,7 @@
 											<c:forEach var="propDecl"
 												items="${associationTypeA.itemBType.inheritedItemPropertyDecls}">
 												<c:if test="${propDecl.typic}">
-													<td><c:out value="${itemB[propDecl.id]}" /></td>
+													<td><c:out value="${itemB[propDecl.id].input}" /></td>
 												</c:if>
 											</c:forEach>
 										</tr>
@@ -117,10 +120,12 @@
 										onclick="addSelectionToTable('<c:out value="${control_id}"/>','combo_<c:out value="${control_id}"/>','<%= request.getContextPath() %>/ajax/getItem.do?itemId=');return false;">&lt;[add]&lt;</button>
 									</div>
 									</td>
-									<td><input id="combo_<c:out value="${control_id}"/>"
+									<td><select id="combo_<c:out value="${control_id}"/>"
 										dojoType="combobox" value="this should be replaced!"
 										dataUrl="<%= request.getContextPath() %>/ajax/suggestItems.do?typeId=<c:out value="${associationTypeA.itemBType.id}"/>&searchString=%{searchString}"
-										mode="remote"></td>
+										mode="remote">
+										</select>
+										</td>
 								</tr>
 								<tr>
 
@@ -188,6 +193,7 @@
 											items="${associationTypeB.itemAType.inheritedItemPropertyDecls}">
 											<c:if test="${propDecl.typic}">
 												<th class="column" field="<c:out value="${propDecl.name}"/>"
+													nodeType="<c:out value="${GPON_MODEL_VIEW.allPropertyValueTypesMap[propDecl.propertyValueTypeId].nodeType}"/>"
 													dataType="String"><c:out value="${propDecl.description}" />
 												</th>
 											</c:if>
@@ -204,7 +210,7 @@
 											<c:forEach var="propDecl"
 												items="${associationTypeB.itemAType.inheritedItemPropertyDecls}">
 												<c:if test="${propDecl.typic}">
-													<td><c:out escapeXml="false" value="${itemA[propDecl.id]}" /></td>
+													<td><c:out escapeXml="false" value="${itemA[propDecl.id].input}" /></td>
 												</c:if>
 											</c:forEach>
 										</tr>

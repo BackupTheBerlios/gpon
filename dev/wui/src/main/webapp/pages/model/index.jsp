@@ -8,8 +8,8 @@
 </head>
 <body>
 <ul>
-<li><a href="at/list.jsp">Association Types</a>
-<li><a href="it/list.jsp">Object Types</a>
+<li><a href="at/list.do">Association Types</a>
+<li><a href="it/list.do">Object Types</a>
 </ul>
 </body>
 </html>

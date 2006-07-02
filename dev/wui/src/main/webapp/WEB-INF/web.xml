@@ -20,7 +20,7 @@
 		</filter-class>
 		<init-param>
 			<param-name>debug.pagewriter</param-name>
-			<param-value>true</param-value>
+			<param-value>false</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -80,11 +80,6 @@
 		<mime-type>text/plain</mime-type>
 	</mime-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>/pages/index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

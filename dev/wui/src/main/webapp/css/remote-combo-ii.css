@@ -38,7 +38,7 @@ code {color: #330099}
 	margin: 0;
 	padding: 10px 0 0 0;
 	width: 475px;
-	height: 190px;
+	/* height: 190px; */
 	/* float: right; */
 	background: #ffffff;
 	}
@@ -134,3 +134,4 @@ td {
 table.dojoComboBox {
  width: 200px;
 }
+

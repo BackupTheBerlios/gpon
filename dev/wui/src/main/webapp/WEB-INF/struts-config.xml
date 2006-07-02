@@ -25,29 +25,41 @@
 	</form-beans>
 	<global-exceptions />
 
+    
+
 	<action-mappings>
+	
+		<action path="/welcome"
+				forward="/pages/index.jsp"/>	
+	
 		<action path="/test"
 			type="de.berlios.gpon.wui.actions.TestAction">
 			<forward name="success" path="/test.jsp" />
 		</action>
 		
 		<action path="/model/intro"
-				forward="/model/index.jsp"/>
+				forward="/pages/model/index.jsp"/>
+		
+		<action path="/model/at/list"
+				forward="/pages/model/at/list.jsp"/>
+				
+		<action path="/model/it/list"
+				forward="/pages/model/it/list.jsp"/>
 		
 		<!--
-			_ _                   _
+			 _ _                   _
 			(_) |_ ___ _ __ ___   | |_ _   _ _ __   ___
 			| | __/ _ \ '_ ` _ \  | __| | | | '_ \ / _ \
 			| | ||  __/ | | | | | | |_| |_| | |_) |  __/
 			|_|\__\___|_| |_| |_|  \__|\__, | .__/ \___|
-			|___/|_|
+			                           |___/|_|
 		-->
 		<!--  add -->
 		<action path="/model/it/new"
 			type="de.berlios.gpon.wui.actions.model.ItemTypeCreateAction"
 			name="ItemTypeForm" scope="session">
-			<forward name="success" path="/model/it/newSuccess.jsp" />
-			<forward name="error" path="/model/it/newError.jsp" />
+			<forward name="success" path="/pages/model/it/newSuccess.jsp" />
+			<forward name="error" path="/pages/model/it/newError.jsp" />
 		</action>
 
 		<!-- edit -->
@@ -55,35 +67,35 @@
 
 		<action path="/model/it/pre-edit"
 			type="de.berlios.gpon.wui.actions.model.ItemTypeSelectAction">
-			<forward name="success" path="/model/it/edit.jsp" />
-			<forward name="error" path="/model/it/list.jsp" />
+			<forward name="success" path="/pages/model/it/edit.jsp" />
+			<forward name="error" path="/pages/model/it/list.jsp" />
 		</action>
 
 		<!--  does the changes -->
 		<action path="/model/it/edit" name="ItemTypeForm"
-			attribute="selectedItemTypeForm" input="/model/it/edit.jsp"
+			attribute="selectedItemTypeForm" input="/pages/model/it/edit.jsp"
 			scope="session"
 			type="de.berlios.gpon.wui.actions.model.ItemTypeEditAction">
-			<forward name="success" path="/model/it/editSuccess.jsp" />
-			<forward name="error" path="/model/it/editError.jsp" />
+			<forward name="success" path="/pages/model/it/editSuccess.jsp" />
+			<forward name="error" path="/pages/model/it/editError.jsp" />
 		</action>
 
 
 		<!--  delete -->
 
 		<!--  preselect  -->
-		<action path="/model/it/pre-delete" input="/model/it/list.jsp"
+		<action path="/model/it/pre-delete" input="/pages/model/it/list.jsp"
 			type="de.berlios.gpon.wui.actions.model.ItemTypeSelectAction">
-			<forward name="success" path="/model/it/delete.jsp" />
-			<forward name="error" path="/model/it/list.jsp" />
+			<forward name="success" path="/pages/model/it/delete.jsp" />
+			<forward name="error" path="/pages/model/it/list.jsp" />
 		</action>
 
 		<!--  delete -->
 		<action path="/model/it/delete" name="ItemTypeForm"
-			input="/model/it/delete.jsp" scope="request"
+			input="/pages/model/it/delete.jsp" scope="request"
 			type="de.berlios.gpon.wui.actions.model.ItemTypeDeleteAction">
-			<forward name="success" path="/model/it/deleteSuccess.jsp" />
-			<forward name="error" path="/model/it/deleteError.jsp" />
+			<forward name="success" path="/pages/model/it/deleteSuccess.jsp" />
+			<forward name="error" path="/pages/model/it/deleteError.jsp" />
 		</action>
 
 		<!-- 
@@ -95,39 +107,42 @@
 			|___/|_|
 		-->
 
-		<action path="/model/at/new" input="/model/at/new.jsp"
+		<action path="/model/at/new" input="/pages/model/at/new.jsp"
 			scope="session"
 			type="de.berlios.gpon.wui.actions.model.AssociationTypeCreateAction"
 			name="AssociationTypeForm">
-			<forward name="success" path="/model/at/newSuccess.jsp" />
-			<forward name="error" path="/model/at/newError.jsp" />
+			<forward name="success" path="/pages/model/at/newSuccess.jsp" />
+			<forward name="error" path="/pages/model/at/newError.jsp" />
 		</action>
 
-		<action path="/model/at/pre-edit" input="/model/at/list.jsp"
+		<action path="/model/at/pre-edit" input="/pages/model/at/list.jsp"
 			type="de.berlios.gpon.wui.actions.model.AssociationTypeSelectAction">
-			<forward name="success" path="/model/at/edit.jsp" />
-			<forward name="error" path="/model/at/list.jsp" />
+			<forward name="success" path="/pages/model/at/edit.jsp" />
+			<forward name="error" path="/pages/model/at/list.jsp" />
 		</action>
 
 		<action name="AssociationTypeForm" path="/model/at/edit"
-			attribute="selectedAssociationTypeForm" input="/model/at/edit.jsp"
+			attribute="selectedAssociationTypeForm" 
+			input="/pages/model/at/edit.jsp"
 			scope="session"
 			type="de.berlios.gpon.wui.actions.model.AssociationTypeEditAction">
-			<forward name="success" path="/model/at/editSuccess.jsp" />
-			<forward name="error" path="/model/at/editError.jsp" />
+			<forward name="success" path="/pages/model/at/editSuccess.jsp" />
+			<forward name="error" path="/pages/model/at/editError.jsp" />
 		</action>
 
-		<action path="/model/at/pre-delete" input="/model/at/list.jsp"
+		<action 
+		    path="/model/at/pre-delete" 
+		    input="/pages/model/at/list.jsp"
 			type="de.berlios.gpon.wui.actions.model.AssociationTypeSelectAction">
-			<forward name="success" path="/model/at/delete.jsp" />
-			<forward name="error" path="/model/at/list.jsp" />
+			<forward name="success" path="/pages/model/at/delete.jsp" />
+			<forward name="error" path="/pages/model/at/list.jsp" />
 		</action>
 
 		<action name="AssociationTypeForm" path="/model/at/delete"
-			input="/model/at/delete.jsp" scope="request"
+			input="/pages/model/at/delete.jsp" scope="request"
 			type="de.berlios.gpon.wui.actions.model.AssociationTypeDeleteAction">
-			<forward name="success" path="/model/at/deleteSuccess.jsp" />
-			<forward name="error" path="/model/at/deleteError.jsp" />
+			<forward name="success" path="/pages/model/at/deleteSuccess.jsp" />
+			<forward name="error" path="/pages/model/at/deleteError.jsp" />
 		</action>
 
 		<!--  educational -->
@@ -142,7 +157,7 @@
 		<!-- data search -->
 		
 		<action path="/data/search/intro"
-				forward="/data/search/search.jsp"/>
+				forward="/pages/data/search/search.jsp"/>
 				
 		<action path="/data/search/backFromCrud"
 				forward="/data/search/search.do"/>
@@ -152,14 +167,14 @@
 			type="de.berlios.gpon.wui.actions.data.PrepareItemSearchAction"
 			name="SimpleItemTypeIdForm">
 			<forward name="success"
-				path="/data/search/search.jsp?dialog=true" />
+				path="/pages/data/search/search.jsp?dialog=true" />
 		</action>
 
 		<action name="ItemSearchForm" path="/data/search/search"
 			type="de.berlios.gpon.wui.actions.data.ItemSearchAction"
 			scope="session">
 			<forward name="success"
-				path="/data/search/search.jsp?result=true" />
+				path="/pages/data/search/search.jsp?result=true" />
 		</action>
 
         <!--  item details  -->
@@ -169,21 +184,21 @@
 	            type="de.berlios.gpon.wui.actions.data.ItemSelectAction">
       		<forward 
       			name="success" 
-      			path="/data/itemDetails.jsp"/>
+      			path="/pages/data/itemDetails.jsp"/>
     	</action>
 
 		<!--  item creation -->
 		<action path="/data/pre-create"
 			type="de.berlios.gpon.wui.actions.data.ItemPreCreateAction"
 			name="SimpleItemTypeIdForm">
-			<forward name="success" path="/data/new.jsp" />
+			<forward name="success" path="/pages/data/new.jsp" />
 		</action>
 
 		<action path="/data/create"
 			type="de.berlios.gpon.wui.actions.data.ItemCreateAction" scope="session"
-			input="/data/new.jsp" name="ItemForm">
-			<forward name="success" path="/data/newSuccess.jsp" />
-			<forward name="error" path="/data/newError.jsp" />
+			input="/pages/data/new.jsp" name="ItemForm">
+			<forward name="success" path="/pages/data/newSuccess.jsp" />
+			<forward name="error" path="/pages/data/newError.jsp" />
 		</action>
 
 		<!-- item edit -->
@@ -193,14 +208,14 @@
 		<action path="/data/pre-edit"
 			type="de.berlios.gpon.wui.actions.data.ItemSelectAction"
 			name="ItemForm">
-			<forward name="success" path="/data/edit.jsp" />
+			<forward name="success" path="/pages/data/edit.jsp" />
 		</action>
 
 		<action path="/data/edit"
 			type="de.berlios.gpon.wui.actions.data.ItemEditAction"
-			input="/data/edit.jsp" name="ItemForm">
-			<forward name="success" path="/data/editSuccess.jsp" />
-			<forward name="error" path="/data/editError.jsp" />
+			input="/pages/data/edit.jsp" name="ItemForm">
+			<forward name="success" path="/pages/data/editSuccess.jsp" />
+			<forward name="error" path="/pages/data/editError.jsp" />
 		</action>
 
 
@@ -212,14 +227,15 @@
 		<action path="/data/pre-delete"
 			type="de.berlios.gpon.wui.actions.data.ItemSelectAction"
 			name="ItemForm">
-			<forward name="success" path="/data/delete.jsp" />
+			<forward name="success" path="/pages/data/delete.jsp" />
 		</action>
 
 		<action path="/data/delete"
-			type="de.berlios.gpon.wui.actions.data.ItemDeleteAction" scope="session"
-			input="/data/delete.jsp" name="ItemForm">
-			<forward name="success" path="/data/deleteSuccess.jsp" />
-			<forward name="error" path="/data/deleteError.jsp" />
+			type="de.berlios.gpon.wui.actions.data.ItemDeleteAction" 
+			scope="session"
+			input="/pages/data/delete.jsp" name="ItemForm">
+			<forward name="success" path="/pages/data/deleteSuccess.jsp" />
+			<forward name="error" path="/pages/data/deleteError.jsp" />
 		</action>
 
 
@@ -228,13 +244,13 @@
 		<action path="/ajax/suggestItems"
 			type="de.berlios.gpon.wui.actions.data.ItemFulltextSearchAction"
 			scope="request" name="ItemFulltextSearchForm">
-			<forward name="success" path="/ajax/suggest-json.jsp" />
+			<forward name="success" path="/pages/ajax/suggest-json.jsp" />
 		</action>
 
 		<action path="/ajax/getItem" scope="request"
 			type="de.berlios.gpon.wui.actions.data.ItemSelectAction"
 			name="ItemForm">
-			<forward name="success" path="/ajax/item-json.jsp" />
+			<forward name="success" path="/pages/ajax/item-json.jsp" />
 		</action>
 
 
