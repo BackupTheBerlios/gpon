@@ -20,7 +20,7 @@
   	<tr>
       <td colspan="3"></td>
   		<td>Neuer Objekttyp:</td>
-  		<td><a href="new.jsp">Anlegen</a></td>
+  		<td><a href="pre-new.do">Anlegen</a></td>
   	</tr>
   </display-el:footer>
 </display-el:table>

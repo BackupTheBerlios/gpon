@@ -19,12 +19,13 @@
  <display-el:column sortable="true" property="multiplicityLabel" titleKey="associationtype.multiplicity.prompt"/>
  <display-el:column sortable="true" property="itemBType.name" titleKey="associationtype.itembtype.prompt"/>
  <display-el:column sortable="true" property="itemBRoleName" titleKey="associationtype.itembrolename.prompt"/>
+  <display-el:column media="html" property="viewAssociationTypeDetailLink" title="Detail"/>
  <display-el:column property="prepareEditAndDeleteTypeLink" title="Bearbeiten"/>
  <display-el:footer>
   	<tr>
       <td colspan="6"></td>
   		<td colspan="2">Neuer Objekttyp:</td>
-  		<td><a href="new.jsp">Anlegen</a></td>
+  		<td><a href="pre-new.do">Anlegen</a></td>
   	</tr>
   </display-el:footer>
 </display-el:table>

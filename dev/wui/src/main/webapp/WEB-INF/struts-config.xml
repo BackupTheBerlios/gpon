@@ -43,8 +43,14 @@
 		<action path="/model/at/list"
 				forward="/pages/model/at/list.jsp"/>
 				
+		<action path="/model/at/pre-new"
+				forward="/pages/model/at/new.jsp"/>
+				
 		<action path="/model/it/list"
 				forward="/pages/model/it/list.jsp"/>
+
+		<action path="/model/it/pre-new"
+				forward="/pages/model/it/new.jsp"/>
 		
 		<!--
 			 _ _                   _
@@ -98,13 +104,18 @@
 			<forward name="error" path="/pages/model/it/deleteError.jsp" />
 		</action>
 
+		<action path="/model/it/itemTypeDetails"
+			type="de.berlios.gpon.wui.actions.model.ItemTypeSelectAction">
+			<forward name="success" path="/pages/model/it/itemTypeDetails.jsp" />
+		</action>
+
 		<!-- 
-			_       _   _               _
-			__ _ ___ ___  ___   ___(_) __ _| |_(_) ___  _ __   | |_ _   _ _ __   ___
-			/ _` / __/ __|/ _ \ / __| |/ _` | __| |/ _ \| '_ \  | __| | | | '_ \ / _ \
-			| (_| \__ \__ \ (_) | (__| | (_| | |_| | (_) | | | | | |_| |_| | |_) |  __/
-			\__,_|___/___/\___/ \___|_|\__,_|\__|_|\___/|_| |_|  \__|\__, | .__/ \___|
-			|___/|_|
+                       		 _       _   _               _
+	 __ _ ___ ___  ___   ___(_) __ _| |_(_) ___  _ __   | |_ _   _ _ __   ___
+	/ _` / __/ __|/ _ \ / __| |/ _` | __| |/ _ \| '_ \  | __| | | | '_ \ / _ \
+   | (_| \__ \__ \ (_) | (__| | (_| | |_| | (_) | | | | | |_| |_| | |_) |  __/
+	\__,_|___/___/\___/ \___|_|\__,_|\__|_|\___/|_| |_|  \__|\__, | .__/ \___|
+	                                                         |___/|_|
 		-->
 
 		<action path="/model/at/new" input="/pages/model/at/new.jsp"
@@ -121,7 +132,7 @@
 			<forward name="error" path="/pages/model/at/list.jsp" />
 		</action>
 
-		<action name="AssociationTypeForm" path="/model/at/edit"
+		<action path="/model/at/edit" name="AssociationTypeForm"
 			attribute="selectedAssociationTypeForm" 
 			input="/pages/model/at/edit.jsp"
 			scope="session"
@@ -138,13 +149,17 @@
 			<forward name="error" path="/pages/model/at/list.jsp" />
 		</action>
 
-		<action name="AssociationTypeForm" path="/model/at/delete"
+		<action  path="/model/at/delete" name="AssociationTypeForm"
 			input="/pages/model/at/delete.jsp" scope="request"
 			type="de.berlios.gpon.wui.actions.model.AssociationTypeDeleteAction">
 			<forward name="success" path="/pages/model/at/deleteSuccess.jsp" />
 			<forward name="error" path="/pages/model/at/deleteError.jsp" />
 		</action>
-
+		
+		<action path="/model/at/associationTypeDetails"
+			type="de.berlios.gpon.wui.actions.model.AssociationTypeSelectAction">
+			<forward name="success" path="/pages/model/at/associationTypeDetails.jsp" />
+		</action>
 		<!--  educational -->
 
 		<action name="TestForm" path="/test/form"

@@ -65,6 +65,7 @@
 											<th><c:out value="${propDecl.description}"/></th>
 										</c:if>
 									</c:forEach>
+									<th>Link</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -81,6 +82,7 @@
 												<td><c:out escapeXml="false" value="${itemB[propDecl.id].html}" /></td>
 											</c:if>
 										</c:forEach>
+										<td><A HREF="itemDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&itemId=<c:out value="${itemB['id']}" />">Link</A></td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -108,6 +110,7 @@
 											<th><c:out value="${propDecl.description}" /></th>
 										</c:if>
 									</c:forEach>
+									<th>Link</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -124,6 +127,7 @@
 												<td><c:out escapeXml="false" value="${itemA[propDecl.id].html}" /></td>
 											</c:if>
 										</c:forEach>
+										<td><A HREF="itemDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&itemId=<c:out value="${itemA['id']}" />">Link</A></td>
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -95,6 +95,7 @@ public class AssociationTypeSelectAction extends BaseAction
       
       // bind to session
       request.getSession().setAttribute("selectedAssociationTypeForm",associationTypeForm);
+      request.getSession().setAttribute("selectedAssociationType",associationType);
       
      } else {
       log.error("itemTypeForm is null");   
