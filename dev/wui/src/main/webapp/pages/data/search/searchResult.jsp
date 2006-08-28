@@ -4,6 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=windows-1252"%>
 <html>
+<head>
+<meta name="maintopic" content="data">
+
+</head>
 <body>
              
 <c:if test="${not empty ItemSearchForm.itemType}">  
@@ -12,7 +16,9 @@
 <c:set var="typeName"        value="${type.name}"/>
 <c:set var="typeDescription" value="${type.description}"/>
 
-<p><c:out value="${typeDescription}"/></p>
+<div id="pageTitle">
+<bean-el:message key="pagetitles.itemsearchresult"/><c:out value="${typeDescription}"/>
+</div>
 
 <div id="itemListContainer">
 <display-el:table   export="true" sort="list" pagesize="${ItemSearchForm.resultsPerPage}" id="itemList" 

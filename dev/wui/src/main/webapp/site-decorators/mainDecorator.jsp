@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ taglib prefix="decorator" uri="/sitemesh-decorator" %>
+<%@ taglib prefix="page" uri="/sitemesh-page" %>
 <%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean-el" %>
 <html>
 	<head>
@@ -9,43 +10,19 @@
 				rel="stylesheet" type="text/css">
         <decorator:head />
 	</head>
-    
 	<body>
-	    <div id="gponContainer">
-      <div id="gponHeaderContainer">
-        <div id="gponHeader">
-	  <div id="gponHeaderLogoLeft">
-            <img src="<%= request.getContextPath() %>/img/hdr_left.png" alt="General Purpose Object Network">
-          </div>
-          <div id="gponHeaderLogoRight">
-            <img src="<%= request.getContextPath() %>/img/hdr_right.png" alt="gpon">
-          </div>
-        </div>
-        <div id="gponTopNav">
-          <div id="gponTopNavLeft">
-            <!--  <img src="<%= request.getContextPath() %>/img/nav_lft.png" alt="" height="23" width="7"> -->
-          </div>
-          <div id="gponTopNavRight">
-            <!--  <img src="<%= request.getContextPath() %>/img/nav_rgt.png" alt="" height="23" width="7"> -->
-          </div>
-          <ul id="gponTopNavList">
-  <li>
-    <a href="<%= request.getContextPath() %>/data/search/intro.do" title="Data">Data</a>
-  </li>
-  <li>
-    <a href="<%= request.getContextPath() %>/model/intro.do" title="Model">Model</a>
-  </li>
-  <li>
-    <a href="<%= request.getContextPath() %>/index.jsp" title="Info">Info</a>
-  </li>
-</ul>
-
-        </div>
-      </div>
-    <div id="gponContent">
-     <%--pulls the body from the page we are decorating and inserts it here --%>
-     <decorator:body />
-    </div> 
-    </div>
-	</body>
+	  <div id="title">
+  </div>
+  <!--  read out META tags and display current navigation menu -->
+  <c:set var="maintopic" scope="request">
+  <decorator:getProperty property="meta.maintopic"/>
+  </c:set>
+  <c:set var="subtopic" scope="request">
+  <decorator:getProperty property="meta.subtopic"/>
+  </c:set>
+  <jsp:include page="navigation.jsp"/>
+  <div id="main">
+	 <decorator:body />
+  </div>
+ </body>
 </html>

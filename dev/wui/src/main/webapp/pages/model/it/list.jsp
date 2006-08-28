@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=windows-1252"%>
 <html>
+<head>
+<meta name="maintopic" content="model">
+<meta name="subtopic" content="items">
+</head>
 <body>
  <%--  Trick to acquire a session from jsp --%>
  <%= request.getSession().getId() %>

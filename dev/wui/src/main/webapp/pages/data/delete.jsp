@@ -4,6 +4,9 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic-el" prefix="logic-el"%>
 <%@ page contentType="text/html;charset=windows-1252"%>
 <html>
+<head>
+<meta name="maintopic" content="data">
+</head>
   <body>
 <c:if test="${!empty ItemForm}">
 	<html-el:form action="/data/delete.do">

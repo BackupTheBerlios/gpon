@@ -10,6 +10,10 @@
 <%-- get item object --%>
 <c:set var="item" value="${ItemForm.item}" />
 <html>
+<head>
+<meta name="maintopic" content="data">
+
+</head>
 <body>
 <table>
 	<thead>

@@ -6,6 +6,10 @@
 <%@ page contentType="text/html;charset=windows-1252"%>
 <html>
   <c:set scope="request" var="pageTitle" value="Assoziationstyp: ${selectedAssociationTypeForm.description}"/>
+<head>
+<meta name="maintopic" content="model">
+<meta name="subtopic" content="associations">
+</head>
   <body>
   <html:hidden property="id" name="selectedAssociationTypeForm"/>
     <table class="inputForm">

@@ -3,13 +3,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<head>
+<meta name="maintopic" content="model">
+</head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<ul>
-<li><a href="at/list.do">Association Types</a>
-<li><a href="it/list.do">Object Types</a>
-</ul>
 </body>
 </html>

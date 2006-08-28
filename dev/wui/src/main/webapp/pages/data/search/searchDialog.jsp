@@ -7,6 +7,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta name="maintopic" content="data">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -41,13 +42,13 @@
     <html-el:form action="/data/search/search.do">
       <table class="searchForm">
         <thead>
-        <th>
+        <th class="searchLabel">
          Feld
         </th>
-        <th>
+        <th class="searchOp">
           Operator
         </th>
-        <th>
+        <th class="searchValue">
           Wert
         </th>
         </thead>
