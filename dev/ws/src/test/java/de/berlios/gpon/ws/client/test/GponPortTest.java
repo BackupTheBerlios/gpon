@@ -2,6 +2,8 @@ package de.berlios.gpon.ws.client.test;
 
 import java.io.File;
 
+import org.apache.xmlbeans.XmlOptions;
+
 import junit.framework.TestCase;
 import de.berlios.gpon.ws.GponBindingStub;
 import de.berlios.gpon.ws.GponLocator;
@@ -16,7 +18,7 @@ extends TestCase
 	
 	public void testGponRunScript() throws Exception {
 
-	   if (true)
+	   if (false)
 		return;
 		
 		GponBindingStub binding;
@@ -48,7 +50,11 @@ extends TestCase
         	"<Reference refid=\"bloobaloo\"/>"+
         	"</GponScript>";        
         
-        GponScriptDocument gsd = GponScriptDocument.Factory.parse(new File("test.xml"));
+        XmlOptions xmlo = new XmlOptions();
+        xmlo.setLoadStripWhitespace();
+        xmlo.setSavePrettyPrint();
+        
+        GponScriptDocument gsd = GponScriptDocument.Factory.parse(new File("test.xml"),xmlo);
         
         gs = gsd.getGponScript();
         
@@ -62,6 +68,6 @@ extends TestCase
         // value.dump();
         // assertNotNull(value);
         
-        System.out.println("GponScriptOutput: "+value.xmlText());
+        System.out.println("GponScriptOutput: "+value.xmlText(xmlo));
     }
 }
