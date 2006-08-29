@@ -3,16 +3,24 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.berlios.gpon</groupId>
 	<artifactId>launch</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<version>0.1-SNAPSHOT</version>
 	<name>GPON launch of required services</name>
 	<url>http://gpon.berlios.de</url>
+	<build>
+	<sourceDirectory>${basedir}</sourceDirectory>
+	</build>
 	<parent>
 		<groupId>de.berlios.gpon</groupId>
 		<artifactId>root</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<dependencies>
+	        <dependency>
+		  <groupId>de.berlios.gpon</groupId>
+		  <artifactId>root</artifactId>
+		  <version>${pom.version}</version>
+		</dependency>
 		<!--  Apache Derby Server -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>

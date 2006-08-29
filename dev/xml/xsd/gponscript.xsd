@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://berlios.de/gpon/xmlscript" targetNamespace="http://berlios.de/gpon/xmlscript" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://berlios.de/gpon/xmlscript" 
+           targetNamespace="http://berlios.de/gpon/xmlscript" elementFormDefault="qualified">
 	<!-- GponScript Document-->
 	<xs:element name="GponScript" type="GponScript"/>
 		<xs:complexType name="GponScript">

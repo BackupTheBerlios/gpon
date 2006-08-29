@@ -16,7 +16,7 @@
 <c:set var="typeName"        value="${type.name}"/>
 <c:set var="typeDescription" value="${type.description}"/>
 
-<div id="pageTitle">
+<div id="listTitle">
 <bean-el:message key="pagetitles.itemsearchresult"/><c:out value="${typeDescription}"/>
 </div>
 

@@ -9,7 +9,6 @@
 </head>
 <body>
 <%--  Trick to acquire a session from jsp --%>
-<%= request.getSession().getId() %>
  
 <display-el:table sort="list" pagesize="10" id="associationTypeList" 
                name="${GPON_MODEL_VIEW.allAssociationTypes}"

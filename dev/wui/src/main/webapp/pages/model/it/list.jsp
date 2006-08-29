@@ -8,9 +8,7 @@
 <meta name="subtopic" content="items">
 </head>
 <body>
- <%--  Trick to acquire a session from jsp --%>
- <%= request.getSession().getId() %>
-  
+   
 <display-el:table sort="list" pagesize="10" id="itemTypeList" 
                name="${GPON_MODEL_VIEW.allItemTypes}"
                decorator="de.berlios.gpon.wui.displaytag.decorators.UniversalDecorator">

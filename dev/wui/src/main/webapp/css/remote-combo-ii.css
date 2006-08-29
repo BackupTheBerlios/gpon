@@ -44,13 +44,14 @@ code {color: #330099}
 	}
 
 .header table	{
+	table-layout: fixed;
 	border-collapse: collapse;
 	}
 
 
 	
 .dates_scroll	{
-	
+	table-layout: fixed;
 	height: 100px;
 	overflow: auto;
 	/* border: dotted #000; */
