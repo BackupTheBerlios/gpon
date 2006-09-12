@@ -1,0 +1,4 @@
+<graph edgedefault="directed"><node id="35836" objectId="35836"  side="A"  prop14="jkshdfjjkshfkjs"  prop13="20030201000000"  prop12="09"  prop11="89"  prop10="23"  nodeType="35811"  prop9="h672534hg867"  prop8="AMOS"  prop7="1.0"  prop6="bauhaus"  prop5="FDHFHD"  prop4="AMD K6 II"  prop3="500"  prop2="1024"  prop1="bla"  prop0="umbriel"  name="UNIX Server" /><node id="35852" objectId="35852"  name="Mount Point"  prop8="lkjklj"  prop7="20040201000000"  prop6="umbriel"  prop5="/dev/flash"  nodeType="35812"  prop4="0"  prop3="1000"  prop2="100"  prop1="1000"  prop0="/tmp"  side="B" /><edge source="35836" target="35852" type="association" name="Mount Point" /></graph>
+ 
+
+ 
