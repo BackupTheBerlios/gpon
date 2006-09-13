@@ -17,7 +17,7 @@
 		<dependency>
 			<artifactId>common</artifactId>
 			<groupId>de.berlios.gpon</groupId>
-			<version>${project.version}</version>
+			<version>${pom.version}</version>
 		</dependency>
 		<dependency>
 			<artifactId>spring</artifactId>
