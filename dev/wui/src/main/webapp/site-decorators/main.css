@@ -1,3 +1,9 @@
+/* Type CSS rules here and they will be applied
+to pages from 'localhost:9080'
+immediately as long as you keep this window open. */
+
+/**** LINK-tag style sheet main.css ****/
+
 /* color scheme 
 
 http://wellstyled.com/tools/colorscheme2/index-en.html?tetrad;74;0;225;0.25;1;0.5;0.75;0.1;1;0.5;1;0.25;1;0.5;0.75;0.1;1;0.5;1;0.5;0.75;0.1;1;0.5;1;0.25;1;0.25;1;0.5;0.75;0.1;1;0.5;1;0
@@ -355,11 +361,11 @@ tr.tableRowOdd, tr.mod2_0, tr.odd {
 span.pagebanner {
 	background-color: #E0E0E0;
 	border: 0px;
-	padding: 2px 4px 2px 4px;
-	width: 50%; 
+	
+	width: 100%; 
     margin-left:  auto;
 	margin-right: auto;
-	margin-top: 10px;
+	margin-top: 5px;
 	display:block;
 	font-weight: bold;
   text-align: center;
@@ -368,20 +374,18 @@ span.pagebanner {
 span.pagelinks {
 	background-color: #E0E0E0;
 	border: 0px;
-	padding: 2px 4px 2px 4px;
-	width: 50%;
+	
+	width: 100%;
     margin-left:  auto;
 	margin-right: auto;
 	display:block;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
   text-align: center;
 }
 
 div#itemListContainer 
 {
-    min-width: 50%;
-    margin-left:  auto;
-	margin-right: auto;
+    width:100%;
 } 
 
 #listTitle 
@@ -394,6 +398,7 @@ div#itemListContainer
 
 table#itemList 
 {
+width:100%;
 }
 
 
@@ -412,11 +417,8 @@ td.rightAlignMe {
 /* export line */
 div.exportlinks {
   background: #B5B5B5;
-  padding-right: 10px;
   text-align: center;
-  width: 50%;
-  margin-left:  auto;
-  margin-right: auto;
+  width: 100%;
 }
 
 span.export {
@@ -464,5 +466,7 @@ div#popupTitle {
  border-bottom: 1px solid;
  border-bottom-color: #E6F4FF;
 }
+
+
 
 

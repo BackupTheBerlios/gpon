@@ -16,6 +16,12 @@ String ctxPath = request.getContextPath();
  root.addChildNode(model);
  root.addChildNode(info);
  
+ 
+ NavigationNode expertsearch = new NavigationNode("expertsearch",
+		 ctxPath+"/data/expert-search/intro.do");
+ 
+ data.addChildNode(expertsearch);
+ 
  NavigationNode modelit = new NavigationNode("items",ctxPath+"/model/it/list.do");	
  NavigationNode modelat = new NavigationNode("associations",ctxPath+"/model/at/list.do");	
  model.addChildNode(modelit);

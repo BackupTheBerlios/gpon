@@ -15,6 +15,10 @@
 
 		<form-bean name="ItemSearchForm"
 			type="de.berlios.gpon.wui.forms.ItemSearchForm" />
+
+		<form-bean name="ExpertItemSearchForm" 
+		    type="de.berlios.gpon.wui.forms.ExpertItemSearchForm"/>
+			
 		<form-bean name="ItemFulltextSearchForm"
 			type="de.berlios.gpon.wui.forms.ItemFulltextSearchForm" />
 		<form-bean name="ItemForm"
@@ -174,6 +178,9 @@
 		<action path="/data/search/intro"
 				forward="/pages/data/search/search.jsp"/>
 				
+		<action path="/data/expert-search/intro"
+				forward="/pages/data/search/expertSearch.jsp"/>		
+				
 		<action path="/data/search/backFromCrud"
 				forward="/data/search/search.do"/>
 				
@@ -190,6 +197,13 @@
 			scope="session">
 			<forward name="success"
 				path="/pages/data/search/search.jsp?result=true" />
+		</action>
+		
+		<action name="ExpertItemSearchForm" path="/data/search/expert-search"
+			type="de.berlios.gpon.wui.actions.data.ExpertItemSearchAction"
+			scope="session">
+			<forward name="success"
+				path="/pages/data/search/expertSearchResult.jsp" />
 		</action>
 
         <!--  item details  -->
