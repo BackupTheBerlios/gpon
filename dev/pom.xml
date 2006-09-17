@@ -16,7 +16,7 @@
 		<version>2.2</version>
 	<configuration>
 	  <!-- wtp -->
-	  <wtpversion>R7</wtpversion>
+	  <wtpversion>1.0</wtpversion>
 	</configuration>
 	</plugin>
 	</plugins>
@@ -24,6 +24,8 @@
 	<modules>
 		<module>common</module>
 		<module>persistence</module>
+                <module>service</module>
+                <module>viewer</module>
 		<module>script</module>
 		<module>wui</module>
 		<module>ws</module>
