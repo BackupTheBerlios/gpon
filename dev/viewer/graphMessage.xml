@@ -1,0 +1,43 @@
+<graphMessage>
+  <graphNodes>
+    <graphNode>
+      <objectId>3</objectId>
+      <attributes>
+        <attribute>
+          <name>Name</name>
+          <value>m3</value>
+        </attribute>
+      </attributes>
+    </graphNode>
+    <graphNode>
+      <objectId>1</objectId>
+      <attributes>
+        <attribute>
+          <name>Name</name>
+          <value>m1</value>
+        </attribute>
+      </attributes>
+    </graphNode>
+    <graphNode>
+      <objectId>4</objectId>
+      <attributes>
+        <attribute>
+          <name>Name</name>
+          <value>o1</value>
+        </attribute>
+      </attributes>
+    </graphNode>
+  </graphNodes>
+  <graphEdges>
+    <graphEdge>
+      <source>4</source>
+      <target>3</target>
+      <type>One To Many</type>
+    </graphEdge>
+    <graphEdge>
+      <source>4</source>
+      <target>1</target>
+      <type>One To Many</type>
+    </graphEdge>
+  </graphEdges>
+</graphMessage>

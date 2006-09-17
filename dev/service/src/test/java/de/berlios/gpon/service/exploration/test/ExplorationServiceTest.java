@@ -3,6 +3,7 @@ package de.berlios.gpon.service.exploration.test;
 import org.springframework.test.AbstractTransactionalSpringContextTests;
 
 import de.berlios.gpon.service.exploration.ExplorationService;
+import de.berlios.gpon.service.exploration.messages.GraphMessage;
 
 public class ExplorationServiceTest 
 extends AbstractTransactionalSpringContextTests
@@ -17,7 +18,9 @@ extends AbstractTransactionalSpringContextTests
 		ExplorationService es =
 			(ExplorationService)applicationContext.getBean("explorationService");
 		
-		es.getEnvironment(new Long(1),1);
+		GraphMessage gm = es.getEnvironment(new Long(1),10);
+		
+		System.out.println("graph: "+gm.serialize());
 	}
 	
 }

@@ -23,6 +23,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.Hashtable;
@@ -792,10 +793,15 @@ public class GponGraphViewerApplet
   
   private Graph getGraph() 
   {
-    GraphMLFile gmlFile = new GraphMLFile();
+    GponGraphLoader ggl = new GponGraphLoader();
 
     if (gvConfig.isDebug()) {
-      return gmlFile.load("testgraph.xml");
+    	try {
+      return ggl.load(new FileReader("graphMessage.xml"));
+    	} catch (Exception e) 
+    	{
+    		throw new RuntimeException(e);
+    	}
     }
 
     String urlString  = gvConfig.getGraphUrl();
@@ -813,7 +819,7 @@ public class GponGraphViewerApplet
       client.executeMethod(get);
       String response = get.getResponseBodyAsString();
       System.out.println(response);
-      return gmlFile.load(new StringReader(response));
+      return ggl.load(new StringReader(response));
     }
     catch (Exception e)
     {
