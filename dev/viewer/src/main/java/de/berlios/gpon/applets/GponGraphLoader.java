@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.collections.functors.NotPredicate;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -83,6 +84,26 @@ public class GponGraphLoader  {
             mGraph = new UndirectedSparseGraph();
         } 
 
+        // Not(Parallel()) will be removed
+        
+        Iterator it = mGraph.getEdgeConstraints().iterator();
+        
+        NotPredicate toBeRemoved = null;
+        
+        while (it.hasNext()) 
+        {
+        	Object o = it.next();
+        	
+        	if (o instanceof NotPredicate) {
+				toBeRemoved = (NotPredicate) o;
+			}
+        }
+        
+        if (toBeRemoved!=null) 
+        {
+        	mGraph.getEdgeConstraints().remove(toBeRemoved);
+        }
+        
         mLabeller = StringLabeller.getLabeller(mGraph);
     }
 

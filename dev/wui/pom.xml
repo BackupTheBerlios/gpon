@@ -19,6 +19,11 @@
 			<groupId>de.berlios.gpon</groupId>
 			<version>${project.version}</version>
 		</dependency>
+        <dependency>
+			<artifactId>service</artifactId>
+			<groupId>de.berlios.gpon</groupId>
+			<version>${project.version}</version>
+		</dependency>
   
   <!-- sitemesh -->
   

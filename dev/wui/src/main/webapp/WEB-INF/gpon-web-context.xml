@@ -215,6 +215,12 @@
     <property name="data"  ref="gponDataDao"/>
   </bean>
   
+  <!-- Exploration Service -->
+  <bean id="explorationService"
+     class="de.berlios.gpon.service.exploration.ExplorationServiceImpl">
+    <property name="gponDataDao"  ref="txGponDataDao"/>   
+    <property name="gponModelDao" ref="txGponModelDao"/>   
+  </bean>
 
   
   

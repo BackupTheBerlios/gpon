@@ -477,8 +477,8 @@ public class GponGraphViewerApplet
        
         public String getLabel(ArchetypeEdge e) 
         {
-          if (e.getUserDatum("name")!=null) {
-            return e.getUserDatum("name").toString();
+          if (e.getUserDatum("type")!=null) {
+            return e.getUserDatum("type").toString();
           }
           return "";
         }
@@ -797,7 +797,16 @@ public class GponGraphViewerApplet
 
     if (gvConfig.isDebug()) {
     	try {
-      return ggl.load(new FileReader("graphMessage.xml"));
+      // return ggl.load(new FileReader("graphMessage.xml"));
+      
+    		String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId=8&radius=2";
+      HttpClient client = new HttpClient();
+      System.out.println("Graph URL: "+urlString);
+      HttpMethod get = new GetMethod(urlString);
+      client.executeMethod(get);
+      String response = get.getResponseBodyAsString();
+      System.out.println(response);
+      return ggl.load(new StringReader(response));
     	} catch (Exception e) 
     	{
     		throw new RuntimeException(e);

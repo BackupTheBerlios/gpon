@@ -23,6 +23,8 @@
 			type="de.berlios.gpon.wui.forms.ItemFulltextSearchForm" />
 		<form-bean name="ItemForm"
 			type="de.berlios.gpon.wui.forms.ItemForm" />
+		<form-bean name="GetEnvironmentForm"
+			type="de.berlios.gpon.wui.forms.GetEnvironmentForm" />
 
 		<!--  educational for gpon developers -->
 		<form-bean name="TestForm" type="de.berlios.gpon.wui.edu.TestForm" />
@@ -285,6 +287,14 @@
 		<!--  info  -->
 		<action path="/info/intro"	forward="/pages/info/index.jsp"/>
 		<action path="/info/about"	forward="/pages/info/about.jsp"/>
+				
+		<!--  exploration -->
+		<!-- env(item,radius) -->
+		
+		<action path="/exploration/environment" name="GetEnvironmentForm"
+		  type="de.berlios.gpon.wui.actions.exploration.GetEnvironmentAction">
+		  <forward name="success" path="/pages/exploration/graphxml.jsp"/>
+		</action>
 				
 
 
