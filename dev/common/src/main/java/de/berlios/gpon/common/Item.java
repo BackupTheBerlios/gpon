@@ -19,12 +19,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 package de.berlios.gpon.common;
+import java.util.Comparator;
 import java.util.Set;
+import java.util.TreeSet;
+
+import de.berlios.gpon.common.ItemType.RankComparator;
 
 
 public class Item {
 	
-  Long id;
+  public class RankComparator implements Comparator {
+		public int compare(Object o1, Object o2) {
+			
+			ItemProperty ip1 = (ItemProperty)o1;
+			ItemProperty ip2 = (ItemProperty)o2;
+			
+			ItemPropertyDecl ipd1 = ip1.getPropertyDecl();
+			ItemPropertyDecl ipd2 = ip2.getPropertyDecl();
+	
+			// if rank is not set
+			int id1 = ipd1.getId().intValue();
+			int id2 = ipd2.getId().intValue();
+	
+			int r1 = (ipd1.getRank() != null) ? ipd1.getRank().intValue() : 0;
+			int r2 = (ipd2.getRank() != null) ? ipd2.getRank().intValue() : 0;
+	
+			// Object equality
+			if (id1 == id2) {
+				return 0;
+			}
+	
+			// oldest first if rank is the same
+			if (r1 == r2) {
+				return id1 - id2;
+			}
+	
+			return r1 - r2;
+		}
+	}
+
+Long id;
   ItemType itemType;
   
   Set properties;
@@ -68,6 +102,12 @@ public class Item {
   {
     return properties;
   }
+  
+  public Set getPropertiesSorted() {
+		Set treeSet = new TreeSet(new RankComparator());
+		treeSet.addAll(getProperties());
+		return treeSet;
+	}
 
 
   public void setAssociationsA(Set associationsA)
