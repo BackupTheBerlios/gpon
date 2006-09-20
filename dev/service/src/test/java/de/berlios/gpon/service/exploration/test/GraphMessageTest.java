@@ -36,7 +36,7 @@ public class GraphMessageTest extends TestCase {
 		
 		graphNode2.setAttributes((Attribute[])attrs.toArray(new Attribute[0]));
 		
-		GraphEdge graphEdge = new GraphEdge(new Long(1), new Long(2), "association");
+		GraphEdge graphEdge = new GraphEdge(new Long(4711),new Long(1), new Long(2), "association");
 		
 		GraphMessage graphMessage =
 			new GraphMessage();

@@ -109,10 +109,11 @@ public class ExplorationServiceImpl implements ExplorationService {
 			GraphNode node = new GraphNode();
 			
 			node.setObjectId(item.getId());
+			node.setObjectType(item.getItemType().getDescription());
 			
 			List attributes = new ArrayList();
 			// parameters
-			Iterator propsIt = item.getProperties().iterator();
+			Iterator propsIt = item.getPropertiesSorted().iterator();
 
 			while (propsIt !=null && propsIt.hasNext()) 
 			{
@@ -134,7 +135,8 @@ public class ExplorationServiceImpl implements ExplorationService {
 			Association assoc = (Association)assocIterator.next();
 			
 			GraphEdge graphEdge = 
-				new GraphEdge(assoc.getItemA().getId(),
+				new GraphEdge(assoc.getId(),
+							  assoc.getItemA().getId(),
 							  assoc.getItemB().getId(),
 							  assoc.getAssociationType().getDescription());
 			

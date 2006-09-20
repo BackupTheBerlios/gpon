@@ -11,14 +11,19 @@ package de.berlios.gpon.applets;
 
 import java.io.BufferedReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.collections.functors.NotPredicate;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import sun.util.logging.resources.logging;
 
 import de.berlios.gpon.service.exploration.messages.Attribute;
 import de.berlios.gpon.service.exploration.messages.GraphEdge;
@@ -26,6 +31,7 @@ import de.berlios.gpon.service.exploration.messages.GraphMessage;
 import de.berlios.gpon.service.exploration.messages.GraphNode;
 
 import edu.uci.ics.jung.exceptions.FatalException;
+import edu.uci.ics.jung.graph.ArchetypeEdge;
 import edu.uci.ics.jung.graph.ArchetypeVertex;
 import edu.uci.ics.jung.graph.Edge;
 import edu.uci.ics.jung.graph.Graph;
@@ -42,9 +48,12 @@ import edu.uci.ics.jung.utils.UserData;
  * @author Scott White
  */
 public class GponGraphLoader  {
-    private Graph mGraph;
-    private StringLabeller mLabeller;
+    private Graph nGraph;
+    private StringLabeller nLabeller;
 
+    boolean update = false;
+    Hashtable edgeIdMap = new Hashtable();
+    
     /**
      * The default constructor
      */
@@ -52,26 +61,36 @@ public class GponGraphLoader  {
     }
 
     protected Graph getGraph() {
-        return mGraph;
+        return nGraph;
     }
 
     protected StringLabeller getLabeller() {
-        return mLabeller;
+        return nLabeller;
     }
 
     protected Edge createEdge(GraphEdge edge) {
-        if (mGraph == null) {
+        if (nGraph == null) {
             throw new FatalException("Error parsing graph. Graph element must be specified before edge element.");
         }
 
+        if (isUpdate()) 
+        {
+        	if (edgeIdMap.containsKey(edge.getId())) 
+        	{
+        		return (Edge)edgeIdMap.get(edge.getId());
+        	}
+        }
+        
+        
         Vertex sourceVertex =
-                mLabeller.getVertex(edge.getSource()+"");
+                nLabeller.getVertex(edge.getSource()+"");
 
         Vertex targetVertex =
-                 mLabeller.getVertex(edge.getTarget()+"");
-
-        Edge e = GraphUtils.addEdge(mGraph, sourceVertex, targetVertex);
-
+                 nLabeller.getVertex(edge.getTarget()+"");
+        
+        Edge e = GraphUtils.addEdge(nGraph, sourceVertex, targetVertex);
+        
+        e.setUserDatum("id",edge.getId(),UserData.SHARED);
         e.setUserDatum("type", edge.getType(), UserData.SHARED);
         
         return e;
@@ -79,14 +98,14 @@ public class GponGraphLoader  {
 
     protected void createGraph(boolean directed) {
         if (directed) {
-            mGraph = new DirectedSparseGraph();
+            nGraph = new DirectedSparseGraph();
         } else {
-            mGraph = new UndirectedSparseGraph();
+            nGraph = new UndirectedSparseGraph();
         } 
 
         // Not(Parallel()) will be removed
         
-        Iterator it = mGraph.getEdgeConstraints().iterator();
+        Iterator it = nGraph.getEdgeConstraints().iterator();
         
         NotPredicate toBeRemoved = null;
         
@@ -101,26 +120,38 @@ public class GponGraphLoader  {
         
         if (toBeRemoved!=null) 
         {
-        	mGraph.getEdgeConstraints().remove(toBeRemoved);
+        	nGraph.getEdgeConstraints().remove(toBeRemoved);
         }
         
-        mLabeller = StringLabeller.getLabeller(mGraph);
+        nLabeller = StringLabeller.getLabeller(nGraph);
+        
+        
     }
 
+       
     protected ArchetypeVertex createVertex(GraphNode node) {
-        if (mGraph == null) {
+        if (nGraph == null) {
             throw new FatalException("Error parsing graph. Graph element must be specified before node element.");
         }
 
-        ArchetypeVertex vertex = mGraph.addVertex(new SparseVertex());
+        if (nLabeller.getVertex(node.getObjectId()+"")!=null) 
+        {
+        	System.out.println("Node "+node.getObjectId()+"already exists!");
+        	return nLabeller.getVertex(node.getObjectId()+"");
+        }
+        
+        ArchetypeVertex vertex = nGraph.addVertex(new SparseVertex());
         
         try {
-            mLabeller.setLabel((Vertex) vertex,node.getObjectId()+"");
+            nLabeller.setLabel((Vertex) vertex,node.getObjectId()+"");
         } catch (StringLabeller.UniqueLabelException ule) {
             throw new FatalException("Ids must be unique");
 
         }
 
+        vertex.setUserDatum("objectId",node.getObjectId().toString(), UserData.SHARED);
+        vertex.setUserDatum("name",node.getObjectType(), UserData.SHARED);
+        
         for (int i = 0; node.getAttributes()!=null && i < node.getAttributes().length;i++) 
         {
             Attribute attr = node.getAttributes()[i];
@@ -131,7 +162,8 @@ public class GponGraphLoader  {
     }
 
     public Graph load(GraphMessage message) 
-    {
+    {	
+    	
     	createGraph(false);
     	
     	for (int ni=0; ni < message.getGraphNodes().length; ni++) 
@@ -146,29 +178,33 @@ public class GponGraphLoader  {
     		createEdge(ge);
     	}
     	
-    	return mGraph;
+    	return nGraph;
     }
+    
+	private void update(Graph graph, GraphMessage message) {
+	
+		nGraph = graph;
+		nLabeller = StringLabeller.getLabeller(nGraph);
+		
+		for (int ni=0; ni < message.getGraphNodes().length; ni++) 
+    	{
+    		GraphNode gn = message.getGraphNodes()[ni];
+    		createVertex(gn);
+    	}
+    	
+    	for (int ei=0; ei < message.getGraphEdges().length; ei++) 
+    	{
+    		GraphEdge ge = message.getGraphEdges()[ei];
+    		createEdge(ge);
+    	}
+	}
     
     public Graph load(Reader reader) 
     {
     	try {
-    	BufferedReader bufReader =
-    		new BufferedReader(reader);
-    	
-    	StringBuffer msgBuffer = new StringBuffer();
-    	
-    	String line = null;
-    	
-    	while ((line = bufReader.readLine())!=null) 
-    	{
-    		msgBuffer.append(line);
-    	}
-    	
-    	bufReader.close();
-    	
-    	GraphMessage gm = 
-    		GraphMessage.deserialize(msgBuffer.toString());
-    	
+    			
+    	GraphMessage gm = getGraphMessage(reader);	
+    		
     	return load(gm);
     	
     	}catch (Throwable t) 
@@ -176,5 +212,78 @@ public class GponGraphLoader  {
     		throw new RuntimeException(t);
     	}
     }
+
+	void update(Graph graph, StringReader reader) {
+		try {
+	    	
+			setUpdate(true);
+			
+			Set edges = graph.getEdges();
+			
+			Iterator edgeIt = edges.iterator();
+			
+			while (edgeIt.hasNext()) 
+			{
+				ArchetypeEdge edge = (ArchetypeEdge)edgeIt.next();
+				edgeIdMap.put(edge.getUserDatum("id"),edge);
+			}
+			
+	    	GraphMessage gm = getGraphMessage(reader);	
+	    
+	    	update(graph,gm);
+	    	
+	    	}catch (Throwable t) 
+	    	{
+	    		throw new RuntimeException(t);
+	    	}
+	}
+	
+
+
+	GraphMessage getGraphMessage(Reader reader) 
+	{
+		try {
+	    	BufferedReader bufReader =
+	    		new BufferedReader(reader);
+	    	
+	    	StringBuffer msgBuffer = new StringBuffer();
+	    	
+	    	String line = null;
+	    	
+	    	while ((line = bufReader.readLine())!=null) 
+	    	{
+	    		msgBuffer.append(line);
+	    	}
+	    	
+	    	bufReader.close();
+	    	
+	    	GraphMessage gm = 
+	    		GraphMessage.deserialize(msgBuffer.toString());
+	    	
+	    	return gm;
+	    	
+	    	}catch (Throwable t) 
+	    	{
+	    		throw new RuntimeException(t);
+	    	}
+	}
+
+	public Hashtable getEdgeIdMap() {
+		return edgeIdMap;
+	}
+
+	public void setEdgeIdMap(Hashtable edgeIdMap) {
+		this.edgeIdMap = edgeIdMap;
+	}
+
+	public boolean isUpdate() {
+		return update;
+	}
+
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
+	
+	
     
 }

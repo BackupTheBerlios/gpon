@@ -9,21 +9,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.ItemSelectable;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.Hashtable;
@@ -48,8 +45,6 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 
-import com.sun.rsasign.g;
-
 import edu.uci.ics.jung.graph.ArchetypeEdge;
 import edu.uci.ics.jung.graph.ArchetypeVertex;
 import edu.uci.ics.jung.graph.Edge;
@@ -69,7 +64,6 @@ import edu.uci.ics.jung.graph.decorators.VertexStringer;
 import edu.uci.ics.jung.graph.decorators.VertexStrokeFunction;
 import edu.uci.ics.jung.graph.impl.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.impl.SparseVertex;
-import edu.uci.ics.jung.io.GraphMLFile;
 import edu.uci.ics.jung.utils.GraphUtils;
 import edu.uci.ics.jung.visualization.FRLayout;
 import edu.uci.ics.jung.visualization.GraphLabelRenderer;
@@ -99,6 +93,7 @@ public class GponGraphViewerApplet
 {
 	
 	GraphViewerConfiguration gvConfig = null;
+	GponGraphLoader ggl = new GponGraphLoader();
 	
 	
    	private static final long serialVersionUID = -4230466891458736802L;
@@ -129,8 +124,6 @@ public class GponGraphViewerApplet
      */
     VisualizationViewer vv;
     
-    Layout localLayout;
-    
     public void paint(Graphics g)
     {
       super.paint(g);
@@ -148,7 +141,7 @@ public class GponGraphViewerApplet
         
         final PluggableRenderer pr = new PluggableRenderer();
         
-        final Layout layout = new FRLayout(graph);;
+        final FRLayout layout = new FRLayout(graph);
         
         vv =  new VisualizationViewer(layout, pr);
         layout.resize(gvConfig.getViewDimension());
@@ -204,14 +197,45 @@ public class GponGraphViewerApplet
               public void actionPerformed(ActionEvent e) 
               {
                 try {
-                ArchetypeVertex v = graphExport.getPickedVertex();
                 
-                ArchetypeVertex vertex = graph.addVertex(new SparseVertex());
-                            
-                GraphUtils.addEdge(graph, (Vertex)v, (Vertex)vertex);
+                String objectId = (String)graphExport.getPickedVertex().getUserDatum("objectId");
+
+                Iterator it = layout.getVertexIterator();
                 
-                ((FRLayout)layout).update();
-                ((FRLayout)layout).advancePositions();
+                // lock
+                while (it.hasNext()) 
+                {
+                	Vertex v = (Vertex)it.next();
+                	layout.lockVertex(v);
+                }
+                
+            	try {
+            		  
+        	    	  String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId="+objectId+"&radius=1";
+            	      HttpClient client = new HttpClient();
+            	      System.out.println("Graph URL: "+urlString);
+            	      HttpMethod get = new GetMethod(urlString);
+            	      client.executeMethod(get);
+            	      String response = get.getResponseBodyAsString();
+            	      System.out.println(response);
+            	      getGgl().update(graph,new StringReader(response));
+            	    	} catch (Exception e2) 
+            	    	{
+            	    		throw new RuntimeException(e2);
+            	    	}
+                
+                layout.update();    
+                layout.advancePositions();
+                
+                // unlock
+                it = layout.getVertexIterator();
+                
+                while (it.hasNext()) 
+                {
+                	Vertex v = (Vertex)it.next();
+                	layout.unlockVertex(v);
+                }
+                
                 
                 vv.repaint();
                 
@@ -781,7 +805,7 @@ public class GponGraphViewerApplet
         GponGraphViewerApplet gzspd =
           new GponGraphViewerApplet();
 
-        gzspd.gvConfig = GraphViewerConfiguration.getDebugConfiguration("node.details=off node.typecolor=on");
+        gzspd.gvConfig = GraphViewerConfiguration.getDebugConfiguration("node.details=off node.typecolor=off");
         
         // gzspd.configureApplet("node.details=off graph.layout=spring");
         gzspd.start();
@@ -793,20 +817,19 @@ public class GponGraphViewerApplet
   
   private Graph getGraph() 
   {
-    GponGraphLoader ggl = new GponGraphLoader();
-
+    
     if (gvConfig.isDebug()) {
     	try {
       // return ggl.load(new FileReader("graphMessage.xml"));
       
-    		String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId=8&radius=2";
+    		String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId=8&radius=1";
       HttpClient client = new HttpClient();
       System.out.println("Graph URL: "+urlString);
       HttpMethod get = new GetMethod(urlString);
       client.executeMethod(get);
       String response = get.getResponseBodyAsString();
       System.out.println(response);
-      return ggl.load(new StringReader(response));
+      return getGgl().load(new StringReader(response));
     	} catch (Exception e) 
     	{
     		throw new RuntimeException(e);
@@ -828,7 +851,7 @@ public class GponGraphViewerApplet
       client.executeMethod(get);
       String response = get.getResponseBodyAsString();
       System.out.println(response);
-      return ggl.load(new StringReader(response));
+      return getGgl().load(new StringReader(response));
     }
     catch (Exception e)
     {
@@ -904,6 +927,10 @@ public class GponGraphViewerApplet
   {
     return pickedVertex;
   }
+
+public GponGraphLoader getGgl() {
+	return ggl;
+}
 
 
 }

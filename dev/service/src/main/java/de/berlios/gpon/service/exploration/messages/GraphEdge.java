@@ -2,13 +2,15 @@ package de.berlios.gpon.service.exploration.messages;
 
 public class GraphEdge {
 
+	Long id;
 	Long source;
 	Long target;
 	String type;
 	
-	public GraphEdge(Long source, Long target, String type) {
+	public GraphEdge(Long id, Long source, Long target, String type) {
 		super();
 		// TODO Auto-generated constructor stub
+		this.id= id;
 		this.source = source;
 		this.target = target;
 		this.type = type;
@@ -30,6 +32,12 @@ public class GraphEdge {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	
