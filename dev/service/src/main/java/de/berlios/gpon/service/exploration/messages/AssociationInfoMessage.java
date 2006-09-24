@@ -7,10 +7,8 @@ public class AssociationInfoMessage
  
  public static AssociationInfoMessage deserialize(String msg) 
  {
-	 return (AssociationInfoMessage)getXStream().fromXML(msg);
+	 return (AssociationInfoMessage)_deserialize(msg);
  }
- 
- 
 
 public AssociationInfo[] getAssociationInfos() {
 	return associationInfos;

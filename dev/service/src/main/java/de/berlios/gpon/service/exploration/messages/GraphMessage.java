@@ -1,25 +1,39 @@
 package de.berlios.gpon.service.exploration.messages;
 
+import java.util.Collection;
+
 public class GraphMessage 
 extends BaseMessage
 {
-GraphNode[] graphNodes;
-GraphEdge[] graphEdges;
-public GraphEdge[] getGraphEdges() {
+Collection graphNodes;
+Collection graphEdges;
+
+public GraphMessage() {
+	// TODO Auto-generated constructor stub
+}
+
+public Collection getGraphEdges() {
 	return graphEdges;
 }
-public void setGraphEdges(GraphEdge[] graphEdges) {
+
+
+public void setGraphEdges(Collection graphEdges) {
 	this.graphEdges = graphEdges;
 }
-public GraphNode[] getGraphNodes() {
+
+
+public Collection getGraphNodes() {
 	return graphNodes;
 }
-public void setGraphNodes(GraphNode[] graphNodes) {
+
+
+public void setGraphNodes(Collection graphNodes) {
 	this.graphNodes = graphNodes;
 }
 
+
 public static GraphMessage deserialize(String msg) 
 {
-	 return (GraphMessage)getXStream().fromXML(msg);
+	 return (GraphMessage)_deserialize(msg);
 }
 }

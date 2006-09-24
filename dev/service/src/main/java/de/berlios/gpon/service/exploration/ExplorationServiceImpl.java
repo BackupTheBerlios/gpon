@@ -28,12 +28,6 @@ public class ExplorationServiceImpl implements ExplorationService {
 		return null;
 	}
 
-	public GraphMessage getNeighbours(Long itemId, Long associationTypeId,
-			boolean reverse) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public GraphMessage getEnvironment(Long itemId, int radius) {
 
 		Item startItem = gponDataDao.findItemById(itemId);
@@ -123,7 +117,7 @@ public class ExplorationServiceImpl implements ExplorationService {
 				attributes.add(attr);
 			}
 			
-			node.setAttributes((Attribute[])attributes.toArray(new Attribute[0]));
+			node.setAttributes(attributes);
 			
 			graphNodes.add(node);
 		}
@@ -143,8 +137,8 @@ public class ExplorationServiceImpl implements ExplorationService {
 			graphEdges.add(graphEdge);
 		}
 
-		gm.setGraphEdges((GraphEdge[])graphEdges.toArray(new GraphEdge[0]));
-		gm.setGraphNodes((GraphNode[])graphNodes.toArray(new GraphNode[0]));
+		gm.setGraphEdges(new ArrayList(graphEdges));
+		gm.setGraphNodes(new ArrayList(graphNodes));
 		
 		return gm;
 	}

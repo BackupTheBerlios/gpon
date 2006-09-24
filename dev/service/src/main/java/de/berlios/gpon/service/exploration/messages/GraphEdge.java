@@ -7,6 +7,10 @@ public class GraphEdge {
 	Long target;
 	String type;
 	
+	public GraphEdge() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public GraphEdge(Long id, Long source, Long target, String type) {
 		super();
 		// TODO Auto-generated constructor stub

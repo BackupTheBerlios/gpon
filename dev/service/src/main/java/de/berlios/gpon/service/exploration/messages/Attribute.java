@@ -3,6 +3,7 @@ package de.berlios.gpon.service.exploration.messages;
 public class Attribute {
 String name;
 String value;
+
 public String getName() {
 	return name;
 }
@@ -21,4 +22,7 @@ public Attribute(String name, String value) {
 	this.name = name;
 	this.value = value;
 }
+
+public Attribute() {}
+
 }

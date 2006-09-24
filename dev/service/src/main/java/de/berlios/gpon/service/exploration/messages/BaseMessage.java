@@ -1,28 +1,60 @@
 package de.berlios.gpon.service.exploration.messages;
 
-import com.thoughtworks.xstream.XStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.net.URL;
+
+import org.exolab.castor.mapping.Mapping;
+import org.exolab.castor.xml.Marshaller;
+import org.exolab.castor.xml.Unmarshaller;
 
 public class BaseMessage {
 	
-	protected static XStream getXStream() 
-	{
-		XStream xstream = new XStream();
-		
-		xstream.alias("associationInfo",AssociationInfo.class);
-		xstream.alias("associationInfoMessage",AssociationInfoMessage.class);
-		
-		xstream.alias("graphMessage",GraphMessage.class);
-		xstream.alias("graphEdge",GraphEdge.class);
-		xstream.alias("graphNode",GraphNode.class);
-		xstream.alias("attribute",Attribute.class);
-		
-		
-		return xstream;
-		
-	} 
-	
 	public String serialize() 
 	 {
-		 return getXStream().toXML(this); 
+		try {
+			StringWriter sw = new StringWriter();
+			Marshaller marshaller = new Marshaller(sw);
+			
+			Mapping mapping = loadMapping();
+			marshaller.setMapping(mapping);
+			
+			marshaller.marshal(this);
+			
+			return sw.toString();
+		
+		} catch (Exception e) 
+		{
+			throw new RuntimeException(e);
+		}
 	 }
+	
+	protected static Object _deserialize(String xml) 
+	{
+		try {
+		Unmarshaller u = new Unmarshaller();
+		Mapping mapping = loadMapping();
+		u.setMapping(mapping);
+		
+		return u.unmarshal(new StringReader(xml));
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private static Mapping loadMapping()
+		throws Exception
+	{
+		URL url = BaseMessage.class.getResource("/de/berlios/gpon/service/exploration/messages/mapping.xml");
+		
+		System.out.println(url);
+		
+		Mapping mapping = new Mapping();
+		mapping.loadMapping(url);
+		
+		return mapping;
+	}
 }

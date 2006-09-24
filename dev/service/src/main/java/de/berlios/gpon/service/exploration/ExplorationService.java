@@ -9,8 +9,6 @@ public interface ExplorationService {
 	
 	AssociationInfoMessage getAssociationInfos(Long itemId);
 	
-	GraphMessage getNeighbours(Long itemId, Long associationTypeId, boolean reverse);
-	
 	GraphMessage getEnvironment(Long itemId, int radius);
 	
 	public void setGponDataDao(GponDataDao gpdd);

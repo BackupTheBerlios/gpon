@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.functors.NotPredicate;
+import org.w3c.dom.Attr;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -152,11 +153,16 @@ public class GponGraphLoader  {
         vertex.setUserDatum("objectId",node.getObjectId().toString(), UserData.SHARED);
         vertex.setUserDatum("name",node.getObjectType(), UserData.SHARED);
         
-        for (int i = 0; node.getAttributes()!=null && i < node.getAttributes().length;i++) 
+        if (node.getAttributes()!=null) {
+        
+        Attribute[] attrs = (Attribute[])node.getAttributes().toArray(new Attribute[0]);
+        
+        for (int i = 0; attrs!=null && i < attrs.length;i++) 
         {
-            Attribute attr = node.getAttributes()[i];
+            Attribute attr = attrs[i];
             // vertex.setUserDatum(attr.getName(), attr.getValue(), UserData.SHARED);
             vertex.setUserDatum("prop"+i, attr.getValue(), UserData.SHARED);
+        }
         }
         return vertex;
     }
@@ -166,15 +172,17 @@ public class GponGraphLoader  {
     	
     	createGraph(false);
     	
-    	for (int ni=0; ni < message.getGraphNodes().length; ni++) 
-    	{
-    		GraphNode gn = message.getGraphNodes()[ni];
+    	Iterator nodeIterator = message.getGraphNodes().iterator();
+    	
+    	while(nodeIterator.hasNext()) {
+    		GraphNode gn = (GraphNode)nodeIterator.next();
     		createVertex(gn);
     	}
     	
-    	for (int ei=0; ei < message.getGraphEdges().length; ei++) 
-    	{
-    		GraphEdge ge = message.getGraphEdges()[ei];
+        Iterator edgeIterator = message.getGraphEdges().iterator();
+    	
+    	while(edgeIterator.hasNext()) {
+    		GraphEdge ge = (GraphEdge)edgeIterator.next();
     		createEdge(ge);
     	}
     	
@@ -186,15 +194,17 @@ public class GponGraphLoader  {
 		nGraph = graph;
 		nLabeller = StringLabeller.getLabeller(nGraph);
 		
-		for (int ni=0; ni < message.getGraphNodes().length; ni++) 
-    	{
-    		GraphNode gn = message.getGraphNodes()[ni];
+        Iterator nodeIterator = message.getGraphNodes().iterator();
+    	
+    	while(nodeIterator.hasNext()) {
+    		GraphNode gn = (GraphNode)nodeIterator.next();
     		createVertex(gn);
     	}
     	
-    	for (int ei=0; ei < message.getGraphEdges().length; ei++) 
-    	{
-    		GraphEdge ge = message.getGraphEdges()[ei];
+        Iterator edgeIterator = message.getGraphEdges().iterator();
+    	
+    	while(edgeIterator.hasNext()) {
+    		GraphEdge ge = (GraphEdge)edgeIterator.next();
     		createEdge(ge);
     	}
 	}
@@ -205,6 +215,8 @@ public class GponGraphLoader  {
     			
     	GraphMessage gm = getGraphMessage(reader);	
     		
+    	System.out.println("Gm: "+gm);
+    	
     	return load(gm);
     	
     	}catch (Throwable t) 

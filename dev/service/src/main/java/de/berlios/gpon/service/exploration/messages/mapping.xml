@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN" "http://castor.org/mapping.dtd">
+<mapping>
+<class name="de.berlios.gpon.service.exploration.messages.GraphMessage"
+		auto-complete="true">
+		<field name="graphNodes" collection="collection"
+			type="de.berlios.gpon.service.exploration.messages.GraphNode"
+			container="false">
+			<bind-xml name="graphNodes" />
+		</field>
+		<field name="graphEdges" collection="collection"
+			type="de.berlios.gpon.service.exploration.messages.GraphEdge"
+			container="false">
+			<bind-xml name="graphEdges" />
+		</field>
+	</class>
+	<class name="de.berlios.gpon.service.exploration.messages.GraphNode"
+		auto-complete="true">
+		<field name="attributes" collection="collection"
+			type="de.berlios.gpon.service.exploration.messages.Attribute"
+			container="false">
+			<bind-xml name="attributes" />
+		</field>
+	</class>
+
+</mapping>

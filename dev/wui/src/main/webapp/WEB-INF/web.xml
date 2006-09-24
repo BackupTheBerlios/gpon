@@ -75,6 +75,15 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+	  <servlet-name>appletcodebase</servlet-name>
+	  <servlet-class>de.berlios.gpon.wui.util.AppletCodebaseServlet</servlet-class>
+	  <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>appletcodebase</servlet-name>
+	  <url-pattern>/acb/*</url-pattern>
+	</servlet-mapping>  
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>

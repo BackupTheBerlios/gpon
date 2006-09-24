@@ -1,17 +1,24 @@
 package de.berlios.gpon.service.exploration.messages;
 
+import java.util.Collection;
+import java.util.List;
+
 public class GraphNode {
 
 	Long objectId;
 	String objectType;
 	
-	Attribute[] attributes;
+	Collection attributes;
 
-	public Attribute[] getAttributes() {
+	public GraphNode() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Collection getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Attribute[] attributes) {
+	public void setAttributes(Collection attributes) {
 		this.attributes = attributes;
 	}
 

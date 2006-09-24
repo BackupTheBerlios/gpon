@@ -21,6 +21,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.Hashtable;
@@ -820,8 +821,9 @@ public class GponGraphViewerApplet
     
     if (gvConfig.isDebug()) {
     	try {
-      // return ggl.load(new FileReader("graphMessage.xml"));
-      
+    		if (true) {
+      return ggl.load(new FileReader("graphMessage.xml"));
+    		} else {
     		String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId=8&radius=1";
       HttpClient client = new HttpClient();
       System.out.println("Graph URL: "+urlString);
@@ -830,6 +832,7 @@ public class GponGraphViewerApplet
       String response = get.getResponseBodyAsString();
       System.out.println(response);
       return getGgl().load(new StringReader(response));
+    		}
     	} catch (Exception e) 
     	{
     		throw new RuntimeException(e);
@@ -855,6 +858,7 @@ public class GponGraphViewerApplet
     }
     catch (Exception e)
     {
+    	e.printStackTrace();
     }
 
 //    try
