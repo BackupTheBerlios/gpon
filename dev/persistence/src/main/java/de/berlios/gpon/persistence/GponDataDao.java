@@ -49,5 +49,6 @@ public interface GponDataDao
   
   // aux
   public void refresh(Object o);
+public void addItem(Item item, List associationList);
 
 }

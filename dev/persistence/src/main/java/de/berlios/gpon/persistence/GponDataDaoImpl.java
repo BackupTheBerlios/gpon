@@ -413,4 +413,16 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		this._updateItem(item);
 	}
 
+	public void addItem(Item item, List associationList) {
+		
+		Set set = new HashSet();
+		
+		set.addAll(associationList);
+		
+		item.setAssociationsA(set);
+		
+		addItem(item);
+		
+	}
+
 }

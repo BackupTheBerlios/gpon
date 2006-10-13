@@ -211,8 +211,8 @@ public class GponGraphViewerApplet
                 }
                 
             	try {
-            		  
-        	    	  String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId="+objectId+"&radius=1";
+            		  // i.e: "http://localhost:9080/wui/exploration/environment.do?radius=1&objectId="
+        	    	  String urlString = gvConfig.getGraphExplorationUrl()+objectId;
             	      HttpClient client = new HttpClient();
             	      System.out.println("Graph URL: "+urlString);
             	      HttpMethod get = new GetMethod(urlString);

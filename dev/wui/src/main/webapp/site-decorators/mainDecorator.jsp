@@ -9,6 +9,7 @@
 		<link 	href="<%= request.getContextPath() %>/site-decorators/main.css" 
 				rel="stylesheet" type="text/css">
         <decorator:head />
+        <script type="text/javascript" src="<%= request.getContextPath() %>/scripts/util.js"></script>
 	</head>
 	<body>
 	  <div id="title">

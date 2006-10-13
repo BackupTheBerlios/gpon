@@ -7,7 +7,6 @@
 		<%--pulls the header from the page we are decorating and inserts it here --%>
         <decorator:head />
 	</head>
-    
 	<body>
         <div id="popupDiv">
          <div id="popupTitle">

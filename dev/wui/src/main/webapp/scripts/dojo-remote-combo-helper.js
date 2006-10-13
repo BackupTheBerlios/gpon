@@ -58,6 +58,9 @@
 		  
 		  var id = combo.comboBoxSelectionValue.value;
 		  
+		  // set combobox to null
+		  combo.setValue(null);
+		  
 		  if (id) 
 		  {
 			// lookup

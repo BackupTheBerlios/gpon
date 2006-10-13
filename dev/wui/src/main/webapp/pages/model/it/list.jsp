@@ -16,8 +16,12 @@
  <display-el:column sortable="true" property="name" titleKey="itemtype.name.prompt"/>
  <display-el:column sortable="true" property="description" titleKey="itemtype.description.prompt"/>
  <display-el:column sortable="true" property="baseType.name" titleKey="itemtype.baseitemtype.prompt"/>
- <display-el:column property="prepareEditAndDeleteTypeLink" title="Bearbeiten"/>
- <display-el:column media="html" property="viewTypeDetailLink" title="Detail"/>
+ <!-- actions -->
+ <display-el:column media="html" title="Aktionen">
+   <a href="pre-edit.do?objectId=<c:out value="${itemTypeList.id}"/>">edit</a>
+   <a href="pre-delete.do?objectId=<c:out value="${itemTypeList.id}"/>">delete</a>
+   <a href="itemTypeDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&objectId=<c:out value="${itemTypeList.id}"/>" onclick="return popup(this);">detail</a>
+ </display-el:column>
  <display-el:footer>
   	<tr>
       <td colspan="3"></td>

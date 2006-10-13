@@ -21,8 +21,12 @@
  <display-el:column sortable="true" property="multiplicityLabel" titleKey="associationtype.multiplicity.prompt"/>
  <display-el:column sortable="true" property="itemBType.name" titleKey="associationtype.itembtype.prompt"/>
  <display-el:column sortable="true" property="itemBRoleName" titleKey="associationtype.itembrolename.prompt"/>
-  <display-el:column media="html" property="viewAssociationTypeDetailLink" title="Detail"/>
- <display-el:column property="prepareEditAndDeleteTypeLink" title="Bearbeiten"/>
+ <!-- actions -->
+ <display-el:column media="html" title="Aktionen">
+   <a href="pre-edit.do?objectId=<c:out value="${associationTypeList.id}"/>">edit</a>
+   <a href="pre-delete.do?objectId=<c:out value="${associationTypeList.id}"/>">delete</a>
+   <a href="associationTypeDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&objectId=<c:out value="${associationTypeList.id}"/>" onclick="return popup(this);">detail</a>
+ </display-el:column>
  <display-el:footer>
   	<tr>
       <td colspan="6"></td>

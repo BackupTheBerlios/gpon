@@ -40,14 +40,17 @@
                       decorator="de.berlios.gpon.wui.displaytag.decorators.ValueColumnDecorator"
                       />
   </c:forEach>
-  <!-- Bearbeiten -->
-  <display-el:column media="html" property="prepareEditAndDeleteLink" title="Bearbeiten"/>
-  <display-el:column media="html" property="viewDetailLink" title="Detail"/>
+  <!-- actions -->
+  <display-el:column media="html" title="Aktionen">
+   <a href="pre-edit.do?itemId=<c:out value="${itemList.id}"/>">edit</a>
+   <a href="pre-delete.do?itemId=<c:out value="${itemList.id}"/>">delete</a>
+   <a href="itemDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&itemId=<c:out value="${itemList.id}"/>" onclick="return popup(this);">detail</a>
+  </display-el:column>
   <display-el:footer>
    <tr>
       <bean-el:size id="propCount" collection="${type.inheritedItemPropertyDecls}" />
       <td class="rightAlignMe" 
-          colspan="<c:out value="${propCount+3}"/>">Neues Objekt <c:out value="${typeDescription}"/>:</td>
+          colspan="<c:out value="${propCount+2}"/>">Neues Objekt <c:out value="${typeDescription}"/>:</td>
   		<td><html-el:link action="/data/pre-create.do?itemTypeId=${type.id}">Anlegen</html-el:link></td>
   	</tr>
   </display-el:footer>

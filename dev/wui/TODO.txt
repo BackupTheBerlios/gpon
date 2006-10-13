@@ -1,0 +1,3 @@
+new.jsp: 
+
++ hier können keine assoziierten Objekte definiert werde, wie in edit.jsp

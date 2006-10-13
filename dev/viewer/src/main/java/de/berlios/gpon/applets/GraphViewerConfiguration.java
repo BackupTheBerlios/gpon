@@ -35,6 +35,7 @@ public class GraphViewerConfiguration {
     String graphImageDisplayURL;
     String keybase;
     String graphUrl;
+    String graphExplorationUrl;
     String configurationDetails;
     
     // computed by configuration details
@@ -54,6 +55,7 @@ public class GraphViewerConfiguration {
         gvc.setGraphImageDisplayURL(applet.getParameter("graphImageDisplayURL"));
         gvc.setKeybase(applet.getParameter("keybase"));
         gvc.setGraphUrl(applet.getParameter("graphURL"));
+        gvc.setGraphExplorationUrl(applet.getParameter("graphExplorationURL"));
         gvc.setConfigurationDetails(applet.getParameter("configDetails"));
         gvc.setSessionId(applet.getParameter("sessionId"));
         gvc.setViewDimension(VIEW_DIMENSION);
@@ -236,5 +238,13 @@ public class GraphViewerConfiguration {
 	      
 	    }
 	  }
+
+	public String getGraphExplorationUrl() {
+		return graphExplorationUrl;
+	}
+
+	public void setGraphExplorationUrl(String graphExplorationUrl) {
+		this.graphExplorationUrl = graphExplorationUrl;
+	}
     
 }
