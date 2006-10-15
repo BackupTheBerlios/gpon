@@ -34,6 +34,9 @@
 <html-el:errors />
 <c:if test="${!empty ItemForm}">
 	<c:set var="item" value="${ItemForm.item}" />
+	<div id="pageTitle">
+        <bean-el:message key="pagetitles.edititem" arg0="${item.itemType.description}" arg1="${item.id}"/>
+    </div>
 	<html-el:form action="/data/edit.do">
 		<html-el:hidden property="itemId" />
 		<table>

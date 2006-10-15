@@ -59,7 +59,7 @@
 		  var id = combo.comboBoxSelectionValue.value;
 		  
 		  // set combobox to null
-		  combo.setValue(null);
+		  combo.setValue('');
 		  
 		  if (id) 
 		  {

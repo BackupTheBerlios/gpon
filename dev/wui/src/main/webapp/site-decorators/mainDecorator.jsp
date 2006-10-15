@@ -5,7 +5,7 @@
 <%@ taglib prefix="bean" uri="http://jakarta.apache.org/struts/tags-bean-el" %>
 <html>
 	<head>
-		<title><decorator:title default="{ Unknown Page - shouldn't see this, since pages should define title }" /></title>
+		<title>GPON - General Purpose Object Network</title>
 		<link 	href="<%= request.getContextPath() %>/site-decorators/main.css" 
 				rel="stylesheet" type="text/css">
         <decorator:head />

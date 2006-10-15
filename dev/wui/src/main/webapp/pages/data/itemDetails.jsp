@@ -15,6 +15,9 @@
 
 </head>
 <body>
+<div id="pageTitle">
+<bean-el:message key="pagetitles.itemdetails" arg0="${item.itemType.description}" arg1="${item.id}"/>
+</div>
 <table>
 	<thead>
 		<tr>

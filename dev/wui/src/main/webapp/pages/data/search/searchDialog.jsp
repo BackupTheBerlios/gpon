@@ -8,15 +8,11 @@
 <html>
 <head>
 <meta name="maintopic" content="data">
+<meta name="subtopic" content="search">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<div id="pageTitle">
-<bean-el:message key="pagetitles.itemsearch"/>
-</div>
-
-<div id="centeredDialog">
 <html-el:form action="/data/search/pre-searchDialog.do">
 <table class="searchForm">
   <tr>
@@ -91,6 +87,5 @@
       </table>
     </html-el:form>
 </c:if>
-</div>
 </body>
 </html>

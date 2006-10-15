@@ -26,30 +26,6 @@ font-family: verdana, sans-serif;
 	
 }
 
-/* --- page title --- */
-#pageTitle 
-{
- background-color: #6096BF;
- width: 50%;
- margin-left: auto;
- margin-right: auto;
- margin-bottom: 5px;
- padding: 5px 2px 5px 2px;
- text-align: center;
- font-size: 1.5em;
-}
-
-/*-- centered dialog --*/
-#centeredDialog 
-{
- text-align: center;
- width: 50%;
- margin-left: auto;
- margin-right: auto;
- border: 1px solid #6096BF;
-}
-
-
 /* ----------start of nav------------------- */	
 
 /*
@@ -237,26 +213,6 @@ img{
 	border:none;
 }
 
-
-/* 
- * for displaytag
- */
-
-table {
-	border: 0px;
-	width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-table.searchForm 
-{
-   /* CSS 2 centered table */
-   width: 50%;
-   margin-left: auto;
-   margin-right: auto;
-}
-
 td {
 	border: 1px;
 	padding: 2px 4px 2px 4px;
@@ -292,7 +248,6 @@ td {
 th {
   color: Black;
 	padding: 2px 4px 2px 4px;
-  font-size: 12px;
   font-weight: bold;
 	text-align: left;
 	vertical-align: top;  
@@ -388,11 +343,10 @@ div#itemListContainer
     width:100%;
 } 
 
-#listTitle 
+#pageTitle 
 {
- background-color: #6096BF;
- text-align: center;
- font-size: 1.5em;
+ font-size: 2.5em;
+ padding: 5px;
  margin-bottom: 10px
 }
 
@@ -445,17 +399,17 @@ img {
 div#popupBody {
     background: #ffffff;    
     position: absolute;
-    top: 107px;
-left: 110px;
-    width: 80%;
+    top: 47px;
+left: 30px;
+    width: 90%;
 }
 
 div#popupTitle {
   position: absolute;
  top: 10px;
- left: 110px;
+ left: 30px;
  /* center */
- width: 80%;
+ width: 90%;
  height: 30px;
  color: #E6F4FF;
  background-color:  #6096BF;

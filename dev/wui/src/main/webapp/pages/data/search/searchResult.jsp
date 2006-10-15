@@ -16,7 +16,7 @@
 <c:set var="typeName"        value="${type.name}"/>
 <c:set var="typeDescription" value="${type.description}"/>
 
-<div id="listTitle">
+<div id="pageTitle">
 <bean-el:message key="pagetitles.itemsearchresult"/><c:out value="${typeDescription}"/>
 </div>
 
@@ -45,6 +45,7 @@
    <a href="pre-edit.do?itemId=<c:out value="${itemList.id}"/>">edit</a>
    <a href="pre-delete.do?itemId=<c:out value="${itemList.id}"/>">delete</a>
    <a href="itemDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&itemId=<c:out value="${itemList.id}"/>" onclick="return popup(this);">detail</a>
+   <a href="<%= request.getContextPath()%>/exploration/viewer.do?decorator=popup&confirm=true&objectId=<c:out value="${itemList.id}"/>" onclick="return popup(this,1200,800);">explore</a>
   </display-el:column>
   <display-el:footer>
    <tr>

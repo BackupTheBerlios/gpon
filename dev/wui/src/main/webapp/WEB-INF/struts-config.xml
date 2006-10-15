@@ -296,7 +296,7 @@
 		  <forward name="success" path="/pages/exploration/graphxml.jsp"/>
 		</action>
 				
-
+       <action path="/exploration/viewer" forward="/pages/applet.jsp"/>
 
 	</action-mappings>
 

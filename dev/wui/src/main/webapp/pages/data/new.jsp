@@ -33,7 +33,10 @@
 <body>
 <html-el:errors />
 <c:if test="${!empty ItemForm}">
-	<c:set var="item" value="${ItemForm.item}" />
+    <c:set var="item" value="${ItemForm.item}" />
+    <div id="pageTitle">
+        <bean-el:message key="pagetitles.createitem" arg0="${item.itemType.description}"/>
+    </div>
 	<html-el:form action="/data/create.do">
 		<html-el:hidden property="itemId" />
 		<table>
