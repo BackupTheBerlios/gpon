@@ -411,6 +411,16 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		
 		
 		this._updateItem(item);
+		
+		try {
+			getHibernateTemplate().flush();
+		} 
+		catch (RuntimeException rex) 
+		{
+			// TODO: handle constraint violations
+			log.error("Error while flushing sesion to db.",rex);
+			throw rex;
+		}
 	}
 
 	public void addItem(Item item, List associationList) {
