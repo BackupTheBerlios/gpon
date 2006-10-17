@@ -191,14 +191,17 @@
 			type="de.berlios.gpon.wui.actions.data.PrepareItemSearchAction"
 			name="SimpleItemTypeIdForm">
 			<forward name="success"
-				path="/pages/data/search/search.jsp?dialog=true" />
+				path="/data/search/searchDialog.do" />
 		</action>
+
+        <action path="/data/search/searchDialog" forward="/pages/data/search/search.jsp?dialog=true"/>
+        <action path="/data/search/searchResult" forward="/pages/data/search/search.jsp?result=true"/>
 
 		<action name="ItemSearchForm" path="/data/search/search"
 			type="de.berlios.gpon.wui.actions.data.ItemSearchAction"
 			scope="session">
 			<forward name="success"
-				path="/pages/data/search/search.jsp?result=true" />
+				path="/data/search/searchResult.do" />
 		</action>
 		
 		<action name="ExpertItemSearchForm" path="/data/search/expert-search"

@@ -12,6 +12,7 @@
  
 <display-el:table sort="list" pagesize="10" id="associationTypeList" 
                name="${GPON_MODEL_VIEW.allAssociationTypes}"
+               requestURI="list.do"
                decorator="de.berlios.gpon.wui.displaytag.decorators.UniversalDecorator">
  <display-el:column  sortable="true" property="id" titleKey="associationtype.id.prompt" />
  <display-el:column sortable="true" property="name" titleKey="associationtype.name.prompt"/>

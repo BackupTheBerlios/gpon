@@ -10,7 +10,7 @@
 <body>
 <c:set var="urlPrefix" value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}"/>
 <!--  http://localhost:9080/wui/acb -->
-<div style="margin-left:auto;margin-right:auto;">
+<div style="margin-left:50px;">
 <applet code="de/berlios/gpon/applets/GponGraphViewerApplet.class" 
         codebase="<c:out value="${urlPrefix}"/>/acb" 
                 width="1000" height="700">

@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -47,6 +49,8 @@ import de.berlios.gpon.wui.forms.ItemForm;
 
 public class ItemEditAction extends BaseAction {
 
+	Log log = LogFactory.getLog(ItemEditAction.class);
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -103,6 +107,16 @@ public class ItemEditAction extends BaseAction {
 				saveErrors(request, convertValidationErrors(ex
 						.getValidationErrors()));
 				return mapping.getInputForward();
+			}
+		} 
+		catch (Throwable t) 
+		{
+			log.error("Throwable: "+t.getClass().getName()+" m: "+t.getMessage());
+			
+			while (t.getCause()!=null) 
+			{
+			 t = t.getCause();	
+			 log.error("Throwable: "+t.getClass().getName()+" m: "+t.getMessage());
 			}
 		}
 

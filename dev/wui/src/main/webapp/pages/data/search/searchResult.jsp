@@ -21,9 +21,15 @@
 </div>
 
 <div id="itemListContainer">
-<display-el:table   export="true" sort="list" pagesize="${ItemSearchForm.resultsPerPage}" id="itemList" 
-               name="${ItemSearchForm.resultList}"
-               decorator="de.berlios.gpon.wui.displaytag.decorators.UniversalDecorator">
+<display-el:table   
+  export="true" 
+  sort="list" 
+  pagesize="${ItemSearchForm.resultsPerPage}" 
+  id="itemList" 
+  name="${ItemSearchForm.resultList}"
+  decorator="de.berlios.gpon.wui.displaytag.decorators.UniversalDecorator"
+  requestURI="searchResult.do"
+  >
     <display-el:column property="item.id"
                        title="Id" 
                        sortable="true"

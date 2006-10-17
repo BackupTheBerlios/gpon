@@ -11,6 +11,7 @@
    
 <display-el:table sort="list" pagesize="10" id="itemTypeList" 
                name="${GPON_MODEL_VIEW.allItemTypes}"
+               requestURI="list.do"
                decorator="de.berlios.gpon.wui.displaytag.decorators.UniversalDecorator">
  <display-el:column  sortable="true" property="id" titleKey="itemtype.id.prompt" />
  <display-el:column sortable="true" property="name" titleKey="itemtype.name.prompt"/>

@@ -35,9 +35,9 @@ div#title
 {
  position: absolute;
  top: 10px;
- left: 110px;
+ left: 20px;
  /* center */
- width: 80%;
+ width: 95%;
  height: 30px;
  color: #E6F4FF;
  background-color:  #6096BF;
@@ -71,10 +71,10 @@ div#maintopics
 {
  position: absolute;	
  top: 35px;
- left: 110px;
+ left: 20px;
  height: 20px;
  padding: 2px 0px 0px 0px;
- width: 80%;
+ width: 95%;
  background-color: #6096BF;
  margin-left: 0px;
 }
@@ -132,9 +132,9 @@ div#subtopics
 {
  position: absolute;
  top: 65px;	
- left: 110px;
+ left: 20px;
  padding: 2px 2px 2px 2px;
- width: 80%;
+ width: 95%;
  background-color: #fff; 
  height: 20px;
  margin-left: 0px;
@@ -186,9 +186,9 @@ div#main
 {
  position: absolute;
  top: 90px;	
- left: 110px;
+ left: 20px;
  padding: 2px 2px 2px 2px;
- width: 80%;
+ width: 95%;
  margin-left: 0px;
 } 
 
@@ -400,8 +400,8 @@ div#popupBody {
     background: #ffffff;    
     position: absolute;
     top: 47px;
-left: 30px;
-    width: 90%;
+    left: 30px;
+    width: 95%;
 }
 
 div#popupTitle {
@@ -409,7 +409,7 @@ div#popupTitle {
  top: 10px;
  left: 30px;
  /* center */
- width: 90%;
+ width: 95%;
  height: 30px;
  color: #E6F4FF;
  background-color:  #6096BF;
