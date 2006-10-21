@@ -36,6 +36,9 @@
 
   <jsp:useBean id="Operators" class="de.berlios.gpon.common.util.search.ComparisonOperators"/>
     <html-el:form action="/data/search/search.do">
+    <table>
+    <tr>
+    <td>
       <table class="searchForm">
         <thead>
         <th class="searchLabel">
@@ -51,9 +54,14 @@
         <!-- Properties -->
         <c:forEach var="pDecl" items="${ItemSearchForm.itemType.inheritedItemPropertyDecls}">
           <tr>
-            <td class="searchLabel">
+           <td class="searchLabel" nowrap="nowrap">
               <c:out value="${pDecl.description}"/>
               <html-el:hidden property="criterion(${pDecl.name}).name" value="${pDecl.name}"/>
+             <html-el:checkbox 
+              styleClass="custom_view_selection" 
+              property="displayProperty(${pDecl.id})" 
+              value="${pDecl.id}"/>
+            
             </td>
             <td class="searchOp">
               <c:set var="ops" value="${Operators.operators}"/>
@@ -85,6 +93,32 @@
           </td>
         </tr>
       </table>
+      </td>
+    <!-- right side -->
+    <td>  
+      <c:if test="${ItemSearchForm.pathsToParentsSize > 0}">
+    <b>Anzeige von Attributen assoziierter Objekte:</b>
+    </c:if>
+    <table>
+    <c:forEach items="${ItemSearchForm.pathsToParents}" var="path"> 
+    <tr class="custom_view_selection">
+    <td>
+    <c:out value="${path.displayWithoutStart}"/>
+    </td>
+    <tr>
+    <tr>
+    <td>
+    <c:forEach var="ipd" items="${path.end.inheritedItemPropertyDecls}">
+     <html-el:checkbox styleClass="custom_view_selection" property="associatedProperty(${path.digest}|${ipd.id})" value="${ipd.description}" indexed=""/>
+     <c:out value="${ipd.description}"/>&nbsp;
+    </c:forEach>
+    </td>
+    </tr>
+    </c:forEach>
+    </table>
+    </td>
+    </tr>
+    </table>
     </html-el:form>
 </c:if>
 </body>

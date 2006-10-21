@@ -77,6 +77,10 @@ public class ItemMap implements Map {
 		return mi.getValueObject(obj.toString());
 	}
 
+	public void addAdditionalAttribute(Object key, Object value) {
+		additionalAttributes.put(key,value);
+	}
+	
 	public Object put(Object arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		return null;

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 package de.berlios.gpon.wui.actions.data;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +34,10 @@ import org.apache.struts.action.ActionMapping;
 
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
+import de.berlios.gpon.common.util.path.ManyToOneStepPredicate;
 import de.berlios.gpon.common.util.search.PropertyCriterion;
 import de.berlios.gpon.persistence.GponModelDao;
+import de.berlios.gpon.service.exploration.paths.PathFinder;
 import de.berlios.gpon.wui.actions.BaseAction;
 import de.berlios.gpon.wui.forms.ItemSearchForm;
 import de.berlios.gpon.wui.forms.SimpleItemTypeIdForm;
@@ -74,7 +77,15 @@ public class PrepareItemSearchAction extends BaseAction {
 			isf.setCriterion(ipd.getName(),new PropertyCriterion());
 		}
 		
+		isf.prefillOwnPropertyMap();
 		
+        // prepare associated object display
+        PathFinder pf = (PathFinder)getObjectForBeanId("pathFinder");
+        
+        List allPaths = pf.collectAllPaths(itemTypeId,new ManyToOneStepPredicate());
+        
+        isf.setPathsToParents(allPaths);
+        
 		request.getSession().setAttribute("ItemSearchForm",isf);
 		
 		return mapping.findForward("success");

@@ -338,10 +338,6 @@ span.pagelinks {
   text-align: center;
 }
 
-div#itemListContainer 
-{
-    width:100%;
-} 
 
 #pageTitle 
 {
@@ -350,11 +346,32 @@ div#itemListContainer
  margin-bottom: 10px
 }
 
-table#itemList 
+div#itemListContainer,
+div#itemListContainer_FIXED
 {
+    width:100%;
+} 
+
+
+/* Toggle between table layouts */
+
+div#itemListContainer_FIXED table#itemList 
+{
+table-layout: fixed;
 width:100%;
 }
 
+div#itemListContainer_FIXED table#itemList td, 
+div#itemListContainer_FIXED table#itemList th
+{
+	table-layout: fixed;
+	overflow: hidden;
+}
+
+div#itemListContainer table#itemList 
+{
+width:100%;
+}
 
 
 tfoot {

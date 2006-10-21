@@ -67,7 +67,7 @@
                 </td>
                 <!-- Typ -->
                 <td>
-                  <c:out value="${propertyValueTypeView.byId[propertyDeclItem.propertyValueTypeId].description}"/>
+                  <c:out value="${propertyDeclItem.propertyValueTypeName}"/>
                 </td>
                 <!-- Pflicht ? -->
                 <td>

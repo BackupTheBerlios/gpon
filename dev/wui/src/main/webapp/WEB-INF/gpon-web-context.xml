@@ -223,6 +223,18 @@
     <property name="gponModelDao" ref="txGponModelDao"/>   
   </bean>
 
+  <!-- Path Finder -->
+  <bean id="pathFinder"
+        class="de.berlios.gpon.service.exploration.paths.PathFinderImpl">
+    <property name="gponDataDao" ref="txGponDataDao"/>
+    <property name="gponModelDao" ref="txGponModelDao"/>
+  </bean>
+  
+  <!-- Path Resolver -->
+  <bean id="pathResolver"
+        class="de.berlios.gpon.service.exploration.paths.PathResolverImpl">
+    <property name="pathFinder" ref="pathFinder"/>
+  </bean>
   
   
 </beans>

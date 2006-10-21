@@ -309,7 +309,7 @@ public class GponModelDaoTest
    }
   
   
-  public void testItemContainsAssociation() {
+  public void _testItemContainsAssociation() {
 	  
 	  GponDataDao data = getTxDataDao();
 		  

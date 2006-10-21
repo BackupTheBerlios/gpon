@@ -9,6 +9,18 @@
 
 </head>
 <body>
+
+<!--  Fixed Toggle -->
+<c:if test="${! empty param.toggleFixed}">
+ <c:choose>
+  <c:when test="${empty SEARCHRESULT_FIXED_LAYOUT}">
+   <c:set var="SEARCHRESULT_FIXED_LAYOUT" value="_FIXED" scope="session"/>
+  </c:when>
+  <c:otherwise>
+   <c:remove var="SEARCHRESULT_FIXED_LAYOUT" scope="session"/> 
+  </c:otherwise>
+ </c:choose>
+</c:if>
              
 <c:if test="${not empty ItemSearchForm.itemType}">  
 
@@ -20,7 +32,8 @@
 <bean-el:message key="pagetitles.itemsearchresult"/><c:out value="${typeDescription}"/>
 </div>
 
-<div id="itemListContainer">
+<div id="itemListContainer<c:out value="${SEARCHRESULT_FIXED_LAYOUT}"/>">
+<a href="searchResult.do?toggleFixed=toggle">toggle fixed table layout <c:out value="${SEARCHRESULT_FIXED_LAYOUT}"/></a>
 <display-el:table   
   export="true" 
   sort="list" 
@@ -40,11 +53,22 @@
                        />                   
   <!-- Für jedes Property eine Spalte -->             
   <c:forEach var="propDecl" items="${type.inheritedItemPropertyDecls}">
+   <c:if test="${!empty ItemSearchForm.display[propDecl.id]}">
    <display-el:column sortable="true" 
                       property="${propDecl.id}" 
                       title="${propDecl.description}"
                       decorator="de.berlios.gpon.wui.displaytag.decorators.ValueColumnDecorator"
                       />
+   </c:if>                   
+  </c:forEach>
+  <c:forEach var="associatedPropertyKey" items="${ItemSearchForm.associatedPropertyKeys}">
+   <c:set var="colheader">
+   <img src="<%=request.getContextPath()%>/img/path_2.gif" alt="<c:out value="${ItemSearchForm.pathDisplayForAssociatedPropertyKey[associatedPropertyKey]}"/>">
+    <c:out value="${ItemSearchForm.associatedPropertyMap[associatedPropertyKey]}"/>
+   </c:set>
+   <display-el:column sortable="true" property="${associatedPropertyKey}" title="${colheader}" 
+   						decorator="de.berlios.gpon.wui.displaytag.decorators.ValueColumnDecorator"/>
+
   </c:forEach>
   <!-- actions -->
   <display-el:column media="html" title="Aktionen">
@@ -55,9 +79,8 @@
   </display-el:column>
   <display-el:footer>
    <tr>
-      <bean-el:size id="propCount" collection="${type.inheritedItemPropertyDecls}" />
       <td class="rightAlignMe" 
-          colspan="<c:out value="${propCount+2}"/>">Neues Objekt <c:out value="${typeDescription}"/>:</td>
+          colspan="<c:out value="${ItemSearchForm.displayCount+2}"/>">Neues Objekt <c:out value="${typeDescription}"/>:</td>
   		<td><html-el:link action="/data/pre-create.do?itemTypeId=${type.id}">Anlegen</html-el:link></td>
   	</tr>
   </display-el:footer>

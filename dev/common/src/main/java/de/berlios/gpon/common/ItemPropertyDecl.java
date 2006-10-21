@@ -1,25 +1,25 @@
 /*
-GPON General Purpose Object Network
-Copyright (C) 2006 Daniel Schulz
+ GPON General Purpose Object Network
+ Copyright (C) 2006 Daniel Schulz
 
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
 
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
 
 package de.berlios.gpon.common;
 
+import de.berlios.gpon.common.types.repository.ValueTypeRepository;
 
 public class ItemPropertyDecl {
 	public static final Character FALSE = new Character('0');
@@ -108,8 +108,7 @@ public class ItemPropertyDecl {
 	public void setMandatory(Boolean mandatory) {
 		if (mandatory != null && mandatory.equals(Boolean.TRUE)) {
 			setMandatoryCharacter(TRUE);
-		}
-		else {
+		} else {
 			setMandatoryCharacter(FALSE);
 		}
 	}
@@ -153,14 +152,22 @@ public class ItemPropertyDecl {
 	public void setTypic(Boolean typic) {
 		if (typic != null && typic.equals(Boolean.TRUE)) {
 			setTypicCharacter(TRUE);
-		}
-		else {
+		} else {
 			setTypicCharacter(FALSE);
 		}
 	}
 
 	public Boolean getTypic() {
 		return typicCharacter.equals(TRUE) ? Boolean.TRUE : Boolean.FALSE;
+	}
+
+	public String getPropertyValueTypeName() {
+
+		if (getPropertyValueTypeId() != null)
+			return ValueTypeRepository.getValueTypeByTypeId(
+					getPropertyValueTypeId()).getDescription();
+
+		return null;
 	}
 
 }
