@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
@@ -38,6 +40,7 @@ import de.berlios.gpon.common.Association;
 import de.berlios.gpon.common.Item;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
+import de.berlios.gpon.common.AssociationType.MultiplicityConstants;
 import de.berlios.gpon.common.util.ItemTypeMappedByName;
 import de.berlios.gpon.common.validation.AssociationValidator;
 import de.berlios.gpon.common.validation.DataValidationError;
@@ -113,11 +116,8 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		}
 	}
 
-	public void updateItem(Item item) {
-		_updateItem(item);
-	}
 	
-	private void _updateItem(Item item) {
+	public void updateItem(Item item) {
 		try {
 
 			DataValidator dv = new DefaultDataValidator(item);
@@ -148,10 +148,6 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 
 	
 	public void addAssociation(Association assoc) {
-		_addAssociation(assoc);
-	}
-	
-	private void _addAssociation(Association assoc) {
 		try {
 			
 			DataValidator dv = new AssociationValidator(assoc);
@@ -171,12 +167,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 	}
 
 	public void removeAssociation(Association assoc) {
-		_removeAssociation(assoc);
-	}
-
-	private void _removeAssociation(Association assoc) {
 		try {
-			Long id = assoc.getId();
 			getHibernateTemplate().delete(assoc);
 		} catch (HibernateException ex) {
 			throw convertHibernateAccessException(ex);
@@ -331,9 +322,9 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		this.modelDao = modelDao;
 	}
 
-	public void updateItem(Item item, List associationList) {
+	public void updateItem(final Item item, List associationList) {
 
-		
+		Set newAssociations      = new HashSet();
 		
 		// union
 		Set allAssoc = new HashSet();
@@ -344,20 +335,15 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		Iterator currentAssocIterator =
 			allAssoc.iterator();
 		
+		
+		// remove all unused associations 
 		while (currentAssocIterator.hasNext()) 
 		{
 			Association assoc =
 				(Association)currentAssocIterator.next();
 			
 			if (associationList==null || !associationList.contains(assoc)) 
-			{
-				log.debug("Remove assoc id: "+assoc.getId()+
-						  " a: "+assoc.getItemA().getId()+
-						  " b: "+assoc.getItemB().getId());
-				
-				log.debug("before: a: "+item.getAssociationsA().size()+
-						  " b: "+item.getAssociationsB().size());
-				
+			{	
 				if (item.getId().equals(assoc.getItemA().getId())) 
 				{
 					item.getAssociationsA().remove(assoc);
@@ -366,12 +352,6 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 				{
 					item.getAssociationsB().remove(assoc);
 				}
-				
-				log.debug("after: a: "+item.getAssociationsA().size()+
-						  " b: "+item.getAssociationsB().size());
-				
-				
-				// _removeAssociation(assoc); 
 			}
 		}
 		
@@ -389,9 +369,24 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 				
 				if (!allAssoc.contains(assoc)) 
 				{
-					log.debug("Add assoc id: "+assoc.getId()+
-							  " a: "+assoc.getItemA().getId()+
-							  " b: "+assoc.getItemB().getId());
+					// keep track of obsolete associations
+					newAssociations.add(assoc);				
+				}
+			}
+		}
+		
+		// TODO: dissociateIfNecessary has to a configurable
+		// strategy
+		checkAssociationConstraints(item,newAssociations,true);
+		
+		getHibernateTemplate().flush();
+		
+		if (newAssociations!=null) 
+		{
+			CollectionUtils.forAllDo(newAssociations,
+			new Closure() {
+				public void execute(Object o) {
+					Association assoc = (Association)o;
 					
 					if (item.getId().equals(assoc.getItemA())) 
 					{
@@ -401,16 +396,12 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 					{
 						item.getAssociationsB().add(assoc);
 					}
-					
-					
-//					_addAssociation(assoc);
 				}
-			}
+			});
 		}
 		
 		
-		
-		this._updateItem(item);
+		this.updateItem(item);
 		
 		try {
 			getHibernateTemplate().flush();
@@ -418,7 +409,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		catch (RuntimeException rex) 
 		{
 			// TODO: handle constraint violations
-			log.error("Error while flushing sesion to db.",rex);
+			log.error("Error while flushing session to db.",rex);
 			throw rex;
 		}
 	}
@@ -434,5 +425,47 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		addItem(item);
 		
 	}
+	
+	private void checkAssociationConstraints(
+			final Item item, 
+			Set newAssociations,
+			boolean dissociateIfNecessary) 
+	{
+		
+		final Set associationsToBeRemoved = new HashSet();
+		
+		CollectionUtils.forAllDo(newAssociations,new Closure() 
+				{
+					public void execute(Object o) {
+					
+						Association assoc = (Association)o;
+						
+						// we will be connected to a new 'Many' side item 
+						// in a 1:M association. let's become the one and only and disconnect it 
+						// from other 'One'-side items
+						if (assoc.getAssociationType().
+								getMultiplicity().
+								equals(MultiplicityConstants.ONE_TO_MANY) && 
+							assoc.getItemA().equals(item)) 
+						{
+							Item manySideItem = 
+								assoc.getItemB();
+							
+							List associations =
+								manySideItem.getAssociationsByTypeAndSide(assoc.getAssociationType(),
+										"b");
+							if (associations!=null && associations.size()>0) 
+							{
+								associationsToBeRemoved.addAll(associations /* should be only 1 */);
+								manySideItem.getAssociationsB().removeAll(associations);
+								updateItem(manySideItem);
+							}
+							
+						}						
+						
+					}
+				});
+	}
+	
 
 }
