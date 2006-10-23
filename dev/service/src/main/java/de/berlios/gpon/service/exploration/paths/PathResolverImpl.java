@@ -146,7 +146,7 @@ public class PathResolverImpl implements PathResolver {
 			// TODO: we need a filtering mechanism to filter out
 			// associations with a given type
 			//
-			// i.e.: commons collections FilterIterator
+			// i.e.: CollectionUtils.select
 			
 			
 			List associations =

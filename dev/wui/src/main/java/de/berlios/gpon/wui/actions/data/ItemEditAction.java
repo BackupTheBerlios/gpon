@@ -108,6 +108,11 @@ public class ItemEditAction extends BaseAction {
 						.getValidationErrors()));
 				return mapping.getInputForward();
 			}
+			else 
+			{
+				// volley
+				throw new Exception("Throwing forward.",ex);
+			}
 		} 
 		catch (Throwable t) 
 		{
