@@ -796,10 +796,10 @@ public class GponGraphViewerApplet extends JApplet {
 
 		if (gvConfig.isDebug()) {
 			try {
-				if (true) {
+				if (false) {
 					return ggl.load(new FileReader("graphMessage.xml"));
 				} else {
-					String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId=8&radius=1";
+					String urlString = "http://localhost:9080/wui/exploration/environment.do?objectId=34051&radius=1";
 					HttpClient client = new HttpClient();
 					System.out.println("Graph URL: " + urlString);
 					HttpMethod get = new GetMethod(urlString);

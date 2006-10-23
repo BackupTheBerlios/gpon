@@ -160,7 +160,8 @@ public class GponGraphLoader {
 				Attribute attr = attrs[i];
 				// vertex.setUserDatum(attr.getName(), attr.getValue(),
 				// UserData.SHARED);
-				vertex.setUserDatum("prop" + i, attr.getValue(),
+				System.out.println("prop"+i+" will be set to "+attr.getValue());
+				vertex.setUserDatum("prop" + i, (attr.getValue()!=null)?attr.getValue():"-",
 						UserData.SHARED);
 			}
 		}
