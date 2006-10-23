@@ -1,3 +1,4 @@
+mvn -Dwtpversion=1.0 eclipse:clean eclipse:eclipse
 cat <<EOF > ./wui/.settings/org.eclipse.wst.common.project.facet.core.xml
 <faceted-project>
   <fixed facet="jst.java"/>
