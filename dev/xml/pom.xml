@@ -1,18 +1,18 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.berlios.gpon</groupId>
 	<artifactId>xml</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>XML generated classes</name>
-	<url/>
+	<url />
 	<scm>
 	    <connection>scm:cvs:pserver:anonymous:@cvs.gpon.berlios.de:/cvsroot/gpon:dev/xml</connection>
         <developerConnection>scm:cvs:ext:d-schulz@cvs.gpon.berlios.de:/cvsroot/gpon:dev/xml</developerConnection>
         <url>http://cvs.berlios.de/cgi-bin/viewcvs.cgi/gpon/dev/xml</url>
-	</scm>
+	  <tag>R_0_1</tag>
+  </scm>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
