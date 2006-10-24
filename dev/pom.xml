@@ -4,13 +4,14 @@
 	<groupId>de.berlios.gpon</groupId>
 	<artifactId>root</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>GPON root project</name>
 	<url>http://gpon.berlios.de</url>
 	<scm>
 	    <connection>scm:cvs:pserver:anonymous:@cvs.gpon.berlios.de:/cvsroot/gpon:dev</connection>
         <developerConnection>scm:cvs:ext:d-schulz@cvs.gpon.berlios.de:/cvsroot/gpon:dev</developerConnection>
         <url>http://cvs.berlios.de/cgi-bin/viewcvs.cgi/gpon/</url>
+	  <tag>R_0_0_1</tag>
   </scm>
 	<build>
 	<plugins>

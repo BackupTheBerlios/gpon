@@ -3,13 +3,13 @@
 	<groupId>de.berlios.gpon</groupId>
 	<artifactId>wui</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>GPON Web UI</name>
 	<url>http://gpon.berlios.de</url>
 	<parent>
 		<groupId>de.berlios.gpon</groupId>
 		<artifactId>root</artifactId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<dependencies>
 	
