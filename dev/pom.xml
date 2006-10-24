@@ -28,6 +28,7 @@
 	</build>
 	<modules>
 		<module>common</module>
+		<module>xml</module>
 		<module>persistence</module>
                 <module>service</module>
                 <module>viewer</module>
