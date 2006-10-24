@@ -12,18 +12,6 @@ import de.berlios.gpon.common.AssociationType.MultiplicityConstants;
 
 public class JavaDbMultiplicityCheck {
 
-	public static int checkMultiplicityClient(int assId, int aId, int bId,
-			String user, String password) throws Exception,SQLException {
-		Properties props = new Properties();
-		props.put("user", user);
-		props.put("password", password);
-
-		Connection conn = DriverManager.getConnection(
-				"jdbc:derby://localhost/gpon;create=true", props);
-
-		return _checkMultiplicity(assId, aId, bId, conn);
-	}
-
 	public static int checkMultiplicityDB(int assId, int aId, int bId)
 			throws Exception,SQLException {
 		Connection conn = DriverManager

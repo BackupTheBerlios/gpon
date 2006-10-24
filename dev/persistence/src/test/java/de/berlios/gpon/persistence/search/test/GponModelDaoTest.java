@@ -34,6 +34,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.SessionHolder;
+import org.springframework.test.AbstractTransactionalSpringContextTests;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import de.berlios.gpon.common.Association;
@@ -48,16 +49,13 @@ import de.berlios.gpon.persistence.GponModelDao;
 import de.berlios.gpon.persistence.search.SimpleQuery;
 
 public class GponModelDaoTest 
-  extends TestCase
+  extends AbstractTransactionalSpringContextTests
+  
 {
-  ApplicationContext context = null;
-
-
-  public GponModelDaoTest()
-  {
-    context = new ClassPathXmlApplicationContext("persistence-test-context.xml"); 
-  }
-
+  protected String[] getConfigLocations() {
+		return new String[] { "persistence-test-context.xml" };
+	}
+  
   public void testAllItemTypes() 
   {
     GponModelDao dao = getTxModelDao();
@@ -337,40 +335,12 @@ public class GponModelDaoTest
   
   private GponModelDao getTxModelDao() 
   {
-    return (GponModelDao)context.getBean("txGponModelDao");  
+    return (GponModelDao)applicationContext.getBean("txGponModelDao");  
   }
   
   private GponDataDao getTxDataDao() 
   {
-    return (GponDataDao)context.getBean("txGponDataDao");  
+    return (GponDataDao)applicationContext.getBean("txGponDataDao");  
   }
-    
-  SessionFactory sessionFactory = null;
-  
-  public void setUp() throws Exception {
-	  super.setUp();
-	  sessionFactory = (SessionFactory) context.getBean("sessionFactory");
-	  Session s = sessionFactory.openSession();
-	  TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(s));
-  }
-
-  public void tearDown() throws Exception {
-	    super.tearDown();
-	    SessionHolder holder = (SessionHolder) TransactionSynchronizationManager.getResource(sessionFactory);
-	    Session s = holder.getSession(); 
-	    s.flush();
-	    TransactionSynchronizationManager.unbindResource(sessionFactory);
-	    SessionFactoryUtils.closeSessionIfNecessary(s, sessionFactory);
-    }
-  
-  public static void main(String[] args)
-  {
-    TestRunner runner = new TestRunner();
-    
-    runner.run(GponModelDaoTest.class);
-    
-    System.exit(0);
-  }
-  
   
 }
