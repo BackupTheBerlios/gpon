@@ -4,14 +4,13 @@
 	<groupId>de.berlios.gpon</groupId>
 	<artifactId>xml</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>XML generated classes</name>
 	<url />
 	<scm>
 	    <connection>scm:cvs:pserver:anonymous:@cvs.gpon.berlios.de:/cvsroot/gpon:dev/xml</connection>
         <developerConnection>scm:cvs:ext:d-schulz@cvs.gpon.berlios.de:/cvsroot/gpon:dev/xml</developerConnection>
         <url>http://cvs.berlios.de/cgi-bin/viewcvs.cgi/gpon/dev/xml</url>
-	  <tag>R_0_1</tag>
   </scm>
 	<dependencies>
 		<dependency>
