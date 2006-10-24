@@ -8,11 +8,11 @@
 	<version>0.1-SNAPSHOT</version>
 	<name>XML generated classes</name>
 	<url/>
-	 <parent>
-        <groupId>de.berlios.gpon</groupId>
-        <artifactId>root</artifactId>
-        <version>0.1-SNAPSHOT</version>
-        </parent>
+	<scm>
+	    <connection>scm:cvs:pserver:anonymous:@cvs.gpon.berlios.de:/cvsroot/gpon:dev/xml</connection>
+        <developerConnection>scm:cvs:ext:d-schulz@cvs.gpon.berlios.de:/cvsroot/gpon:dev/xml</developerConnection>
+        <url>http://cvs.berlios.de/cgi-bin/viewcvs.cgi/gpon/dev/xml</url>
+	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
