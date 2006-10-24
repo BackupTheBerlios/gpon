@@ -51,4 +51,18 @@
 			</plugin>
 		</plugins>
 	</build>
+		<distributionManagement>
+  <!-- use the following if you're not using a snapshot version. -->
+  <repository>
+    <id>repo1</id>
+    <name>releases</name>
+    <url>file:///U:/maven2/remote/release</url>
+  </repository>
+  <!-- use the following if you ARE using a snapshot version. -->
+  <snapshotRepository>
+    <id>repo2</id>
+    <name>snapshots</name>
+    <url>file:///U:/maven2/remote/snapshot</url>
+  </snapshotRepository>
+</distributionManagement>
 </project>
