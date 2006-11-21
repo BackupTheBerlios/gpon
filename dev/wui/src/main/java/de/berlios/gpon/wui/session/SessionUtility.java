@@ -47,7 +47,7 @@ public class SessionUtility {
 		session.setAttribute("GPON_DATA_VIEW",  dataView);
 	}
 
-	public Object getObjectForBeanId(String id) {
+	private Object getObjectForBeanId(String id) {
 		if (ctx == null) {
 			ctx = WebApplicationContextUtils
 					.getRequiredWebApplicationContext(session

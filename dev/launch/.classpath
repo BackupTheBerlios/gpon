@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path=""/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/derby/derby/10.1.2.1/derby-10.1.2.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/derby/derbytools/10.1.2.1/derbytools-10.1.2.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/derby/derbynet/10.1.2.1/derbynet-10.1.2.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/persistence"/>
-	<classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="src" path="."/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/derby/derbytools/10.1.2.1/derbytools-10.1.2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/de/berlios/gpon/persistence/0.0.2-SNAPSHOT/persistence-0.0.2-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/derby/derbynet/10.1.2.1/derbynet-10.1.2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/derby/derby/10.1.2.1/derby-10.1.2.1.jar"/>
 </classpath>
