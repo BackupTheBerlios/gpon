@@ -1,0 +1,24 @@
+<project name="launch" default="derby-create-schema" 
+	xmlns:artifact="urn:maven-artifact-ant">
+	
+	<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant">
+	    <classpath>
+	      <pathelement location="../libs/maven-artifact-ant-2.0.4-dep.jar" />
+	    </classpath>
+	</typedef>
+	
+	<artifact:dependencies pathId="dependency.classpath">
+	  <dependency groupId="org.apache.derby" 
+		artifactId="derbyclient" version="10.1.2.1"/>
+	</artifact:dependencies>
+	
+	<target name="derby-create-schema">
+	 <sql driver="org.apache.derby.jdbc.ClientDriver" 
+	 	  password="gpon" 
+	 	  url="jdbc:derby://localhost:1527/gpon_a;create=true" 
+	 	  userid="gpon" 
+	 	  src="${basedir}/../persistence/db/gpon-derby.sql"
+	      classpathref="dependency.classpath"
+	 />
+	</target>
+</project>
