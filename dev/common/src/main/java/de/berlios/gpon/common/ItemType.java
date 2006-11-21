@@ -209,7 +209,15 @@ public class ItemType {
 		this.associationTypesB = associationTypesB;
 	}
 
+	private Set inheritedAssociationTypesA = null;
+	
 	public Set getInheritedAssociationTypesA() {
+		if (inheritedAssociationTypesA!=null) 
+		{
+			return inheritedAssociationTypesA;
+		}
+	
+		
 		Set set = new HashSet();
 
 		ItemType baseType = this;
@@ -219,10 +227,20 @@ public class ItemType {
 			baseType = baseType.getBaseType();
 		}
 
+		inheritedAssociationTypesA = set;
+		
 		return set;
 	}
 
+	private Set inheritedAssociationTypesB = null;
+	
 	public Set getInheritedAssociationTypesB() {
+		
+		if (inheritedAssociationTypesB!=null) 
+		{
+			return inheritedAssociationTypesB;
+		}
+		
 		Set set = new HashSet();
 
 		ItemType baseType = this;
@@ -232,6 +250,8 @@ public class ItemType {
 			baseType = baseType.getBaseType();
 		}
 
+		inheritedAssociationTypesB = set;
+		
 		return set;
 	}
 
