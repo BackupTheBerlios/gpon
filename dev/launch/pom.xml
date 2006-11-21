@@ -4,7 +4,7 @@
 	<groupId>de.berlios.gpon</groupId>
 	<artifactId>launch</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>GPON launch of required services</name>
 	<url>http://gpon.berlios.de</url>
 	<build>
@@ -18,7 +18,7 @@
 	<dependencies>
 	        <dependency>
 		  <groupId>de.berlios.gpon</groupId>
-		  <artifactId>root</artifactId>
+		  <artifactId>persistence</artifactId>
 		  <version>${pom.version}</version>
 		</dependency>
 		<!--  Apache Derby Server -->
