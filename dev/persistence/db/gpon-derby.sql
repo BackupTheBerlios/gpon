@@ -1,19 +1,33 @@
+-- drop 
+drop function CHECK_MULTIPLICITY;
+drop function GPON_TO_NUMBER;
+DROP TABLE t_association_property;
+DROP TABLE t_association_property_decl;
+drop table t_association;
+drop table t_association_type;
+DROP TABLE t_item_property;
+DROP TABLE t_item;
+DROP TABLE t_item_property_decl;
+DROP TABLE t_item_type;
+
+
 -- gpon_to_number
+
 
 CREATE FUNCTION 
 GPON_TO_NUMBER (VAL VARCHAR(30), FMT VARCHAR(30)) 
 RETURNS DOUBLE PARAMETER STYLE JAVA NO SQL LANGUAGE JAVA EXTERNAL  NAME 'de.berlios.gpon.persistence.misc.JavaDbGponToNumber.gponToNumber';
 
 -- check multiplicity
+
+
 CREATE FUNCTION 
 CHECK_MULTIPLICITY(a integer, b integer, c integer) 
-RETURNS integer PARAMETER STYLE JAVA READS SQL DATA LANGUAGE JAVA EXTERNAL NAME 'de.berlios.gpon.persistence.misc.JavaDbMultiplicityCheck.checkMultiplicityDB'
+RETURNS integer PARAMETER STYLE JAVA READS SQL DATA LANGUAGE JAVA EXTERNAL NAME 'de.berlios.gpon.persistence.misc.JavaDbMultiplicityCheck.checkMultiplicityDB';
 
--- check multiplicity trigger
-create trigger association_check_mult NO CASCADE BEFORE INSERT on T_ASSOCIATION 
-REFERENCING NEW AS NEWROW
-FOR EACH ROW MODE DB2SQL 
-values CHECK_MULTIPLICITY(NEWROW.ASSOCIATION_TYPE_ID, NEWROW.ITEM_A_ID, NEWROW.ITEM_B_ID);
+-- associations
+
+
 
 CREATE TABLE t_association (
     id integer NOT NULL,
@@ -21,6 +35,15 @@ CREATE TABLE t_association (
     item_b_id integer NOT NULL,
     association_type_id integer NOT NULL
 );
+
+-- check multiplicity trigger
+create trigger association_check_mult NO CASCADE BEFORE INSERT on T_ASSOCIATION 
+REFERENCING NEW AS NEWROW
+FOR EACH ROW MODE DB2SQL 
+values CHECK_MULTIPLICITY(NEWROW.ASSOCIATION_TYPE_ID, NEWROW.ITEM_A_ID, NEWROW.ITEM_B_ID);
+
+-- association types
+
 
 CREATE TABLE t_association_type (
     id integer NOT NULL,
@@ -35,7 +58,11 @@ CREATE TABLE t_association_type (
     visibility character varying(20),
     predicates character varying(200),
     predicates_a character varying(200),
-    predicates_b character varying(200))
+    predicates_b character varying(200));
+
+-- association properties (not used actually)
+
+
 
 CREATE TABLE t_association_property (
     id integer NOT NULL,
@@ -43,6 +70,8 @@ CREATE TABLE t_association_property (
     association_prop_decl_id integer NOT NULL,
     association_id integer NOT NULL
 );
+
+
 
 CREATE TABLE t_association_property_decl (
     id integer NOT NULL,
@@ -52,10 +81,15 @@ CREATE TABLE t_association_property_decl (
     association_type_id integer
 );
 
+
+
 CREATE TABLE t_item (
     id integer NOT NULL,
     item_type_id integer NOT NULL
 );
+
+
+
 
 CREATE TABLE t_item_property (
     id integer NOT NULL,
@@ -63,6 +97,8 @@ CREATE TABLE t_item_property (
     item_property_decl_id integer NOT NULL,
     item_id integer NOT NULL
 );
+
+
 
 CREATE TABLE t_item_property_decl (
     id integer NOT NULL,
@@ -74,6 +110,8 @@ CREATE TABLE t_item_property_decl (
     rank integer,
     typic character(1)
 );
+
+
 
 CREATE TABLE t_item_type (
     id integer NOT NULL,
