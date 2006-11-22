@@ -98,7 +98,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <html-el:submit  value="L&ouml;schen"/>
+        <html-el:submit><bean-el:message key="form.buttons.delete"/></html-el:submit>
       </td>
     </tr>
    </table>

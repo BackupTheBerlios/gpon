@@ -184,7 +184,7 @@
 				forward="/pages/data/search/expertSearch.jsp"/>		
 				
 		<action path="/data/search/backFromCrud"
-				forward="/data/search/search.do"/>
+				forward="/data/search/searchResult.do"/>
 				
 		
 		<action path="/data/search/pre-searchDialog"
@@ -197,7 +197,9 @@
         <action path="/data/search/searchDialog" forward="/pages/data/search/search.jsp?dialog=true"/>
         <action path="/data/search/searchResult" forward="/pages/data/search/search.jsp?result=true"/>
 
-		<action name="ItemSearchForm" path="/data/search/search"
+		<action name="ItemSearchForm" 
+		    attribute="ItemSearchForm"
+		    path="/data/search/search"
 			type="de.berlios.gpon.wui.actions.data.ItemSearchAction"
 			scope="session">
 			<forward name="success"

@@ -93,7 +93,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><html-el:submit value="Anlegen" /></td>
+			<td colspan="2" align="center">
+			<html-el:submit><bean-el:message key="form.buttons.create"/></html-el:submit>
+			</td>
 		</tr>
 	</table>
 </html-el:form>

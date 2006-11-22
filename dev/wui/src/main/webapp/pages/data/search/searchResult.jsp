@@ -3,7 +3,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html-el" prefix="html-el"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ page contentType="text/html;charset=windows-1252"%>
-<html>
+<html-el:html locale="true">
 <head>
 <meta name="maintopic" content="data">
 
@@ -44,11 +44,11 @@
   requestURI="searchResult.do"
   >
     <display-el:column property="item.id"
-                       title="Id" 
+                       titleKey="page.labels.result.id" 
                        sortable="true"
                        />
     <display-el:column property="item.itemType.description"
-                       title="Typ" 
+                       titleKey="page.labels.result.type" 
                        sortable="true"
                        />                   
   <!-- Für jedes Property eine Spalte -->             
@@ -71,21 +71,21 @@
 
   </c:forEach>
   <!-- actions -->
-  <display-el:column media="html" title="Aktionen">
-   <a href="pre-edit.do?itemId=<c:out value="${itemList.id}"/>">edit</a>
-   <a href="pre-delete.do?itemId=<c:out value="${itemList.id}"/>">delete</a>
-   <a href="itemDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&itemId=<c:out value="${itemList.id}"/>" onclick="return popup(this);">detail</a>
-   <a href="<%= request.getContextPath()%>/exploration/viewer.do?decorator=popup&confirm=true&objectId=<c:out value="${itemList.id}"/>" onclick="return popup(this,1200,800);">explore</a>
+  <display-el:column media="html" titleKey="page.labels.result.actions">
+   <a href="pre-edit.do?itemId=<c:out value="${itemList.id}"/>"><bean-el:message key="page.labels.result.actions.change"/></a>
+   <a href="pre-delete.do?itemId=<c:out value="${itemList.id}"/>"><bean-el:message key="page.labels.result.actions.delete"/></a>
+   <a href="itemDetails.do?decorator=popup&confirm=true&record=start&renderMode=html&itemId=<c:out value="${itemList.id}"/>" onclick="return popup(this);"><bean-el:message key="page.labels.result.actions.details"/></a>
+   <a href="<%= request.getContextPath()%>/exploration/viewer.do?decorator=popup&confirm=true&objectId=<c:out value="${itemList.id}"/>" onclick="return popup(this,1200,800);"><bean-el:message key="page.labels.result.actions.explore"/></a>
   </display-el:column>
   <display-el:footer>
    <tr>
       <td class="rightAlignMe" 
-          colspan="<c:out value="${ItemSearchForm.displayCount+2}"/>">Neues Objekt <c:out value="${typeDescription}"/>:</td>
-  		<td><html-el:link action="/data/pre-create.do?itemTypeId=${type.id}">Anlegen</html-el:link></td>
+          colspan="<c:out value="${ItemSearchForm.displayCount+2}"/>"><bean-el:message key="page.labels.result.create_new_item" arg0="${typeDescription}"/>:</td>
+  		<td><html-el:link action="/data/pre-create.do?itemTypeId=${type.id}"><bean-el:message key="page.labels.result.actions.create"/></html-el:link></td>
   	</tr>
   </display-el:footer>
 </display-el:table>
 </div>
 </c:if>
 </body>
-</html>
+</html-el:html>

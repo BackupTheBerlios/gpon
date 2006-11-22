@@ -26,7 +26,7 @@
     </html-el:select>
    </td>
    <td class="searchValue">   
-   <html-el:submit  value="ausw&auml;hlen"/> 
+   <html-el:submit><bean-el:message key="form.buttons.choose"/></html-el:submit> 
    </td>
    </tr>
    </table>
@@ -42,13 +42,13 @@
       <table class="searchForm">
         <thead>
         <th class="searchLabel">
-         Feld
+         <bean-el:message key="form.labels.field"/>
         </th>
         <th class="searchOp">
-          Operator
+         <bean-el:message key="form.labels.operator"/>
         </th>
         <th class="searchValue">
-          Wert
+         <bean-el:message key="form.labels.value"/>
         </th>
         </thead>
         <!-- Properties -->
@@ -89,7 +89,7 @@
            </html-el:select>
           </td>
           <td>
-            <html-el:submit value="Suchen"/>
+            <html-el:submit><bean-el:message key="form.buttons.search"/></html-el:submit>
           </td>
         </tr>
       </table>
@@ -97,7 +97,7 @@
     <!-- right side -->
     <td>  
       <c:if test="${ItemSearchForm.pathsToParentsSize > 0}">
-    <b>Anzeige von Attributen assoziierter Objekte:</b>
+    <b><bean-el:message key="form.labels.associated_attributes"/>:</b>
     </c:if>
     <table>
     <c:forEach items="${ItemSearchForm.pathsToParents}" var="path"> 

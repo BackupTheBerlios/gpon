@@ -20,7 +20,7 @@
 				</tr>
 			</c:forEach>
 			<tr>
-			  <td><html-el:submit value="L&ouml;schen" /></td>
+			  <td><html-el:submit><bean-el:message key="form.buttons.delete"/></html-el:submit></td>
 			</tr>
 		</table>
 	</html-el:form>

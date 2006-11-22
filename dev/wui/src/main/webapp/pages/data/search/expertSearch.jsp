@@ -15,7 +15,9 @@
 <body>
 <html-el:form action="/data/search/expert-search.do" method="GET">
 <html-el:textarea property="queryText" cols="120" rows="20">Bitte Query eingeben!</html-el:textarea>
-<html-el:submit value="Query"/>
+<html-el:submit>
+<bean-el:message key="form.buttons.query"/>
+</html-el:submit>
 </html-el:form>
 </body>
 </html>

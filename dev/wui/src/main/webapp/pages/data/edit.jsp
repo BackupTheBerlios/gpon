@@ -261,7 +261,11 @@
 
 
 			<tr>
-				<td><html-el:submit value="&Auml;ndern" /></td>
+				<td>
+				 <html-el:submit>
+				   <bean-el:message key="form.buttons.change"/>
+				 </html-el:submit>  
+				</td>
 			</tr>
 		</table>
 	</html-el:form>

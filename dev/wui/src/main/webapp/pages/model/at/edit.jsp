@@ -127,7 +127,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center">
-        <html-el:submit  value="&Auml;ndern"/>
+        <html-el:submit><bean-el:message key="form.buttons.change"/></html-el:submit>
       </td>
     </tr>
    </table>

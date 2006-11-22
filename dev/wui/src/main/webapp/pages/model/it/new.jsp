@@ -50,7 +50,9 @@
  
     <tr>
       <td colspan="2" align="center">
-        <html-el:submit  value="Anlegen"/>
+        <html-el:submit>
+         <bean-el:message key="form.buttons.create"/>
+        </html-el:submit> 
       </td>
     </tr>
    </table>

@@ -192,8 +192,12 @@
    </tr>
    <tr>
       <td colspan="3" align="center">
-        <html-el:submit  value="&Auml;nderungen speichern"/>
-        <html-el:button  property="cancel" value="&Auml;nderungen verwerfen" onclick="history.back()"/>
+        <html-el:submit>
+        <bean-el:message key="form.buttons.change"/>
+        </html-el:submit>
+        <html-el:button  property="cancel" onclick="history.back()">
+        <bean-el:message key="form.buttons.cancel"/>
+        </html-el:button>
       </td>
     </tr>
    </table>

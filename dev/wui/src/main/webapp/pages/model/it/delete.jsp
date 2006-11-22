@@ -52,7 +52,12 @@
  
     <tr>
       <td colspan="2" align="center">
-        <html-el:submit  value="Objekttyp l&ouml;schen"/><html-el:button  property="cancel" value="zur&uuml;ck" onclick="history.back()"/>
+        <html-el:submit>
+        <bean-el:message key="form.buttons.delete"/>
+        </html-el:submit>
+        <html-el:button  property="cancel" onclick="history.back()">
+        <bean-el:message key="form.buttons.cancel"/>
+        </html-el:button>
       </td>
     </tr>
    </table>

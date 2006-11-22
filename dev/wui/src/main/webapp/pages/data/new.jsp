@@ -261,7 +261,10 @@
 
 
 			<tr>
-				<td><html-el:submit value="Anlegen" /></td>
+				<td><html-el:submit>
+				 <bean-el:message key="form.buttons.create"/>
+				 </html-el:submit>
+				</td>
 			</tr>
 		</table>
 	</html-el:form>
