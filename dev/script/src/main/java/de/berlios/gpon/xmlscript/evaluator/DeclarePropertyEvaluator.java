@@ -54,6 +54,11 @@ public class DeclarePropertyEvaluator implements Evaluator {
 			ipd.setMandatory(new Boolean(declareProperty.getMandatory()));
 		}
 		
+		if (declareProperty.isSetTypic()) 
+		{
+			ipd.setTypic(new Boolean(declareProperty.getMandatory()));
+		}
+		
 		ipd.setName(declareProperty.getName());
 		
 		ValueType vt = ValueTypeRepository.

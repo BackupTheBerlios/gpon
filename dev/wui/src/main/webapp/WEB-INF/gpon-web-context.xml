@@ -23,7 +23,7 @@
         -->  
         <!-- Derby -->  
         <prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</prop>
-        <prop key="hibernate.connection.url">jdbc:derby://localhost:1527/gpon;create=true</prop>
+        <prop key="hibernate.connection.url">jdbc:derby://localhost:1527/gpon_a;create=true</prop>
         <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
         
         

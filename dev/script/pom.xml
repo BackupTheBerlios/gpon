@@ -3,13 +3,13 @@
   <groupId>de.berlios.gpon</groupId>
   <artifactId>script</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <name>GPON persistence classes</name>
   <url>http://gpon.berlios.de</url>
    <parent>
         <groupId>de.berlios.gpon</groupId>
         <artifactId>root</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
   </parent>
   <dependencies>
   <dependency>
@@ -20,7 +20,7 @@
   <dependency>
   <artifactId>xml</artifactId>
   <groupId>de.berlios.gpon</groupId>
-  <version>0.2</version>
+  <version>0.3-SNAPSHOT</version>
   </dependency>
   <!-- XML Beans -->
   <dependency>

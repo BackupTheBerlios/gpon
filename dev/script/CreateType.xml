@@ -21,8 +21,8 @@
     </CreateObjectType>
     
     <CreateObjectType description="person" name="Person">
-        <DeclareProperty name="name" description="Name" mandatory="true" rank="1" type="ShortText"/>
-        <DeclareProperty name="firstname" description="Vorname" mandatory="true"  rank="2" type="ShortText"/>
+        <DeclareProperty name="name" typic="true" description="Name" mandatory="true" rank="1" type="ShortText"/>
+        <DeclareProperty name="firstname" typic="true" description="Vorname" mandatory="true"  rank="2" type="ShortText"/>
         <DeclareProperty name="birthday" description="Birthday" mandatory="true"  rank="3" type="DateType"/>
     </CreateObjectType>
     

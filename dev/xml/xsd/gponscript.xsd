@@ -58,6 +58,7 @@
 			<xs:attribute name="description" type="xs:string"/>
 			<xs:attribute name="type" type="xs:string"/>
 			<xs:attribute name="mandatory" type="xs:boolean"/>
+			<xs:attribute name="typic" type="xs:boolean"/>
 			<xs:attribute name="rank" type="xs:integer"/>
 		</xs:complexType>
 		<xs:element name="RemoveObjectType" type="RemoveObjectType"/>

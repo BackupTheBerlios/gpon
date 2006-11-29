@@ -66,7 +66,7 @@ extends TestCase {
 	}
 	
 	
-	public void _testDdl() 
+	public void testDdl() 
 	{
 		GponScriptDocument gsd = new Loader().load("CreateType.xml");
 		
