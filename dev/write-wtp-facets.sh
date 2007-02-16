@@ -9,3 +9,4 @@ cat <<EOF > ./wui/.settings/org.eclipse.wst.common.project.facet.core.xml
 EOF
 
 cp ./wui/.settings/org.eclipse.wst.common.project.facet.core.xml ./ws/.settings/org.eclipse.wst.common.project.facet.core.xml
+cp ./wui/.settings/org.eclipse.wst.common.project.facet.core.xml ./wui2/.settings/org.eclipse.wst.common.project.facet.core.xml
