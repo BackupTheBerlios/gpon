@@ -1,0 +1,35 @@
+.formControlBar 
+{
+background-color: #59A1DC;
+text-align: right;
+}
+
+.formWindow 
+{
+ left: 10px;	
+ position: absolute;
+ background: black 100% fixed;
+ border: thin solid 1pt rgb(100,100,20);
+}
+
+.formNode
+{
+ left:101px;
+position:absolute;
+width:auto;
+}
+
+.onTop
+{
+z-index: 1000;
+}
+
+.inBetween
+{
+z-index: 550;
+}
+
+.onBottom
+{
+z-index: 100;
+}

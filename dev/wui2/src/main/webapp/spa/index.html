@@ -1,0 +1,83 @@
+<html>
+<head>
+<link rel="stylesheet" href="gpon-spa.css" type="text/css"/>
+<script type="text/javascript" src="../scripts/mootools/mootools.v1.00.js"></script>
+<script type="text/javascript" src="GPON.js"></script>
+<script type="text/javascript" src="GPON-testdata.js"></script>
+<script type="text/javascript">
+var config = 
+{
+  debug: false
+}
+
+function log(message) 
+{
+ if (config.debug) {
+  $('log').appendText(message);
+  $('log').appendChild(new Element('br'));
+ }
+}
+
+function startup() 
+{
+  log('start');
+  
+  // 2 windows
+  var window1 = new Element('div');
+  window1.addClass('dragable');
+  window1.addClass('formWindow');
+  var window2 = new Element('div');
+  window2.addClass('dragable');  
+  window2.addClass('formWindow');
+  
+  window1.injectInside($('out'));
+  window2.injectInside($('out'));
+
+  
+  // with a form inside
+  var form = new GPON.Form(getSamplePropHandleSet());
+  var formNode = form.asInputFormElement();
+  formNode.injectInside(window1);
+
+  
+  form = new GPON.Form(getSamplePropHandleSet());
+  formNode = form.asInputFormElement();
+  formNode.injectInside(window2);
+
+  
+  $$('.dragable').each(function(el) { 
+    el.makeDraggable(
+    {
+      onStart: function() 
+       {
+         $$('.dragable').each(function(iel) 
+         {
+           
+           iel.removeClass('onTop');
+           iel.removeClass('inBetween');
+           iel.addClass('onBottom');
+         });
+         this.element.removeClass('onBottom');
+         this.element.addClass('onTop');
+       },
+      onComplete: function() 
+       {
+         this.element.removeClass('onTop');
+         this.element.addClass('inBetween');
+       }
+    }
+    
+    
+    ); });
+  
+}
+
+window.onload = startup;
+
+</script>
+</head>
+<body>
+<div id="log"></div>
+<div id="out"></div>
+</body>
+</html>
