@@ -1,27 +1,53 @@
+body, td, input  
+{
+  font-family: Tahoma;
+  font-size: 10pt;
+}
+
 .formControlBar 
 {
-background-color: #59A1DC;
-text-align: right;
+  text-align: right;
 }
 
 .formWindow 
 {
- left: 10px;	
- position: absolute;
- background: black 100% fixed;
- border: thin solid 1pt rgb(100,100,20);
+ width: auto;
+ border: thin solid #333333;
+ background:white none repeat scroll 0%;
 }
+
+.formWindowTitle 
+{
+background-color: #59A1DC;
+text-align: center;
+color: white;
+font-weight: bold;
+padding-bottom: 4pt;
+padding-top: 4pt;
+}
+
 
 .formNode
 {
- left:101px;
-position:absolute;
-width:auto;
 }
+
+.formMainPanelInput 
+{
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.formMainPanelOutput
+{
+  background-color: yellow;
+}
+
+
 
 .onTop
 {
 z-index: 1000;
+cursor: move;
 }
 
 .inBetween
