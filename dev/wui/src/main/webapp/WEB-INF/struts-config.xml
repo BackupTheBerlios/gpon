@@ -289,6 +289,13 @@
 			<forward name="success" path="/pages/ajax/item-json.jsp" />
 		</action>
 
+        <!--  Generic AJAX Action -->
+        <action path="/ajax/generic" scope="request"
+			type="de.berlios.gpon.wui.actions.AjaxAction"
+			name="ItemForm">
+			<forward name="success" path="/pages/ajax/item-json.jsp" />
+		</action>
+
 		<!--  info  -->
 		<action path="/info/intro"	forward="/pages/info/index.jsp"/>
 		<action path="/info/about"	forward="/pages/info/about.jsp"/>
