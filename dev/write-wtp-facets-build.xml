@@ -1,0 +1,28 @@
+<project name="m2eclipse" default="writefacets" basedir=".">
+    <description>
+        Starts mvn eclipse:eclipse and copies the wtp facets file.
+    </description>
+  
+  <target name="writefacets" description="main task" >
+    <exec executable="mvn.bat">
+     <arg line="-Dwtpversion=1.0 eclipse:clean eclipse:eclipse"/>
+    </exec>
+    <echo file="${basedir}/wui/.settings/org.eclipse.wst.common.project.facet.core.xml">
+<![CDATA[<faceted-project>
+   <!-- written by ant -->
+  <fixed facet="jst.java"/>
+  <fixed facet="jst.web"/>
+  <installed facet="jst.web" version="2.3"/>
+  <installed facet="jst.java" version="1.4"/>
+</faceted-project> ]]>
+   </echo>
+   <copy file="${basedir}/wui/.settings/org.eclipse.wst.common.project.facet.core.xml" 
+         tofile="${basedir}/ws/.settings/org.eclipse.wst.common.project.facet.core.xml"
+	 overwrite="true"
+	 />
+   <copy file="${basedir}/wui/.settings/org.eclipse.wst.common.project.facet.core.xml" 
+         tofile="${basedir}/wui2/.settings/org.eclipse.wst.common.project.facet.core.xml"
+	 overwrite="true"
+	 />
+  </target>
+</project>

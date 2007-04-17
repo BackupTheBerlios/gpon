@@ -1,14 +1,14 @@
 -- drop 
-drop function CHECK_MULTIPLICITY;
-drop function GPON_TO_NUMBER;
-DROP TABLE t_association_property;
-DROP TABLE t_association_property_decl;
-drop table t_association;
-drop table t_association_type;
-DROP TABLE t_item_property;
-DROP TABLE t_item;
-DROP TABLE t_item_property_decl;
-DROP TABLE t_item_type;
+--drop function CHECK_MULTIPLICITY;
+--drop function GPON_TO_NUMBER;
+--DROP TABLE t_association_property;
+--DROP TABLE t_association_property_decl;
+--drop table t_association;
+--drop table t_association_type;
+--DROP TABLE t_item_property;
+--DROP TABLE t_item;
+--DROP TABLE t_item_property_decl;
+--DROP TABLE t_item_type;
 
 
 -- gpon_to_number

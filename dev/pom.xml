@@ -33,7 +33,7 @@
                 <module>viewer</module>
 		<module>script</module>
 		<module>wui</module>
-		<module>wui2</module>
+		<!-- <module>wui2</module> -->
 		<module>ws</module>
 	</modules>
 	<distributionManagement>
