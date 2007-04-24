@@ -1,0 +1,64 @@
+<html>
+<head>
+<script type='text/javascript' src='/wui2/dwr/interface/gponDataDao.js'></script>
+<script type='text/javascript' src='/wui2/dwr/engine.js'></script>
+<script type='text/javascript'>
+
+function processItem(item) 
+{
+  var output = item.itemType.description+"<br>";
+  
+  for (i=0; i < item.propertiesSorted.length; i++) 
+  {
+    property = item.propertiesSorted[i];
+  	output = output + " " + property.propertyDecl.name + " : " +  property.value + "<br>";  
+  }
+  
+  // assoc A
+  
+  for (j = 0; j < item.associationsA.length; j++) 
+  {
+    assoc = item.associationsA[j];
+    
+    output = output + " -> [ " + 
+             assoc.associationType.name + ":" + 
+             assoc.associationType.itemBRoleName + 
+             " ] <A href=\"javascript:void(0);\" onclick=\"showItem("+
+             assoc.itemB.id+"); return false;\">" + 
+             assoc.itemB.id + "</A><br>";  
+    
+  }
+  
+  // assoc B
+  
+  for (j = 0; j < item.associationsB.length; j++) 
+  {
+    assoc = item.associationsB[j];
+    
+    output = output + " -> [ " + 
+             assoc.associationType.name + ":" + 
+             assoc.associationType.itemARoleName + 
+             " ] <A href=\"javascript:void(0);\" onclick=\"showItem("+
+             assoc.itemA.id+"); return false;\">" + 
+             assoc.itemA.id + "</A><br>";  
+  }
+  
+  document.getElementById("out").innerHTML = output;
+  
+}
+
+function showItem(id) 
+{
+ 	gponDataDao.findItemById(id, processItem);
+}
+</script> 
+</head>
+<body>
+<form>
+<input name="itemId">
+<button onclick="showItem(form['itemId'].value); return false;">show</button> 
+</form>
+<div id="out">
+</div>
+</body>
+</html>

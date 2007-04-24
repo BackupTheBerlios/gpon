@@ -2,8 +2,8 @@
 <head>
 <link rel="stylesheet" href="gpon-spa.css" type="text/css"/>
 <script type="text/javascript" src="../scripts/mootools/mootools.v1.00.js"></script>
-<script type="text/javascript" src="GPON.js" charset="ISO-8859-1"></script>
-<script type="text/javascript" src="GPON-testdata.js" charset="ISO-8859-1"></script>
+<script type="text/javascript" src="GPON.js"></script>
+<script type="text/javascript" src="GPON-testdata.js"></script>
 <script type="text/javascript">
 var config = 
 {
@@ -22,49 +22,37 @@ function startup()
 {
   log('start');
   
-  function createWindow(title, content) 
-  {
-    var windowNode = new Element('div');
-    windowNode.addClass('dragable');
-    windowNode.addClass('formWindow');
-    titlebar = new Element('div');
-    titlebar.injectInside(windowNode);
-    titlebar.addClass('formWindowTitle');
-    titlebar.setHTML(title);
-    windowNode.__gpon_dragHandle=titlebar;
-    content.injectInside(windowNode);  
-    return windowNode;
-  }
+  // 2 windows
+  var window1 = new Element('div');
+  window1.addClass('dragable');
+  window1.addClass('formWindow');
+  var window2 = new Element('div');
+  window2.addClass('dragable');  
+  window2.addClass('formWindow');
   
-  function addElement(element) 
-  {
-  	element.injectInside($('out'));
-  }
+  window1.injectInside($('out'));
+  window2.injectInside($('out'));
+
   
   // with a form inside
-  var form1 = new GPON.Form(getSamplePropHandleSet());
-  var form2 = new GPON.Form(getSamplePropHandleSet());
+  var form = new GPON.Form(getSamplePropHandleSet());
+  var formNode = form.asInputFormElement();
+  formNode.injectInside(window1);
 
-  // 2 windows
-  window1 = createWindow('Window 1', form1.asInputFormElement());
-  window2 = createWindow('Window 2', form2.asInputFormElement());
   
-  addElement(window1);
-  addElement(window2);
-  /*
-  * 3 layers:
-  *   top: while dragging
-  *   between: just after drag
-  *   bottom: on drag start other windows will go here
-  */
+  form = new GPON.Form(getSamplePropHandleSet());
+  formNode = form.asInputFormElement();
+  formNode.injectInside(window2);
+
+  
   $$('.dragable').each(function(el) { 
     el.makeDraggable(
     {
-      handle: el.__gpon_dragHandle,
       onStart: function() 
        {
          $$('.dragable').each(function(iel) 
          {
+           
            iel.removeClass('onTop');
            iel.removeClass('inBetween');
            iel.addClass('onBottom');

@@ -322,7 +322,7 @@ GPON.Form = new Class({
 	    onComplete: function() { alert('oncomplete');}
 	  }
 	  
-	  var myAjax = new Ajax('http://localhost:8080/wui2/ajax/spa.do', 
+	  var myAjax = new Ajax('http://localhost:58080/wui2/ajax/spa.do', 
 	                        ajaxOptions
 	                        ).request();
 	

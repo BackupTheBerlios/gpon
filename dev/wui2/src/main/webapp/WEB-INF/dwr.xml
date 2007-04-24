@@ -1,0 +1,15 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+    "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+
+<dwr>
+  <allow>
+    <convert converter="bean" match="de.berlios.gpon.common.*"/>
+    <create creator="spring" javascript="gponModelDao" scope="session">
+      <param name="beanName" value="gponModelDao"/>
+    </create>
+    <create creator="spring" javascript="gponDataDao" scope="session">
+      <param name="beanName" value="gponDataDao"/>
+    </create>
+  </allow>
+</dwr>

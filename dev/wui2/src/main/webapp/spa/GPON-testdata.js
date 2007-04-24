@@ -6,8 +6,6 @@ function getSamplePropHandleSet()
   propHandleArray.push(new GPON.PropHandle('Geburtsdatum','date','30.5.1973'));
   propHandleArray.push(new GPON.PropHandle('Bild','imgUrl','http://img.avatars.yahoo.com/users/1PFDBYWwKAAECPmE_dI3o4VxKEG0D.medium.jpg'));
   propHandleArray.push(new GPON.PropHandle('Lebenslauf','longtext','Das ist sehr langer Text.'));
-  propHandleArray.push(new GPON.PropHandle('Lebenslauf (schön)','htmltext','<b>Das</b> ist sehr langer Text.'));
-  alert('schön <->'+GPON.encode_utf8('schön'));
   return propHandleArray;
 }
 
