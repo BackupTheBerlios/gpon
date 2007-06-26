@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 package de.berlios.gpon.common;
 
 
-public class ItemProperty {
-
-	Long id;
+public class ItemProperty 
+extends Base
+{
 
 	String value;
 
@@ -35,14 +35,6 @@ public class ItemProperty {
 		String s = "id=" + id + " value=" + value + " propertyDecl="
 				+ propertyDecl + " item=" + item;
 		return s;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public void setValue(String value) {

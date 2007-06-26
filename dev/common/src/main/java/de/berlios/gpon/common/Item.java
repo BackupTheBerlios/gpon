@@ -30,7 +30,9 @@ import javax.servlet.jsp.tagext.IterationTag;
 
 import de.berlios.gpon.common.ItemType.RankComparator;
 
-public class Item {
+public class Item 
+extends Base
+{
 
 	public class RankComparator implements Comparator {
 		public int compare(Object o1, Object o2) {
@@ -62,8 +64,6 @@ public class Item {
 		}
 	}
 
-	Long id;
-
 	ItemType itemType;
 
 	Set properties;
@@ -75,14 +75,6 @@ public class Item {
 	public String toString() {
 		String s = "id=" + id + " itemType=" + itemType;
 		return s;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public void setItemType(ItemType itemType) {

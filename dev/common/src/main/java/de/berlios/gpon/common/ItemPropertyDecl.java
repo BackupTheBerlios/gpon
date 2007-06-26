@@ -21,12 +21,12 @@ package de.berlios.gpon.common;
 
 import de.berlios.gpon.common.types.repository.ValueTypeRepository;
 
-public class ItemPropertyDecl {
+public class ItemPropertyDecl 
+extends Base
+{
 	public static final Character FALSE = new Character('0');
 
 	public static final Character TRUE = new Character('1');
-
-	Long id;
 
 	String name;
 
@@ -51,14 +51,6 @@ public class ItemPropertyDecl {
 				+ " propertyValueTypeId=" + propertyValueTypeId + " mandatory="
 				+ getMandatory() + " rank=" + rank;
 		return s;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public void setName(String name) {

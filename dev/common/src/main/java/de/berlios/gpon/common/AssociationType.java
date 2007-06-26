@@ -19,9 +19,9 @@
 
 package de.berlios.gpon.common;
 
-public class AssociationType {
-	Long id;
-
+public class AssociationType 
+extends Base
+{
 	String name;
 
 	String multiplicity;
@@ -54,14 +54,6 @@ public class AssociationType {
 				+ " itemARoleName=" + itemARoleName + " itemBRoleName="
 				+ itemBRoleName;
 		return s;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public void setName(String name) {

@@ -28,11 +28,11 @@ import java.util.TreeSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ItemType {
+public class ItemType 
+	extends Base
+{
 
 	private static Log log = LogFactory.getLog(ItemType.class);
-
-	Long id;
 
 	String name;
 
@@ -60,14 +60,6 @@ public class ItemType {
 	public String toString() {
 		String s = "id=" + id + " name=" + name + " description=" + description;
 		return s;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -116,7 +108,7 @@ public class ItemType {
 			baseType = baseType.getBaseType();
 		}
 
-		inheritedSetValid = true;
+		// inheritedSetValid = true;
 		inherited = treeSet;
 
 		return treeSet;
@@ -167,8 +159,8 @@ public class ItemType {
 			ItemPropertyDecl ipd2 = (ItemPropertyDecl) o2;
 
 			// if rank is not set
-			int id1 = ipd1.getId().intValue();
-			int id2 = ipd2.getId().intValue();
+			int id1 = (ipd1.getId()!=null)?ipd1.getId().intValue():0;
+			int id2 = (ipd2.getId()!=null)?ipd2.getId().intValue():0;
 
 			int r1 = (ipd1.getRank() != null) ? ipd1.getRank().intValue() : 0;
 			int r2 = (ipd2.getRank() != null) ? ipd2.getRank().intValue() : 0;

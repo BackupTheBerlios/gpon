@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 package de.berlios.gpon.common;
 
 
-public class Association {
-  Long id;
+public class Association 
+extends Base
+{
   // for convinient access
   Item itemA;
   Item itemB;
@@ -36,16 +37,6 @@ public class Association {
     return s;
   }
   
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-
-  public Long getId() {
-    return id;
-  }
-
-
   public void setItemA(Item itemA)
   {
     this.itemA = itemA;
