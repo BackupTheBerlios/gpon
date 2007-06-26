@@ -1,8 +1,32 @@
 <html>
 <head>
+<!-- Moo : -->
+<script type="text/javascript" src="scripts/mootools/mootools.v1.00.js"></script>
+<!-- DWR exported server logic -->
 <script type='text/javascript' src='/wui2/dwr/interface/gponDataDao.js'></script>
+<script type='text/javascript' src='/wui2/dwr/interface/gponModelDao.js'></script>
+
+<script type='text/javascript' src='/wui2/dwr/interface/ajaxService.js'></script>
 <script type='text/javascript' src='/wui2/dwr/engine.js'></script>
 <script type='text/javascript'>
+
+function convert(itemProperty) 
+{
+    valueType = property.propertyDecl.propertyValueTypeId; 
+    valueText = property.value;
+
+	if (valueType==5) 
+	{
+	  // date: - normal form is YYYYMMDDhhmmss
+	  //       - rendered form is MM.DD.YYYY hh:mm:ss
+	   
+	  return valueText.substr(0,4)+'.'+valueText.substr(4,2)+'.'+valueText.substr(6,2)+' '+
+valueText.substr(8,2)+':'+valueText.substr(10,2)+':'+valueText.substr(12,2);
+	}
+	
+	return valueText;
+}
+
 
 function processItem(item) 
 {
@@ -11,7 +35,7 @@ function processItem(item)
   for (i=0; i < item.propertiesSorted.length; i++) 
   {
     property = item.propertiesSorted[i];
-  	output = output + " " + property.propertyDecl.name + " : " +  property.value + "<br>";  
+  	output = output + " " + property.propertyDecl.name + " : " +  convert(property) + "<br>";  
   }
   
   // assoc A
@@ -47,18 +71,96 @@ function processItem(item)
   
 }
 
+function processItemTypesList(arrayOfItemTypes) 
+{
+	var tableNode = new Element('table');
+	var tbodyNode = new Element('tbody');
+  
+    tbodyNode.injectInside(tableNode);
+	
+	for (i=0; i < arrayOfItemTypes.length; i++) 
+	  {
+	  	itemType = arrayOfItemTypes[i];
+	    // row
+	    rowNode = new Element('tr');
+	    rowNode.injectInside(tbodyNode);
+	    // cell
+	    // -> name
+	    cellNode = new Element('td');
+	    cellNode.injectInside(rowNode);
+	    cellNode.appendText(itemType.name);
+	    // cell
+	    // -> label
+	    cellNode = new Element('td');
+	    cellNode.injectInside(rowNode);
+	    cellNode.appendText(itemType.description);
+	  }
+	  
+	outNode = $('out');
+	  
+	tableNode.injectInside(outNode);  
+} 
+
 function showItem(id) 
 {
  	gponDataDao.findItemById(id, processItem);
 }
+
+function showAllItemTypes() 
+{
+ 	gponModelDao.findAllItemTypes(processItemTypesList);
+}
+
+ItemTypeEditor = new Class(
+{
+  initialize: function() 
+  {
+  },
+  getUIComponent: function() 
+  {
+    table = new Element('table');
+  
+  }
+}
+);
+
+function processItemList(list) 
+{
+  var str = Json.toString(list);
+  for (var i=0; i < list.length; i++) 
+  {
+    ajaxService.updateItem(list[i],foo);
+  }
+  
+  alert(str);
+}
+
+function foo() 
+{
+}
+
+
+function searchItems() 
+{
+  ajaxService.searchItems({typeId: 1},processItemList);
+}
+
 </script> 
+<link rel='stylesheet' href='css/mootable.css' type='text/css' />
 </head>
 <body>
+<button onclick="searchItems(); return false;">ajaxService</button> 
 <form>
 <input name="itemId">
 <button onclick="showItem(form['itemId'].value); return false;">show</button> 
 </form>
 <div id="out">
 </div>
+<button onclick="showAllItemTypes(); return false;">show</button> 
+</form>
+<div id="out">
+</div>
+
+
 </body>
 </html>

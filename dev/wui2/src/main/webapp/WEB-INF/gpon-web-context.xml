@@ -222,5 +222,11 @@
     <property name="pathFinder" ref="pathFinder"/>
   </bean>
   
+  <!--  AjaxService  -->
+  <bean id="ajaxService"
+        class="de.berlios.gpon.wui2.AjaxServiceImpl">
+    <property name="gponDataDao" ref="txGponDataDao"/>
+    <property name="gponModelDao" ref="txGponModelDao"/>
+  </bean>
   
 </beans>

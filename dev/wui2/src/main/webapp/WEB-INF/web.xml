@@ -32,9 +32,17 @@
 	<servlet>
 		<servlet-name>dwr-invoker</servlet-name>
 		<display-name>DWR Servlet</display-name>
-		<servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
 		<init-param>
 			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowGetForSafariButMakeForgeryEasier</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
 			<param-value>true</param-value>
 		</init-param>
 	</servlet>

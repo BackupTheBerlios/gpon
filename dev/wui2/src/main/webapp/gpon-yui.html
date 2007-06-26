@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<!--  styles  -->
+<link type="text/css" rel="stylesheet" href="scripts/yui22/reset/reset.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui22/fonts/fonts.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui22/grids/grids.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui22/logger/assets/logger.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui22/datatable/assets/datatable.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui22/container/assets/container.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui22/button/assets/button.css"></link>
+<link rel="stylesheet" type="text/css" href="scripts/yui22/tabview/assets/tabview.css">
+<link rel="stylesheet" type="text/css" href="scripts/yui22/tabview/assets/border_tabs.css">
+<link type="text/css" rel="stylesheet" href="./main.css"></link>
+<!--  enf of styles -->
+<!-- 
+  _____         _                    _
+ |___ / _ __ __| |  _ __   __ _ _ __| |_ _   _
+   |_ \| '__/ _` | | '_ \ / _` | '__| __| | | |
+  ___) | | | (_| | | |_) | (_| | |  | |_| |_| |
+ |____/|_|  \__,_| | .__/ \__,_|_|   \__|\__, |
+                   |_|                   |___/
+
+  -->
+<!--  Mootools -->
+<script type="text/javascript" src="scripts/mootools/mootools.v1.11.js"></script>
+<!-- DWR -->
+<script type='text/javascript' src='dwr/interface/ajaxService.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<!-- YUI -->
+<script type="text/javascript" src="scripts/yui22/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="scripts/yui22/dom/dom.js"></script>
+<script type="text/javascript" src="scripts/yui22/event/event.js"></script>
+<script type="text/javascript" src="scripts/yui22/element/element-beta.js"></script>
+<script type="text/javascript" src="scripts/yui22/logger/logger.js"></script>
+<script type="text/javascript" src="scripts/yui22/dragdrop/dragdrop.js"></script>
+<script type="text/javascript" src="scripts/yui22/datasource/datasource-beta.js"></script>
+<script type="text/javascript" src="scripts/yui22/datatable/datatable-beta.js"></script>
+<script type="text/javascript" src="scripts/yui22/container/container.js"></script>
+<script type="text/javascript" src="scripts/yui22/animation/animation.js"></script>
+<script type="text/javascript" src="scripts/yui22/button/button-beta.js"></script>
+<script type="text/javascript" src="scripts/yui22/tabview/tabview.js"></script>
+
+<!-- gpon assumes that mootools, yui and dwr are present
+   __ _ _ __   ___  _ __
+  / _` | '_ \ / _ \| '_ \
+ | (_| | |_) | (_) | | | |
+  \__, | .__/ \___/|_| |_|
+  |___/|_|
+ 
+ -->
+<!--  GPON -->
+<script type="text/javascript" src="scripts/gpon/gpon-data.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-base.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-templates.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-forms.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/ItemTypeEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/AssociationTypeEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/views/ItemTypeView.js"></script>
+<script type="text/javascript" src="scripts/gpon/views/AssociationTypeView.js"></script>
+
+<!--  main application script -->
+
+<script type="text/javascript" src="./main.js"></script>
+<script type="text/javascript">
+/* */
+DWREngine.setAsync(false);
+/* wiring */
+
+function on() {
+var nit = new YAHOO.widget.Button("nit_btn");
+var it = new YAHOO.widget.Button("list_it_btn");
+var nat = new YAHOO.widget.Button("nat_btn");
+var at= new YAHOO.widget.Button("list_at_btn");   
+var si= new YAHOO.widget.Button("search_i_btn"); 
+
+nit.on("click", function () {newItemType('ui_renderstage');});
+it.on("click", function () {showItemTypes('ui_renderstage');});
+nat.on("click", function () {newAssociationType('ui_renderstage');});
+at.on("click", function () {showAssociationTypes('ui_renderstage');});
+si.on("click", function () {showItemSearch('ui_renderstage');});
+
+var panel = getPanel({close: false, width: "170px", x:0, y:0 });
+panel.setHeader('Main Panel');
+panel.setBody($('start-btn-group'));
+panel.render(document.body);
+gpon.ui.components.wm.register(panel);
+panel.show();
+}
+
+gpon.ui.components.renderStageId = 'ui_renderstage';
+</script>
+</head>
+<body onload="on();">
+<script type="text/javascript">
+// var myLogReader = new YAHOO.widget.LogReader('mylogger');
+</script>
+<div id="ui_renderstage" style="height:0px;width:0px;overflow:hidden;"></div>
+<div id="start-btn-group">
+<input type="button" id="nit_btn" value="New Item Type"><br>
+<input type="button" id="list_it_btn" value="Item Types"><br>
+<input type="button" id="nat_btn" value="New Association Type"><br>
+<input type="button" id="list_at_btn" value="Association Types"><br>
+<hr>
+<input type="button" id="search_i_btn" value="Search Items"><br>
+</input>
+<div id='mylogger'>
+</div>
+</body>
+</html>

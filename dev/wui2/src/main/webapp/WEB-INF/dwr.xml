@@ -1,15 +1,36 @@
-<!DOCTYPE dwr PUBLIC
-    "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
-    "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<!DOCTYPE dwr PUBLIC 
+"-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" 
+"http://www.getahead.ltd.uk/dwr//dwr20.dtd">
 
 <dwr>
   <allow>
     <convert converter="bean" match="de.berlios.gpon.common.*"/>
+    <convert converter="bean" match="de.berlios.gpon.persistence.search.SimpleQuery"/>
+    
+    <convert converter="bean" match="de.berlios.gpon.wui2.common.*"/>
+    <convert converter="bean" match="de.berlios.gpon.wui2.common.search.*"/>
+    
     <create creator="spring" javascript="gponModelDao" scope="session">
-      <param name="beanName" value="gponModelDao"/>
+      <param name="beanName" value="txGponModelDao"/>
     </create>
     <create creator="spring" javascript="gponDataDao" scope="session">
-      <param name="beanName" value="gponDataDao"/>
+      <param name="beanName" value="txGponDataDao"/>
+    </create>
+    <create creator="spring" javascript="ajaxService" scope="session">
+      <param name="beanName" value="ajaxService"/>
     </create>
   </allow>
+  <!--  type info for collection setters:
+  
+     1. ItemType.setItemPropertyDecls
+  
+   -->
+  <signatures>
+  <![CDATA[
+  import java.util.Set;
+  import de.berlios.gpon.common.ItemType;
+  import de.berlios.gpon.common.ItemPropertyDecl;
+  ItemType.setItemPropertyDecls(Set<ItemPropertyDecl> ipds);
+  ]]>
+  </signatures>
 </dwr>
