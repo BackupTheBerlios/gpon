@@ -52,5 +52,6 @@ public interface GponModelDao
   
   // aux
   public void refresh(Object o);
+  public void flush();
   
 }

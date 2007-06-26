@@ -228,7 +228,9 @@ public class GponModelDaoTest
   public void testRealAddItemType() 
   {
 	Date date = new Date();
-	  
+	
+	int id = -1;
+	
 	// construct head  
     ItemType type = new ItemType();
     type.setDescription("Test type ("+date.getTime()+")");
@@ -239,18 +241,34 @@ public class GponModelDaoTest
     
     ItemPropertyDecl ipd = new ItemPropertyDecl();
     
+    // ipd.setId(new Long(id--));
     ipd.setMandatory(Boolean.TRUE);   
     ipd.setName("name");
     ipd.setDescription("Name");
     ipd.setPropertyValueTypeId(new Long(0));
     ipd.setRank(new Integer(1));
+    ipd.setItemType(type);
     
     decls.add(ipd);
     
+    ipd = new ItemPropertyDecl();
+    
+    // ipd.setId(new Long(id--));
+    ipd.setMandatory(Boolean.TRUE);   
+    ipd.setName("name2");
+    ipd.setDescription("Name2");
+    ipd.setPropertyValueTypeId(new Long(0));
+    ipd.setRank(new Integer(2));
+    ipd.setItemType(type);
+    
+    decls.add(ipd);
+  
     type.setItemPropertyDecls(decls);
     
     // add type
     getTxModelDao().addItemType(type);
+    
+    getTxModelDao().flush();
   }
 
   public void _testSearch() {

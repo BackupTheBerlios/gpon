@@ -183,8 +183,10 @@ public class GponModelDaoImpl
       throw convertHibernateAccessException(ex);
     }
   }
-  
-  
+
+  public void flush() {
+	getHibernateTemplate().flush();
+  }
 }
 
 
