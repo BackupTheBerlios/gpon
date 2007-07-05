@@ -33,5 +33,41 @@ var GponBasicService =
 	  URL_TYPE: 'url',
 	  LONGTEXT_TYPE: 'longtext',
 	  BOOLEAN_TYPE: 'boolean'
+  },
+  toKeyValueList: function(list, custOpts) 
+  {
+    if (list==null || list.length == 0) 
+    {
+      return list;
+    }
+  
+    var opts = 
+     {  destKey   : 'value',
+        destValue : 'text',
+        srcKey    : 'id',
+        // srcValue could be a function too
+        srcValue  : 'description'
+     };
+    // merge options
+    opts = $merge(opts, custOpts);
+    
+    var targetList = [];
+    
+    for (var i = 0; i < list.length; i++) 
+    {
+      var o = {};
+      var elem = list[i];
+      
+      o[opts.destKey]   = elem[opts.srcKey];
+      o[opts.destValue] = 
+        // function ?
+        ($type(opts.srcValue)=='function')?
+           opts.srcValue.call(this,elem):
+           elem[opts.srcValue];
+      
+      targetList.push(o);  
+    }
+    
+    return targetList;
   }
 }

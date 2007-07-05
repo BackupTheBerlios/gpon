@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0.1//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 <!--  styles  -->
@@ -9,8 +9,8 @@
 <link type="text/css" rel="stylesheet" href="scripts/yui22/datatable/assets/datatable.css"></link>
 <link type="text/css" rel="stylesheet" href="scripts/yui22/container/assets/container.css"></link>
 <link type="text/css" rel="stylesheet" href="scripts/yui22/button/assets/button.css"></link>
-<link rel="stylesheet" type="text/css" href="scripts/yui22/tabview/assets/tabview.css">
-<link rel="stylesheet" type="text/css" href="scripts/yui22/tabview/assets/border_tabs.css">
+<link rel="stylesheet" type="text/css" href="scripts/yui22/tabview/assets/tabview.css"></link>
+<link rel="stylesheet" type="text/css" href="scripts/yui22/tabview/assets/border_tabs.css"></link>
 <link type="text/css" rel="stylesheet" href="./main.css"></link>
 <!--  enf of styles -->
 <!-- 
@@ -36,10 +36,11 @@
 <script type="text/javascript" src="scripts/yui22/dragdrop/dragdrop.js"></script>
 <script type="text/javascript" src="scripts/yui22/datasource/datasource-beta.js"></script>
 <script type="text/javascript" src="scripts/yui22/datatable/datatable-beta.js"></script>
-<script type="text/javascript" src="scripts/yui22/container/container.js"></script>
+<script type="text/javascript" src="scripts/yui22/container/container-debug.js"></script>
 <script type="text/javascript" src="scripts/yui22/animation/animation.js"></script>
 <script type="text/javascript" src="scripts/yui22/button/button-beta.js"></script>
 <script type="text/javascript" src="scripts/yui22/tabview/tabview.js"></script>
+<script type="text/javascript" src="scripts/yui22-user/resize-panel.js"></script>
 
 <!-- gpon assumes that mootools, yui and dwr are present
    __ _ _ __   ___  _ __
@@ -58,6 +59,7 @@
 <script type="text/javascript" src="scripts/gpon/editors/AssociationTypeEditor.js"></script>
 <script type="text/javascript" src="scripts/gpon/views/ItemTypeView.js"></script>
 <script type="text/javascript" src="scripts/gpon/views/AssociationTypeView.js"></script>
+<script type="text/javascript" src="scripts/gpon/views/ItemSearch.js"></script>
 
 <!--  main application script -->
 
@@ -66,6 +68,8 @@
 /* */
 DWREngine.setAsync(false);
 /* wiring */
+
+gpon.ui.components.renderStageId = 'ui_renderstage';
 
 function on() {
 var nit = new YAHOO.widget.Button("nit_btn");
@@ -80,22 +84,21 @@ nat.on("click", function () {newAssociationType('ui_renderstage');});
 at.on("click", function () {showAssociationTypes('ui_renderstage');});
 si.on("click", function () {showItemSearch('ui_renderstage');});
 
-var panel = getPanel({close: false, width: "170px", x:0, y:0 });
+var panel = getPanel({resizeable: false, close: false, width: "170px", x: 0, y: 0});
 panel.setHeader('Main Panel');
 panel.setBody($('start-btn-group'));
-panel.render(document.body);
+panel.render($(gpon.ui.components.renderStageId));
 gpon.ui.components.wm.register(panel);
 panel.show();
+panel.focus();
 }
-
-gpon.ui.components.renderStageId = 'ui_renderstage';
 </script>
 </head>
 <body onload="on();">
 <script type="text/javascript">
 // var myLogReader = new YAHOO.widget.LogReader('mylogger');
 </script>
-<div id="ui_renderstage" style="height:0px;width:0px;overflow:hidden;"></div>
+<div id="ui_renderstage" style="height:0px;width:0px;overflow:hidden;">
 <div id="start-btn-group">
 <input type="button" id="nit_btn" value="New Item Type"><br>
 <input type="button" id="list_it_btn" value="Item Types"><br>
@@ -103,8 +106,7 @@ gpon.ui.components.renderStageId = 'ui_renderstage';
 <input type="button" id="list_at_btn" value="Association Types"><br>
 <hr>
 <input type="button" id="search_i_btn" value="Search Items"><br>
-</input>
-<div id='mylogger'>
+</div>
 </div>
 </body>
 </html>

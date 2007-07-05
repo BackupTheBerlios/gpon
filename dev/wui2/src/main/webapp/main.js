@@ -40,11 +40,23 @@ function getPanel(custOptions)
      close:true 
   }
 
-  return new YAHOO.widget.Panel(
+  options = $merge(options,custOptions)
+
+  if ($type(options.resizeable) && options.resizeable == false) 
+  {
+    return new YAHOO.widget.Panel(
        gpon.ui.components.nextElementId(), 
        // see mootools merge (custOptions extends and overwrites options)
-       $merge(options,custOptions) 
+       options
        );
+  }
+  else {
+    return new YAHOO.widget.ResizePanel(
+       gpon.ui.components.nextElementId(), 
+       // see mootools merge (custOptions extends and overwrites options)
+       options
+       );
+  }
 }
 
 
@@ -78,6 +90,7 @@ function newItemType(destination)
   panel.render($(gpon.ui.components.renderStageId));
   gpon.ui.components.wm.register(panel);
   panel.show();
+  panel.focus();
 }
 
 
@@ -95,6 +108,7 @@ function newAssociationType(destination)
   panel.render($(gpon.ui.components.renderStageId));
   gpon.ui.components.wm.register(panel);
   panel.show();
+  panel.focus();
 }
 
 
@@ -163,7 +177,7 @@ function showItemTypes(destination)
   {
    gpon.ui.components.windows.ItemTypesWindow.show();
   }
-  
+  gpon.ui.components.windows.ItemTypesWindow.focus();
 }
 
 function showAssociationTypes(destination) 
@@ -196,6 +210,7 @@ function showAssociationTypes(destination)
   {
    gpon.ui.components.windows.AssociationTypesWindow.show();
   }
+  gpon.ui.components.windows.AssociationTypesWindow.focus();
 }
 
 
@@ -292,7 +307,9 @@ function showItemSearch()
   setHeader("Item Search");
   panel.setFooter("&minus; General Purpose Object Network &minus;");
 
+  var itemSearch = new ItemSearch({dataService: GponDataService});
   
+  panel.setBody(itemSearch.getElement());
 
   panel.render($(gpon.ui.components.renderStageId));
   gpon.ui.components.wm.register(panel);

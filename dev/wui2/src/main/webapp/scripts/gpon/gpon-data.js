@@ -39,7 +39,10 @@ var GponDataServiceClass = new Class(
     this.modelDirty.at = true;
     this.fireEvent("modelEvent",{entity: 'AssociationType', op: 'create'});
   },
-  
+  getItemTypeById: function (id) 
+  {
+    return this.itemTypesById[id];
+  },
   /* getAllItemTypes */
   getAllItemTypes: function() 
   {
@@ -47,12 +50,17 @@ var GponDataServiceClass = new Class(
      var cb = function(types) 
      {
        this.itemTypes = types;
+       this.itemTypesById = this._mapById(types);
      }
      this.ajaxService.getAllItemTypes(cb.bind(this));
      this.modelDirty.it=false;
     }
     return this.itemTypes;
   } ,
+  getAssociationTypeById: function (id) 
+  {
+    return this.associationTypesById[id];
+  },
   /* getAllAssociationTypes */
   getAllAssociationTypes: function() 
   {
@@ -60,12 +68,56 @@ var GponDataServiceClass = new Class(
      var cb = function(types) 
      {
        this.associationTypes = types;
+       this.associationTypesById = this._mapById(types);
      }
      this.ajaxService.getAllAssociationTypes(cb.bind(this));
      this.modelDirty.at=false;
     }
     return this.associationTypes;
-  }
+  },
+  /* search items */
+  searchItems: function(remoteQuery) 
+  {
+    var result;
+    var cb = function(types) 
+    {
+       result = types;
+    }
+    this.ajaxService.searchItems(remoteQuery,cb.bind(this));
+    return result;
+  },
+  /**
+   * itemToIpdIdMap converts a remoteItem object to a map
+   * every itemProperty is mapped to its id prefixed by 'ipd' (decorator funcs have to applied for proper rendering)
+   * id is mapped to key 'id'
+   * typeId is mapped to key 'typeId'
+   * complete item is mapped to key 'item'
+   */
+   itemToIpdByIdMap: function (item) 
+   {
+     var mapped = {};
+     mapped.id = item.id;
+     mapped.typeId = item.typeId;
+     mapped.item = item;
+     for (var pix=0; item.properties && pix < item.properties.length; pix++) 
+     {
+       var  property = item.properties[pix];
+       mapped['ipd'+property.declId]=property;
+     } 
+     return mapped;
+   },
+  /**
+   * converts a list of objects to a map (object.id is the key, object is the value)
+   */  
+  _mapById: function(objects) 
+  {
+   var map = {}; 
+   for (var i = 0; i < objects.length; i++) 
+   {
+       map[objects[i].id] = objects[i];
+   }
+   return map;
+  } 
 });
 
 // add YAHOO event handler stuff
