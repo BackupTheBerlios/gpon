@@ -7,7 +7,14 @@ public class RemoteItemPropertyDecl {
 	Long    valueTypeId;
 	Long    typeId; // to detect inherited properties
 	boolean mandatory;
+	boolean typic;
 	
+	public boolean isTypic() {
+		return typic;
+	}
+	public void setTypic(boolean typic) {
+		this.typic = typic;
+	}
 	public String getDescription() {
 		return description;
 	}

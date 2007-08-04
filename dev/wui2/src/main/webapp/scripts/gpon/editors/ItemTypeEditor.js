@@ -234,6 +234,16 @@ new Class({
    ipdMandElement.subscribe("propertyChanged", this.onChange.bind(this));
    ipdMandElement.getInputNode().injectInside(ipdTemplate.getAp('mandatory'));
    
+   // typic
+   var ipdTypicElement = new GponFormElement({ targetObject : this.itemTypeObject,
+	    targetPropertyExpr : 'itemPropertyDecls['+idx+'].typic',
+	    targetPropertyType : 'boolean',
+	    readOnly           : readOnly
+	    });
+	    
+   ipdTypicElement.subscribe("propertyChanged", this.onChange.bind(this));
+   ipdTypicElement.getInputNode().injectInside(ipdTemplate.getAp('typic'));
+   
    if (!readOnly) {
     var delBtn = new Element('button');
     delBtn.addEvent('click',function() {

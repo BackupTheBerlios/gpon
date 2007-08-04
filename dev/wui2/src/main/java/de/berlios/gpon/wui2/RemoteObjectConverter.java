@@ -198,6 +198,7 @@ public class RemoteObjectConverter {
 		rPropDecl.setDescription(propertyDecl.getDescription());
 		rPropDecl.setId(propertyDecl.getId());
 		rPropDecl.setMandatory(propertyDecl.getMandatory().booleanValue());
+		rPropDecl.setTypic(propertyDecl.getTypic().booleanValue());
 		rPropDecl.setName(propertyDecl.getName());
 		rPropDecl.setTypeId(propertyDecl.getItemType().getId());
 		rPropDecl.setValueTypeId(propertyDecl.getPropertyValueTypeId());

@@ -57,9 +57,12 @@
 <script type="text/javascript" src="scripts/gpon/gpon-forms.js"></script>
 <script type="text/javascript" src="scripts/gpon/editors/ItemTypeEditor.js"></script>
 <script type="text/javascript" src="scripts/gpon/editors/AssociationTypeEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/ItemEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/AssociationEditor.js"></script>
 <script type="text/javascript" src="scripts/gpon/views/ItemTypeView.js"></script>
 <script type="text/javascript" src="scripts/gpon/views/AssociationTypeView.js"></script>
 <script type="text/javascript" src="scripts/gpon/views/ItemSearch.js"></script>
+
 
 <!--  main application script -->
 
@@ -69,22 +72,27 @@
 DWREngine.setAsync(false);
 /* wiring */
 
-gpon.ui.components.renderStageId = 'ui_renderstage';
+
 
 function on() {
+
+gpon.ui.components.renderStageId = 'ui_renderstage';
+
 var nit = new YAHOO.widget.Button("nit_btn");
 var it = new YAHOO.widget.Button("list_it_btn");
 var nat = new YAHOO.widget.Button("nat_btn");
 var at= new YAHOO.widget.Button("list_at_btn");   
 var si= new YAHOO.widget.Button("search_i_btn"); 
+var ni= new YAHOO.widget.Button("new_i_btn"); 
 
 nit.on("click", function () {newItemType('ui_renderstage');});
 it.on("click", function () {showItemTypes('ui_renderstage');});
 nat.on("click", function () {newAssociationType('ui_renderstage');});
 at.on("click", function () {showAssociationTypes('ui_renderstage');});
 si.on("click", function () {showItemSearch('ui_renderstage');});
+ni.on("click", function () {showNewItem('ui_renderstage');});
 
-var panel = getPanel({resizeable: false, close: false, width: "170px", x: 0, y: 0});
+var panel = getPanel({resizeable: false, close: false, width: "170px", x: 10, y: 10});
 panel.setHeader('Main Panel');
 panel.setBody($('start-btn-group'));
 panel.render($(gpon.ui.components.renderStageId));
@@ -106,6 +114,8 @@ panel.focus();
 <input type="button" id="list_at_btn" value="Association Types"><br>
 <hr>
 <input type="button" id="search_i_btn" value="Search Items"><br>
+<hr>
+<input type="button" id="new_i_btn" value="New Item"><br>
 </div>
 </div>
 </body>

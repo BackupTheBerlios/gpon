@@ -6,12 +6,28 @@ var GponDataServiceClass = new Class(
    this.ajaxService = ajaxService;  
    /* custom events */
    this.createEvent("modelEvent");
+   this.createEvent("dataEvent");
    this.modelDirty = 
     { it: true, 
-      at: true 
+      at: true,
+      i: true 
     }
   },
   /* GPON Ajax Service Wrapper */  
+  
+  // Item update, create
+  updateItem: function(item, cb) 
+  {
+    this.ajaxService.updateItem(item, cb);
+    this.modelDirty.i = true;
+    this.fireEvent("dataEvent",{entity: 'Item', op: 'update'});
+  },
+  createItem: function(item, cb) 
+  {
+    this.ajaxService.createItem(item,cb);
+    this.modelDirty.i = true;
+    this.fireEvent("dataEvent",{entity: 'Item', op: 'create'});
+  },
   
   // ItemType update, create
   updateItemType: function(type, cb) 
@@ -41,6 +57,8 @@ var GponDataServiceClass = new Class(
   },
   getItemTypeById: function (id) 
   {
+    this.getAllItemTypes(); 
+  
     return this.itemTypesById[id];
   },
   /* getAllItemTypes */

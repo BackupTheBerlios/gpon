@@ -1,8 +1,6 @@
 package de.berlios.gpon.wui2;
       
 
-import java.nio.MappedByteBuffer;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -12,10 +10,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 
-import samples.preview_new_graphdraw.staticlayouts.IterableFromStaticEmittedLayout;
-
 import de.berlios.gpon.common.AssociationType;
 import de.berlios.gpon.common.Item;
+import de.berlios.gpon.common.ItemProperty;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
 import de.berlios.gpon.common.util.ItemTypeMappedById;
@@ -24,6 +21,7 @@ import de.berlios.gpon.persistence.GponModelDao;
 import de.berlios.gpon.persistence.search.SimpleQuery;
 import de.berlios.gpon.wui2.common.RemoteAssociationType;
 import de.berlios.gpon.wui2.common.RemoteItem;
+import de.berlios.gpon.wui2.common.RemoteItemProperty;
 import de.berlios.gpon.wui2.common.RemoteItemPropertyDecl;
 import de.berlios.gpon.wui2.common.RemoteItemType;
 import de.berlios.gpon.wui2.common.search.RemoteQuery;
@@ -79,19 +77,26 @@ implements AjaxService
 		return RemoteObjectConverter.convertItem(item);
 	}
 
-	public void updateItem(RemoteItem item) {
-		log.info(item.toString());
+	public RemoteItem updateItem(RemoteItem rItem) {
+		Item item = convertToItem(rItem);
+		
+		gponDataDao.updateItem(item);
+		
+		return RemoteObjectConverter.convertItem(item);
 		
 	}
 
-	public RemoteItem createItem(RemoteItem item) {
-		// TODO Auto-generated method stub
-		return null;
+	public RemoteItem createItem(RemoteItem rItem) {
+		
+		Item item = convertToItem(rItem);
+		
+		gponDataDao.addItem(item);
+		
+		return RemoteObjectConverter.convertItem(item);
 	}
 
 	public void deleteItem(Long id) {
-		// TODO Auto-generated method stub
-		
+		gponDataDao.removeItem(id);		
 	}
 
 	public RemoteItemType createItemType(RemoteItemType type) {
@@ -214,6 +219,7 @@ implements AjaxService
 			ipd.setId(znnvl(rPropDecl.getId(), fakeIpdIds?(new Long(id--)):null));
 			ipd.setDescription(rPropDecl.getDescription());
 			ipd.setMandatory(new Boolean(rPropDecl.isMandatory()));
+			ipd.setTypic(new Boolean(rPropDecl.isTypic()));
 			ipd.setName(rPropDecl.getName());
 			ipd.setPropertyValueTypeId(rPropDecl.getValueTypeId());
 			ipd.setItemType(itemType);
@@ -286,4 +292,89 @@ implements AjaxService
 		
 		return at;
 	}
+	
+	private Item convertToItem(RemoteItem rItem) 
+    {
+		Item item = new Item();
+		ItemType itemType = gponModelDao.findItemTypeById(rItem.getTypeId());
+		
+		item.setId(rItem.getId());
+		item.setItemType(itemType);
+		item.setProperties(convertToProperties(rItem.getProperties(),itemType));
+		
+		return item;
+    }
+
+	private Set convertToProperties(RemoteItemProperty[] properties, ItemType type) {
+		
+		Set set = new HashSet();
+		
+		if (properties != null) 
+		{
+			for (int i=0; i < properties.length; i++) 
+			{
+				RemoteItemProperty prop = properties[i];
+				set.add(convertToProperty(prop, type));
+			}
+		}
+		
+		return set;
+	}
+
+	private ItemProperty convertToProperty(RemoteItemProperty rProp, ItemType type) {
+		ItemProperty prop = new ItemProperty();
+		ItemTypeMappedById mappedType =
+			new ItemTypeMappedById(type);
+		
+		
+		prop.setId(rProp.getId());
+		prop.setPropertyDecl(mappedType.getItemPropertyDecl(rProp.getDeclId()+""));
+		prop.setValue(rProp.getValue());
+		
+		return prop;
+	}
+
+	public RemoteItem[] searchItemsFulltext(Long typeId, String searchText) {
+			
+	ItemType it =
+		gponModelDao.findItemTypeById(typeId);
+	
+	Set props = it.getInheritedItemPropertyDecls();
+	
+	// get typic properties and search for them
+	
+	Iterator iterator = 
+		props.iterator();
+	
+	String query = "";
+	
+	while (iterator.hasNext()) 
+	{
+		ItemPropertyDecl ipd =
+			(ItemPropertyDecl)iterator.next();
+		
+		if (ipd.getTypic().booleanValue()) 
+		{
+			if (query.length()>0) 
+			{
+				query = query + "||";
+			}
+			
+			query = query + "${"+ipd.getName()+"}";
+			
+		}
+	}
+	
+	query = "lower("+query + ") like lower('"+searchText+"%')";
+	
+	SimpleQuery sq = new SimpleQuery();
+		
+	sq.setType(it.getName());
+	sq.setSpec(query);
+			
+	Set resultSet = gponDataDao.search(sq);
+	
+	return RemoteObjectConverter.convertItems(resultSet);
+	} 
+	
 }

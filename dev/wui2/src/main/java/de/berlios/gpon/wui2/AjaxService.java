@@ -9,9 +9,11 @@ public interface AjaxService {
 
 	// search, create, update, delete items
 	public RemoteItem[] searchItems(RemoteQuery query);
+	public RemoteItem[] searchItemsFulltext(Long typeId, String searchText);
+	
 	public RemoteItem getItemById(Long id);
 	public RemoteItem createItem(RemoteItem item);
-	public void updateItem(RemoteItem item);
+	public RemoteItem updateItem(RemoteItem item);
 	public void deleteItem(Long id);
 	
 	// search, create, update, delete types

@@ -31,13 +31,13 @@ function getPanel(custOptions)
 
   var options = 
   { 
-     underlay: 'none', 
+     /* underlay: 'none', // disables shadow */
      width:"700px", 
      x: pos.x,
      y: pos.y, 
      visible:false, 
      draggable:true, 
-     close:true 
+     close:true
   }
 
   options = $merge(options,custOptions)
@@ -314,4 +314,25 @@ function showItemSearch()
   panel.render($(gpon.ui.components.renderStageId));
   gpon.ui.components.wm.register(panel);
   panel.show();
+}
+
+function showNewItem() 
+{
+	var itemEditor = new ItemEditor({itemTypeId: 2, dataService: GponDataService});
+	
+	var panel = getPanel();
+
+    var setHeader = function(title) {
+     panel.setHeader(
+     "<div class='tl'></div><span>"+
+     title+
+     "</span><div class='tr'></div>");
+   }
+
+    setHeader("New Item");
+    panel.setFooter("&minus; General Purpose Object Network &minus;");
+    panel.setBody(itemEditor.getInputNode());
+    panel.render($(gpon.ui.components.renderStageId));
+    gpon.ui.components.wm.register(panel);
+    panel.show();
 }
