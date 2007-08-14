@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0.1//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<!--  styles  -->
+<link type="text/css" rel="stylesheet" href="scripts/yui23/base/base.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui23/reset/reset.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui23/fonts/fonts.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui23/grids/grids.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui23/logger/assets/logger.css"></link>
+<link type="text/css" rel="stylesheet" href="scripts/yui23/container/assets/container.css"></link>
+<link rel="stylesheet" type="text/css" href="scripts/yui23/tabview/assets/tabview.css"></link>
+<link rel="stylesheet" type="text/css" href="scripts/yui23/tabview/assets/border_tabs.css"></link>
+<link rel="stylesheet" type="text/css" href="scripts/yui23/datatable/assets/skins/sam/datatable.css" />
+<link rel="stylesheet" type="text/css" href="scripts/yui23/button/assets/skins/sam/button.css" />
+<link rel="stylesheet" type="text/css" href="scripts/yui23/tabview/assets/skins/sam/tabview.css"/>
+<link type="text/css" rel="stylesheet" href="./main.css"></link>
+<!--  enf of styles -->
+<!-- 
+  _____         _                    _
+ |___ / _ __ __| |  _ __   __ _ _ __| |_ _   _
+   |_ \| '__/ _` | | '_ \ / _` | '__| __| | | |
+  ___) | | | (_| | | |_) | (_| | |  | |_| |_| |
+ |____/|_|  \__,_| | .__/ \__,_|_|   \__|\__, |
+                   |_|                   |___/
+
+  -->
+<!--  Mootools -->
+<script type="text/javascript" src="scripts/mootools/mootools.v1.11.js"></script>
+<!-- DWR -->
+<script type='text/javascript' src='dwr/interface/ajaxService.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<!-- YUI -->
+<script type="text/javascript" src="scripts/yui23/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="scripts/yui23/dom/dom.js"></script>
+<script type="text/javascript" src="scripts/yui23/event/event.js"></script>
+<script type="text/javascript" src="scripts/yui23/element/element-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/logger/logger.js"></script>
+<script type="text/javascript" src="scripts/yui23/dragdrop/dragdrop.js"></script>
+<script type="text/javascript" src="scripts/yui23/datasource/datasource-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/datatable/datatable-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/container/container-debug.js"></script>
+<script type="text/javascript" src="scripts/yui23/animation/animation.js"></script>
+<script type="text/javascript" src="scripts/yui23/button/button-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/tabview/tabview.js"></script>
+<script type="text/javascript" src="scripts/yui23/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="scripts/yui23/autocomplete/autocomplete-debug.js"></script>
+<script type="text/javascript" src="scripts/yui22-user/resize-panel.js"></script>
+
+<!-- gpon assumes that mootools, yui and dwr are present
+   __ _ _ __   ___  _ __
+  / _` | '_ \ / _ \| '_ \
+ | (_| | |_) | (_) | | | |
+  \__, | .__/ \___/|_| |_|
+  |___/|_|
+ 
+ -->
+<!--  GPON -->
+<script type="text/javascript" src="scripts/gpon/gpon-data.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-base.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-templates.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-forms.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/ItemTypeEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/AssociationTypeEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/ItemEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/editors/AssociationEditor.js"></script>
+<script type="text/javascript" src="scripts/gpon/views/ItemTypeView.js"></script>
+<script type="text/javascript" src="scripts/gpon/views/AssociationTypeView.js"></script>
+<script type="text/javascript" src="scripts/gpon/views/ItemSearch.js"></script>
+
+
+<!--  main application script -->
+
+<script type="text/javascript" src="./main.js"></script>
+<script type="text/javascript">
+/* */
+DWREngine.setAsync(false);
+/* wiring */
+
+
+
+function on() {
+
+gpon.ui.components.renderStageId = 'ui_renderstage';
+
+var nit = new YAHOO.widget.Button("nit_btn");
+var it = new YAHOO.widget.Button("list_it_btn");
+var nat = new YAHOO.widget.Button("nat_btn");
+var at= new YAHOO.widget.Button("list_at_btn");   
+var si= new YAHOO.widget.Button("search_i_btn"); 
+var ni= new YAHOO.widget.Button("new_i_btn"); 
+
+nit.on("click", function () {newItemType('ui_renderstage');});
+it.on("click", function () {showItemTypes('ui_renderstage');});
+nat.on("click", function () {newAssociationType('ui_renderstage');});
+at.on("click", function () {showAssociationTypes('ui_renderstage');});
+si.on("click", function () {showItemSearch('ui_renderstage');});
+ni.on("click", function () {showNewItem('ui_renderstage');});
+
+var panel = getPanel({resizeable: false, close: false, width: "170px", x: 10, y: 10});
+panel.setHeader('Main Panel');
+panel.setBody($('start-btn-group'));
+panel.render($(gpon.ui.components.renderStageId));
+gpon.ui.components.wm.register(panel);
+panel.show();
+panel.focus();
+}
+</script>
+</head>
+<body class="yui-skin-sam" onload="on();">
+<script type="text/javascript">
+// var myLogReader = new YAHOO.widget.LogReader('mylogger');
+</script>
+<div id="ui_renderstage" style="height:0px;width:0px;overflow:hidden;">
+<div id="start-btn-group" class="start-btn-group">
+<input type="button" id="nit_btn" value="New Item Type"><br>
+<input type="button" id="list_it_btn" value="Item Types"><br>
+<input type="button" id="nat_btn" value="New Association Type"><br>
+<input type="button" id="list_at_btn" value="Association Types"><br>
+<hr>
+<input type="button" id="search_i_btn" value="Search Items"><br>
+<hr>
+<input type="button" id="new_i_btn" value="New Item"><br>
+</div>
+</div>
+</body>
+</html>

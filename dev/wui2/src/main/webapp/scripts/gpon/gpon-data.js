@@ -94,14 +94,34 @@ var GponDataServiceClass = new Class(
     return this.associationTypes;
   },
   /* search items */
+  getItemById: function(id) 
+  {
+  	var result;
+    var cb = function(item) 
+    {
+       result = item;
+    }
+    this.ajaxService.getItemById(id,cb.bind(this));
+    return result;
+  },
   searchItems: function(remoteQuery) 
   {
     var result;
-    var cb = function(types) 
+    var cb = function(items) 
     {
-       result = types;
+       result = items;
     }
     this.ajaxService.searchItems(remoteQuery,cb.bind(this));
+    return result;
+  },
+  searchItemsFulltext: function(typeId, text) 
+  {
+    var result;
+    var cb = function(items) 
+    {
+       result = items;
+    }
+    this.ajaxService.searchItemsFulltext(typeId, text,cb.bind(this));
     return result;
   },
   /**
@@ -135,12 +155,48 @@ var GponDataServiceClass = new Class(
        map[objects[i].id] = objects[i];
    }
    return map;
-  } 
+  }
 });
 
 // add YAHOO event handler stuff
 YAHOO.augment(GponDataServiceClass, YAHOO.util.EventProvider);
 
-
 // instantiate with DWR service
 var GponDataService = new GponDataServiceClass(ajaxService);
+
+/* ItemWrapper:
+ * provides convinience methods to access properties in various ways
+ */
+
+var GponItemWrapper = new Class(
+ {
+  /*
+   * CTOR
+   */
+  initialize: function(item, itemType) 
+  {
+   this.item = item;
+   this.itemType = itemType;
+  },
+  getSpecificValues: function() 
+  {
+    var mapped = GponDataService.itemToIpdByIdMap(this.item);
+  
+    var specificPropArray = [];
+  
+    for (var i=0; i < this.itemType.itemPropertyDecls.length; i++) 
+    {
+      var ipd = this.itemType.itemPropertyDecls[i];
+      if (ipd.typic == true) 
+      {
+        if (mapped['ipd'+ipd.id]) 
+        {
+         specificPropArray.push(mapped['ipd'+ipd.id].value);
+        }
+      }
+    } 
+    return specificPropArray;
+  }
+ }
+);
+

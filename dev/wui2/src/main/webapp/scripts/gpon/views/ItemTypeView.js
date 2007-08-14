@@ -41,10 +41,10 @@ new Class({
      }
 
      var columnHeaders = [
-        {key:"id", text: "Id", type:"number", sortable:true, resizeable:true},
-        {key:"name", text: "Name", sortable:true, resizeable:true},
-        {key:"description",  text: "Beschreibung", sortable:true, resizeable:true},
-        {key:"id", text: "Action", resizeable:true , formatter: fmtFnc.bind(this)}
+        {key:"id", label: "Id", type:"number", sortable:true, resizeable:true},
+        {key:"name", label: "Name", sortable:true, resizeable:true},
+        {key:"description",  label: "Beschreibung", sortable:true, resizeable:true},
+        {key:"id", label: "Action", resizeable:true , formatter: fmtFnc.bind(this)}
      ];
   
      var columnSet = new YAHOO.widget.ColumnSet(columnHeaders);
@@ -72,7 +72,7 @@ new Class({
   	 var plc2 = new Element('div').addClass('pagelinks-bottom').injectInside(this.tabRenderTo);
   	 
   	 var dataTable = new YAHOO.widget.DataTable(body, columnSet, dataSource,
-   	  {/* caption:"Item Type List", */ paginator:true, paginatorOptions:{ rowsPerPage: 10 ,containers: [plc1, plc2]  } });
+   	  { paginator:{ rowsPerPage: 10 ,containers: [plc1, plc2]  },  paginated:true });
   
      /* Begin of DD-Resizer Adjustment*/
      var colList = dataTable.getColumnSet().flat;

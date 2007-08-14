@@ -80,7 +80,10 @@ implements AjaxService
 	public RemoteItem updateItem(RemoteItem rItem) {
 		Item item = convertToItem(rItem);
 		
+		// TODO: Associations
 		gponDataDao.updateItem(item);
+		// PRELIMINARY: to load associations back
+		gponDataDao.refresh(item);
 		
 		return RemoteObjectConverter.convertItem(item);
 		

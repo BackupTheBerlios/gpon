@@ -13,18 +13,6 @@ gpon.ui.components.nextElementId = function () { return 'gpon-ui-'+gpon.ui.compo
 
 gpon.ui.components.windows = {};
 
-
-var sampleType = 
-{
-  name:        'server.unix',
-  description: 'UNIX Server',
-  itemPropertyDecls:
-  [
-    {name: 'cpuType' , description: 'CPU Type', valueTypeId: 1, mandatory: true},
-    {name: 'serialNo', description: 'Seriennummer', valueTypeId: 1}
-  ]
-}
-
 function getPanel(custOptions) 
 {
   var pos = getNewPanelPosition();
@@ -192,7 +180,7 @@ function showAssociationTypes(destination)
 
   view.subscribe("editAssociationType",pickAndEditAssociationType)
 
-  var panel = getPanel();
+  var panel = getPanel({width: undefined});
   
   panel.setHeader("<div class='tl'></div><span>Association Type List</span><div class='tr'></div>");
  
@@ -309,11 +297,42 @@ function showItemSearch()
 
   var itemSearch = new ItemSearch({dataService: GponDataService});
   
+  itemSearch.subscribe("editItem",pickAndEditItem)  
+  
   panel.setBody(itemSearch.getElement());
 
   panel.render($(gpon.ui.components.renderStageId));
   gpon.ui.components.wm.register(panel);
   panel.show();
+  panel.focus();
+}
+
+function pickAndEditItem(params) 
+{
+ var id = params.id;
+ 
+ var itemEditor = new ItemEditor({itemTypeId: 2, dataService: GponDataService});
+	
+ var item = GponDataService.getItemById(id);	
+	
+ itemEditor.setPersistentObject(item);	
+	
+ var panel = getPanel();
+
+ var setHeader = function(title) {
+     panel.setHeader(
+     "<div class='tl'></div><span>"+
+     title+
+     "</span><div class='tr'></div>");
+   }
+
+ setHeader("Edit Item "+id);
+ panel.setFooter("&minus; General Purpose Object Network &minus;");
+ panel.setBody(itemEditor.getInputNode());
+ panel.render($(gpon.ui.components.renderStageId));
+ gpon.ui.components.wm.register(panel);
+ panel.show();
+ panel.focus();
 }
 
 function showNewItem() 
@@ -335,4 +354,5 @@ function showNewItem()
     panel.render($(gpon.ui.components.renderStageId));
     gpon.ui.components.wm.register(panel);
     panel.show();
+    panel.focus();
 }

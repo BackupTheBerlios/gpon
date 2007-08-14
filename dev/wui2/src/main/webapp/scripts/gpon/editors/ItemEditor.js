@@ -1,3 +1,5 @@
+var ITEMEDITOR_RENDER_STAGE_ID = 'ItemSearchRenderStage';
+
 ItemEditor = 
 new Class({
  // current item type
@@ -11,6 +13,13 @@ new Class({
   	p<declId 1> : { id: <id>, declId: <declId>, itemId: <itemId>, value: <value> }, 
     ...
     p<declId x> : { id: <id>, declId: <declId>, itemId: <itemId>, value: <value> } 
+   },
+   mappedAssociations:
+   {
+    // each association type has its own slot
+    a<'-' if reverse><assType 1> : [ ... associations ... ] ,
+    ...
+    a<'-' if reverse><assType m> : [ ... associations ... ]
    }
  }
  */
@@ -35,7 +44,13 @@ new Class({
  mapItem: function(item, type) 
  {
    // 
-   var mappedItem = {mappedProperties: {}};
+   var mappedItem = 
+   {
+    // 'p'+declId -> prop
+    mappedProperties: {},
+    // 'a'+assTypeId -> [ <associations> ]
+    mappedAssociations: {}
+   };
    
    mappedItem.typeId = type.id;
    
@@ -44,6 +59,16 @@ new Class({
     var propDecl = type.itemPropertyDecls[i];
     
    	mappedItem.mappedProperties['p'+propDecl.id] = { declId: propDecl.id };    
+   } 
+   
+   for (var i=0; type.associationTypes && i < type.associationTypes.length; i++) 
+   {
+    var associationType = type.associationTypes[i];
+    
+    // if we are the a side
+   	mappedItem.mappedAssociations['a'+associationType.id] = [];
+   	// if we are the b side (reverse)
+   	mappedItem.mappedAssociations['a-'+associationType.id] = [];    
    } 
     
    // copy values if present  
@@ -57,6 +82,22 @@ new Class({
    	  var prop = item.properties[i];
    	  mappedItem.mappedProperties['p'+prop.declId] = prop;
    	}
+   	
+   	for (var i =0; item.associations && i < item.associations.length; i++) 
+   	{
+   	  var association = item.associations[i];
+   	  
+   	  if (item.id == association.itemAId) {
+   	    // normal direction
+		mappedItem.mappedAssociations['a'+association.typeId].push(association);
+   	  } 
+   	  else 
+   	  {
+   	    // reverse direction
+		mappedItem.mappedAssociations['a-'+association.typeId].push(association);
+   	  }
+   	}
+   	
    }
    
    return mappedItem;
@@ -85,9 +126,9 @@ new Class({
    
    $(this.oldNode).replaceWith(this.getInputNode());
  },
- getInputNode: function() 
+ getMainTabNode: function() 
  {
-   var me = this;
+ 	var me = this;
    // var editorTemplate = GponTemplateService.getRemoteTemplate(this.templateLocation);
    
    var node = new Element('div');
@@ -119,6 +160,27 @@ new Class({
      }
    }
    
+   return node;
+ },
+ getInputNode: function() 
+ {
+   // mission: build up a tabview container
+    var tabContainer = new Element('div').injectInside(this._getRenderArea());
+    tabContainer.setStyle('height','300px');
+  
+    this.tabView = new YAHOO.widget.TabView();
+   
+    this.mainTab = new YAHOO.widget.Tab({
+        label: 'Attr.',
+        // content: '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>',
+        contentEl: this.getMainTabNode(),
+        active: true
+    });
+    
+   this.tabView.addTab(this.mainTab); 
+   
+   this.associationTabs = {};
+   
    // associations
    
    if ($type(this.itemType.associationTypes)) 
@@ -127,7 +189,7 @@ new Class({
      {     
        // at
        var at = this.itemType.associationTypes[i];
-	  
+	  	  
 	   // if t is a unary association, there could be two
 	   // association editors
 	   
@@ -142,8 +204,37 @@ new Class({
 	      };
 	   
 	      var assocEditor = new AssociationEditor(config);
+	  
+	      var associatedIds = [];
+	  
+	  	  for (var j = 0; 
+	  	       this.mappedItem && 
+	  	       this.mappedItem.mappedAssociations && 
+	  	       j < this.mappedItem.mappedAssociations['a'+at.id].length; 
+	  	       j++) 
+	  	  {
+			var association = this.mappedItem.mappedAssociations['a'+at.id][j];
+			if (association.itemAId = this.mappedItem.id) 
+			{
+			  associatedIds.push(association.itemBId);
+			}  	  	
+	  	  }
 	   
-	      assocEditor.getInputNode().injectInside(node);
+	      assocEditor.setAssociatedItemIds(associatedIds);
+
+		  // new tab
+		  this.associationTabs['a'+at.id] = new YAHOO.widget.Tab({
+               label: at.name+':'+at.itemBRoleName,
+               contentEl: assocEditor.getInputNode()
+               });
+    
+          this.tabView.addTab(this.associationTabs['a'+at.id]); 
+		  
+		  
+	      // assocEditor.getInputNode().injectInside(node);
+	      
+	      // data exchange is event based
+	      assocEditor.subscribe("propertyChanged",this.onAssociationChange.bind(this));
        }
        
        // if we are the b side 
@@ -158,14 +249,38 @@ new Class({
 	   
 	      var assocEditor = new AssociationEditor(config);
 	   
-	      assocEditor.getInputNode().injectInside(node);
+	      var associatedIds = [];
+	  
+	  	  for (var j = 0; 
+	  	       this.mappedItem && 
+	  	       this.mappedItem.mappedAssociations && 
+	  	       j < this.mappedItem.mappedAssociations['a-'+at.id].length; 
+	  	       j++) 
+	  	  {
+			var association = this.mappedItem.mappedAssociations['a-'+at.id][j];
+			if (association.itemBId = this.mappedItem.id) 
+			{
+			  associatedIds.push(association.itemAId);
+			}  	  	
+	  	  }
+	   
+	      assocEditor.setAssociatedItemIds(associatedIds);
+	   
+	      // new tab
+		  this.associationTabs['a-'+at.id] = new YAHOO.widget.Tab({
+               label: at.name+':'+at.itemARoleName,
+               contentEl: assocEditor.getInputNode()
+               });
+    
+          this.tabView.addTab(this.associationTabs['a-'+at.id]);
+	   
+	      // assocEditor.getInputNode().injectInside(node);
+	      assocEditor.subscribe("propertyChanged",this.onAssociationChange.bind(this));
        }
-       
-	   
-	   
      }
    }
    
+   this.tabView.appendTo(tabContainer);
    
    // ? Button
    var actionBtn = new Element('button');
@@ -203,11 +318,11 @@ new Class({
   	  }  
    });
    actionBtn.appendText(this.mode);
-   actionBtn.injectInside(node);
+   actionBtn.injectInside(tabContainer);
    
-   this.oldNode = node;
+   this.oldNode = tabContainer;
    
-   return node;
+   return tabContainer;
  },
  // Callback Handlers to react on server events
  onUpdateCallback: function (obj) 
@@ -225,6 +340,14 @@ new Class({
   {
   	// rethrow
   	this.fireEvent("propertyChanged",argument);   
+  },
+ onAssociationChange: function(argument, associatedObject) 
+  {
+   // argument: the association editor
+   	
+  
+  
+   alert("association changed");
   },
  /*
   * reads out the mapped item
@@ -247,7 +370,19 @@ new Class({
    	}
    }
    return item;
-  } 
+  },
+  _getRenderArea: function() 
+  {
+    if ($(ITEMEDITOR_RENDER_STAGE_ID)==null) 
+    {
+		var el = new Element('div'); 
+		el.setStyles('width: 0px; height: 0px; display: none');
+		el.id = ITEMEDITOR_RENDER_STAGE_ID;
+		el.injectInside($(document.body));   
+    }
+    
+   	return $(ITEMEDITOR_RENDER_STAGE_ID);
+  }
  }
 );
 

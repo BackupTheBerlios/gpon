@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Query a JavaScript Function for In-memory Data</title>
+
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+<script type="text/javascript" src="scripts/yui22/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="scripts/yui22/animation/animation.js"></script>
+<script type="text/javascript" src="scripts/yui22/autocomplete/autocomplete.js"></script>
+
+
+<!--begin custom header content for this example-->
+<style type="text/css">
+/* custom styles for scrolling container */
+#statesautocomplete {
+    width:15em; /* set width of widget here*/
+    height:12em; /* define height for container to appear inline */
+}
+#statescontainer .yui-ac-content {
+    max-height:11em;overflow:auto;overflow-x:hidden; /* scrolling */
+    _height:11em; /* ie6 */
+}
+</style>
+
+
+
+<!--end custom header content for this example-->
+
+</head>
+
+<body class=" yui-skin-sam">
+
+<h1>Query a JavaScript Function for In-memory Data</h1>
+
+<div class="exampleIntro">
+	<p>This example uses a DS_JSFunction DataSource pointing to a JavaScript function
+that returns data as an array of strings. Since the data for this example is
+already loaded into memory, queries should be very fast to return data,
+and since there is no server load concern, the AutoComplete instance can be
+configured to have a query delay of zero seconds.</p>
+
+<p>In this example, the AutoComplete instance is able to keep its container
+always open by customizing the appropriate CSS styles and enabling the
+<code>alwaysShowContainer</code> property. We hook into the custom events
+<code>containerExpandEvent</code> and <code>containerCollapseEvent</code>
+and calling the <code>setHeader()</code>, <code>setBody()</code>, and
+
+<code>setFooter()</code> methods to dynamically update the contents of the open
+container. Finally, the AutoComplete's <code>formatResults()</code> method
+has been customized to display multiple data fields in the container.</p>
+			
+</div>
+
+<!--BEGIN SOURCE CODE FOR EXAMPLE =============================== -->
+
+<h3>Filter the US states:</h3>
+<div id="statesautocomplete">
+	<input id="statesinput" type="text">
+
+	<div id="statescontainer"></div>
+</div>
+	
+
+<!-- In-memory JS dataset begins-->
+<script type="text/javascript">
+function getStates(sQuery) {
+    aResults = [];
+    if(sQuery && sQuery.length > 0) {
+        var charKey = sQuery.substring(0,1).toLowerCase();
+        var oResponse = dataset[charKey];
+        
+        if(oResponse) {
+            for(var i = oResponse.length-1; i >= 0; i--) {
+                var sKey = oResponse[i].STATE;
+                var sKeyIndex = encodeURI(sKey.toLowerCase()).indexOf(sQuery.toLowerCase());
+
+                // Query found at the beginning of the key string for STARTSWITH
+                // returns an array of arrays where STATE is index=0, ABBR is index=1
+                if(sKeyIndex === 0) {
+                    aResults.unshift([sKey /*, oResponse[i].ABBR*/]);
+                }
+            }
+            return aResults;
+        }
+    }
+    // Empty queries return all states
+    else {
+        for(var letter in dataset) {
+            var oResponse = dataset[letter];
+            for(var i = oResponse.length-1; i >= 0; i--) {
+                aResults.push([oResponse[i].STATE /* oResponse[i].ABBR*/ ]);
+            }
+        }
+        return aResults;
+    }
+}
+//{"STATE" : "", "ABBR" : ""}
+var dataset =
+    {'a': [{"STATE" : "Alabama", "ABBR" : "AL"},
+		{"STATE" : "Alaska", "ABBR" : "AK"},
+		{"STATE" : "Arizona", "ABBR" : "AZ"},
+		{"STATE" : "Arkansas", "ABBR" : "AR"}],
+	'b' : [
+		],
+	'c' : [
+		{"STATE" : "California", "ABBR" : "CA"},
+		{"STATE" : "Colorado", "ABBR" : "CO"},
+        {"STATE" : "Connecticut", "ABBR" : "CT"}],
+	'd' : [
+		{"STATE" : "Delaware", "ABBR" : "DE"}],
+	'e' : [
+		],
+	'f' : [
+		{"STATE" : "Florida", "ABBR" : "FL"}],
+	'g' : [
+		{"STATE" : "Georgia", "ABBR" : "GA"}],
+	'h' : [
+		{"STATE" : "Hawaii", "ABBR" : "HI"}],
+	'i' : [
+		{"STATE" : "Idaho", "ABBR" : "ID"},
+        {"STATE" : "Illinois", "ABBR" : "IL"},
+        {"STATE" : "Indiana", "ABBR" : "IN"},
+        {"STATE" : "Iowa", "ABBR" : "IA"}],
+	'j' : [
+		],
+	'k' : [
+		{"STATE" : "Kansas", "ABBR" : "KS"},
+        {"STATE" : "Kentucky", "ABBR" : "KY"}],
+	'l' : [
+		{"STATE" : "Louisiana", "ABBR" : "LA"}],
+	'm' : [
+		{"STATE" : "Maine", "ABBR" : "ME"},
+        {"STATE" : "Maryland", "ABBR" : "MD"},
+        {"STATE" : "Massachusetts", "ABBR" : "MA"},
+        {"STATE" : "Michigan", "ABBR" : "MI"},
+        {"STATE" : "Minnesota", "ABBR" : "MN"},
+        {"STATE" : "Mississippi", "ABBR" : "MS"},
+        {"STATE" : "Missouri", "ABBR" : "MO"},
+        {"STATE" : "Montana", "ABBR" : "MT"}],
+	'n' : [
+		{"STATE" : "Nebraska", "ABBR" : "NE"},
+		{"STATE" : "Nevada", "ABBR" : "NV"},
+        {"STATE" : "New Hampshire", "ABBR" : "NH"},
+        {"STATE" : "New Jersey", "ABBR" : "NJ"},
+        {"STATE" : "New Mexico", "ABBR" : "NM"},
+        {"STATE" : "New York", "ABBR" : "NY"},
+        {"STATE" : "North Dakota", "ABBR" : "ND"},
+        {"STATE" : "North Carolina", "ABBR" : "NC"}],
+	'o' : [
+		{"STATE" : "Ohio", "ABBR" : "OH"},
+		{"STATE" : "Oklahoma", "ABBR" : "OK"},
+        {"STATE" : "Oregon", "ABBR" : "OR"}],
+	'p' : [
+		{"STATE" : "Pennsylvania", "ABBR" : "PA"}],
+	'q' : [
+		],
+	'r' : [
+		{"STATE" : "Rhode Island", "ABBR" : "RI"}],
+	's' : [
+		{"STATE" : "South Carolina", "ABBR" : "SC"},
+        {"STATE" : "South Dakota", "ABBR" : "SD"}],
+	't' : [
+		{"STATE" : "Tennessee", "ABBR" : "TN"},
+        {"STATE" : "Texas", "ABBR" : "TX"}],
+	'u' : [
+		{"STATE" : "Utah", "ABBR" : "UT"}],
+	'v' : [
+		{"STATE" : "Vermont", "ABBR" : "VT"},
+        {"STATE" : "Virginia", "ABBR" : "VA"}],
+	'w' : [
+		{"STATE" : "Washington", "ABBR" : "WA"},
+		{"STATE" : "West Virginia", "ABBR" : "WV"},
+		{"STATE" : "Wisconsin", "ABBR" : "WI"},
+        {"STATE" : "Wyoming", "ABBR" : "WY"}],
+	'x' : [
+		],
+	'y' : [
+		],
+	'z' : [
+		]
+	};
+
+</script>
+<!-- In-memory JS dataset ends-->
+
+
+<script type="text/javascript">
+YAHOO.example.ACJSFunction = new function(){
+    // Instantiate JS Function DataSource
+    this.oACDS = new YAHOO.widget.DS_JSFunction(getStates);
+    this.oACDS.maxCacheEntries = 0;
+
+    // Instantiate AutoComplete
+    this.oAutoComp = new YAHOO.widget.AutoComplete('statesinput','statescontainer', this.oACDS);
+    this.oAutoComp.alwaysShowContainer = true;
+    this.oAutoComp.minQueryLength = 0;
+    this.oAutoComp.maxResultsDisplayed = 50;
+    this.oAutoComp.formatResult = function(oResultItem, sQuery) {
+        var sMarkup = oResultItem[0] + " (" + oResultItem[1] + ")";
+        return (sMarkup);
+    };
+
+    // Show custom message if no results found
+    this.myOnDataReturn = function(sType, aArgs) {
+        var oAutoComp = aArgs[0];
+        var sQuery = aArgs[1];
+        var aResults = aArgs[2];
+
+        if(aResults.length == 0) {
+            oAutoComp.setBody("<div id=\"statescontainerdefault\">No matching results</div>");
+        }
+    };
+    this.oAutoComp.dataReturnEvent.subscribe(this.myOnDataReturn);
+        
+    // Preload content in the container
+    this.oAutoComp.sendQuery("");
+};
+</script>
+
+<!--END SOURCE CODE FOR EXAMPLE =============================== -->
+
+</body>
+</html>

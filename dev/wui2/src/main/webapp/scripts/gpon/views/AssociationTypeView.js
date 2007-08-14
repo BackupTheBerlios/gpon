@@ -55,16 +55,16 @@ new Class({
      }
 
      var columnHeaders = [
-        {key:"id", text: "Id", type:"number", sortable:true, resizeable:true},
-        {key:"name", text: "Name", sortable:true, resizeable:true},
-        {key:"description",  text: "Beschreibung", sortable:true, resizeable:true},
-        {key:"multiplicity",  text: "Mult.", sortable:true, resizeable:true},
-        {key:"visibility",  text: "Vis.", sortable:true, resizeable:true},
-        {key:"itemATypeId", text: "A Type", resizeable:true , formatter: ItemTypeNameFormatter.bind(this)},
-        {key:"itemBTypeId", text: "B Type", resizeable:true , formatter: ItemTypeNameFormatter.bind(this)},
-        {key:"itemARoleName", text: "A Rolle", resizeable:true },
-        {key:"itemBRoleName", text: "B Rolle", resizeable:true },
-        {key:"id", text: "Action", resizeable:true , formatter: fmtFnc.bind(this)}
+        {key:"id", label: "Id", type:"number", sortable:true, resizeable:true},
+        {key:"name", label: "Name", sortable:true, resizeable:true},
+        {key:"description",  label: "Beschreibung", sortable:true, resizeable:true},
+        {key:"multiplicity",  label: "Mult.", sortable:true, resizeable:true},
+        {key:"visibility",  label: "Vis.", sortable:true, resizeable:true},
+        {key:"itemATypeId", label: "A Type", resizeable:true , formatter: ItemTypeNameFormatter.bind(this)},
+        {key:"itemBTypeId", label: "B Type", resizeable:true , formatter: ItemTypeNameFormatter.bind(this)},
+        {key:"itemARoleName", label: "A Rolle", resizeable:true },
+        {key:"itemBRoleName", label: "B Rolle", resizeable:true },
+        {key:"id", label: "Action", resizeable:true , formatter: fmtFnc.bind(this)}
      ];
   
      var columnSet = new YAHOO.widget.ColumnSet(columnHeaders);

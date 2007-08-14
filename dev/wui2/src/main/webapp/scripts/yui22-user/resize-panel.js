@@ -51,8 +51,8 @@ YAHOO.widget.ResizePanel.prototype.init = function(el, userConfig) {
 			this.startPos = [YAHOO.util.Event.getPageX(e),
 							 YAHOO.util.Event.getPageY(e)];
 
-			me.innerElement.style.overflow = "hidden";
-			me.body.style.overflow = "auto";
+			// me.innerElement.style.overflow = "hidden";
+			// me.body.style.overflow = "auto";
 		}
 
 		this.ddResize.onDrag = function(e) {

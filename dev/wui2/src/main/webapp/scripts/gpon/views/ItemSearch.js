@@ -213,8 +213,17 @@ new Class({
    };
     
    var actionFmt = function (elCell, oRecord, oColumn, oData) 
-   { 
-    $(elCell).empty().appendText('edit delete explore');
+   {   
+       var link = new Element('a');
+  	   link.appendText('edit '+oData);
+  	   link.href='#';
+	   link.onclick = function() 
+	   {
+	     this.fireEvent("editItem", { id: oData });
+	   }.bind(this);
+	   $(elCell).empty();
+	   link.injectInside($(elCell));
+    
    }; 
 
    var typeFmt = function (elCell, oRecord, oColumn, oData) 
@@ -226,9 +235,9 @@ new Class({
    var myColumnHeaders = [];
    var myFields        = [];
    
-   myColumnHeaders.push({key: 'id', text: 'ID', sortable:true, resizeable:true});
+   myColumnHeaders.push({key: 'id', label: 'ID', sortable:true, resizeable:true});
    myFields.push('id');
-   myColumnHeaders.push({key: 'typeId', text: 'Type', sortable:true, resizeable:true,formatter: typeFmt.bind(this)});
+   myColumnHeaders.push({key: 'typeId', label: 'Type', sortable:true, resizeable:true,formatter: typeFmt.bind(this)});
    myFields.push('typeId');
    
    
@@ -238,7 +247,7 @@ new Class({
    	   myColumnHeaders.push(
    	     {
    	       key: 'ipd'+element.id,
-   	       text: element.description,
+   	       label: element.description,
    	       sortable:true, 
    	       resizeable:true,
    	       formatter: fooFmt
@@ -251,7 +260,7 @@ new Class({
    this.type.itemPropertyDecls.forEach(addColumnHeaderFnc.bind(this));
    
    
-   myColumnHeaders.push({key: 'id', text: 'actions', formatter: actionFmt});
+   myColumnHeaders.push({key: 'id', label: 'actions', formatter: actionFmt.bind(this)});
    myFields.push('id');
    
    
