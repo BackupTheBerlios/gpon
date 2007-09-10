@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" lazy-init="true">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
      <property name="mappingResources">
       <list>
         <value>de/berlios/gpon/persistence/orm/ItemType.hbm.xml</value>
@@ -16,22 +16,20 @@
     <property name="hibernateProperties">
       <props>
         <!-- Manually configured datasource -->
-        <!-- PostgreSQL 
+        <!-- PostgreSQL   
         <prop key="hibernate.connection.driver_class">org.postgresql.Driver</prop>
         <prop key="hibernate.connection.url">jdbc:postgresql://127.0.0.1/gpon_a</prop>
         <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-        -->  
-        <!-- Derby -->  
+        -->
+        <!-- Derby -->
         <!-- 
         <prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</prop>
         <prop key="hibernate.connection.url">jdbc:derby://localhost:1527/gpon_a;create=true</prop>
-        -->
-        <prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</prop>
+		-->
+		<prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</prop>
 		<prop key="hibernate.connection.url">jdbc:derby:gpon_a;create=true</prop>
 
-
         <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
-        
         
         <prop key="hibernate.connection.username">gpon</prop>
         <prop key="hibernate.connection.password">gpon</prop>
@@ -47,22 +45,22 @@
   </bean>
 
   <!-- Model Part Data Access Object -->
-  <bean id="gponModelDao" class="de.berlios.gpon.persistence.GponModelDaoImpl" lazy-init="true">
+  <bean id="gponModelDao" class="de.berlios.gpon.persistence.GponModelDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   <!-- Data Part Data Access Object -->
-  <bean id="gponDataDao" class="de.berlios.gpon.persistence.GponDataDaoImpl" lazy-init="true">
+  <bean id="gponDataDao" class="de.berlios.gpon.persistence.GponDataDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
     <property name="modelDao" ref="gponModelDao"/>
   </bean>
   <!-- -->
-  <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager" lazy-init="true">
+  <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
 
   <!-- TX declaration -->
   <bean id="txGponDataDao"
-      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" lazy-init="true">
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
     <property name="transactionManager" ref="myTxManager"/>
     <property name="target" ref="gponDataDao"/>
     <property name="transactionAttributes">
@@ -70,7 +68,7 @@
      
         <prop key="add*">PROPAGATION_REQUIRED</prop>
         <prop key="update*">PROPAGATION_REQUIRED</prop>
-        <prop key="remove*">PROPAGATION_REQUIRED</prop>
+        <prop key="delete*">PROPAGATION_REQUIRED</prop>
        
         <prop key="*">PROPAGATION_SUPPORTS,readOnly</prop>
       </props>
@@ -79,7 +77,7 @@
   
   <!-- TX declaration -->
   <bean id="txGponModelDao"
-      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" lazy-init="true">
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
     <property name="transactionManager" ref="myTxManager"/>
     <property name="target" ref="gponModelDao"/>
     <property name="transactionAttributes">
@@ -97,95 +95,97 @@
   
   <!--  Default Script Context  -->
   <bean id="DefaultScriptContext"
-  	class="de.berlios.gpon.xmlscript.process.DefaultScriptContext" lazy-init="true">
+  	class="de.berlios.gpon.xmlscript.process.DefaultScriptContext">
   	<property name="dataDao" ref="gponDataDao"/>
   	<property name="modelDao" ref="gponModelDao"/>
   </bean>
   
   <!--  Evaluators -->
   <bean id="QueryEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.QueryEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.QueryEvaluator"/> 
   	
   <bean id="ReferenceEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.ReferenceEvaluator" lazy-init="true"/> 	
+  	class="de.berlios.gpon.xmlscript.evaluator.ReferenceEvaluator"/> 	
   	
   <bean id="AssociatedEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.AssociatedEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.AssociatedEvaluator"/> 
 
   <bean id="NotEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.NotEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.NotEvaluator"/> 
 
   <bean id="AndEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.AndEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.AndEvaluator"/> 
 
   <bean id="OrEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.OrEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.OrEvaluator"/> 
 
   <bean id="XorEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.XorEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.XorEvaluator"/> 
 
   <bean id="UnionEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.UnionEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.UnionEvaluator"/> 
 
   <bean id="DifferenceEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.DifferenceEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.DifferenceEvaluator"/> 
 
   <bean id="IntersectionEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.IntersectionEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.IntersectionEvaluator"/> 
 
   <bean id="CreationEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.CreationEvaluator" lazy-init="true"/> 
+  	class="de.berlios.gpon.xmlscript.evaluator.CreationEvaluator"/> 
   	
   <bean id="KeyEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.KeyEvaluator" lazy-init="true"/>
+  	class="de.berlios.gpon.xmlscript.evaluator.KeyEvaluator"/>
   	
   <bean id="OrUpdateUsingKeysEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.OrUpdateUsingKeysEvaluator" lazy-init="true"/>		
+  	class="de.berlios.gpon.xmlscript.evaluator.OrUpdateUsingKeysEvaluator"/>		
   
   <bean id="CreateObjectEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.CreateObjectEvaluator" lazy-init="true"/>
+  	class="de.berlios.gpon.xmlscript.evaluator.CreateObjectEvaluator"/>
   
   <bean id="PropertyEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.PropertyEvaluator" lazy-init="true"/>	 
+  	class="de.berlios.gpon.xmlscript.evaluator.PropertyEvaluator"/>	 
   	
   <bean id="AssociateWithEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.AssociateWithEvaluator" lazy-init="true"/>	 
+  	class="de.berlios.gpon.xmlscript.evaluator.AssociateWithEvaluator"/>	 
 
   <!--  Void Evaluators -->
   <bean id="RemovalEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.RemovalEvaluator" lazy-init="true"/>	 
+  	class="de.berlios.gpon.xmlscript.evaluator.RemovalEvaluator"/>	 
   
 
   <!--  DDL evaluators -->
   <bean id="CreateObjectTypeEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.CreateObjectTypeEvaluator" lazy-init="true"/>
+  	class="de.berlios.gpon.xmlscript.evaluator.CreateObjectTypeEvaluator"/>
   		 
   <bean id="DeclarePropertyEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.DeclarePropertyEvaluator" lazy-init="true"/>	 
+  	class="de.berlios.gpon.xmlscript.evaluator.DeclarePropertyEvaluator"/>	 
 
   <bean id="RemoveObjectTypeEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.RemoveObjectTypeEvaluator" lazy-init="true"/>
+  	class="de.berlios.gpon.xmlscript.evaluator.RemoveObjectTypeEvaluator"/>
 
   <bean id="CreateAssociationTypeEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.CreateAssociationTypeEvaluator" lazy-init="true"/>
+  	class="de.berlios.gpon.xmlscript.evaluator.CreateAssociationTypeEvaluator"/>
 
   <bean id="RemoveAssociationTypeEvaluator"
-  	class="de.berlios.gpon.xmlscript.evaluator.RemoveAssociationTypeEvaluator" lazy-init="true"/>
+  	class="de.berlios.gpon.xmlscript.evaluator.RemoveAssociationTypeEvaluator"/>
   
 
   <!--  Script Processor (hibernatized) -->
 
   <!-- get a hibernate session before running the script processor -->
-  <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate3.HibernateInterceptor" lazy-init="true">
+  <bean id="hibernateInterceptor" class="org.springframework.orm.hibernate3.HibernateInterceptor">
          <property name="sessionFactory">
            <ref bean="sessionFactory"/>
          </property>
     </bean>
     <bean id="scriptProcessorTarget" 
-       class="de.berlios.gpon.xmlscript.process.DefaultPluggableProcessor" lazy-init="true"/>
+       class="de.berlios.gpon.xmlscript.process.DefaultPluggableProcessor">
+         <property name="scriptContext" ref="DefaultScriptContext"/>
+    </bean>
 
     <bean id="scriptProcessor" 
-    	class="org.springframework.aop.framework.ProxyFactoryBean" lazy-init="true">
+    	class="org.springframework.aop.framework.ProxyFactoryBean">
          <property name="target"><ref bean="scriptProcessorTarget"/></property>
          <property name="proxyInterfaces">
            <value>de.berlios.gpon.xmlscript.Processor</value>
@@ -198,7 +198,7 @@
      </bean>         
   
   <bean id="txScriptProcessor"
-      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" lazy-init="true">
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
     <property name="transactionManager" ref="myTxManager"/>
     <property name="target" ref="scriptProcessorTarget"/>
     <property name="transactionAttributes">
@@ -206,41 +206,5 @@
         <prop key="process*">PROPAGATION_REQUIRED</prop>
       </props>
     </property>
-  </bean>
-  
-  <!--  Model View  -->
-  
-  <bean id="modelView"
-      class="de.berlios.gpon.wui.views.ModelViewImpl" lazy-init="true">
-    <property name="model" ref="gponModelDao"/>
-  </bean>
-  
-  <!--  Data View -->
-  <bean id="dataView"
-      class="de.berlios.gpon.wui.views.DataViewImpl" lazy-init="true">
-    <property name="model" ref="gponModelDao"/>
-    <property name="data"  ref="gponDataDao"/>
-  </bean>
-  
-  <!-- Exploration Service -->
-  <bean id="explorationService"
-     class="de.berlios.gpon.service.exploration.ExplorationServiceImpl">
-    <property name="gponDataDao"  ref="txGponDataDao"/>   
-    <property name="gponModelDao" ref="txGponModelDao"/>   
-  </bean>
-
-  <!-- Path Finder -->
-  <bean id="pathFinder"
-        class="de.berlios.gpon.service.exploration.paths.PathFinderImpl">
-    <property name="gponDataDao" ref="txGponDataDao"/>
-    <property name="gponModelDao" ref="txGponModelDao"/>
-  </bean>
-  
-  <!-- Path Resolver -->
-  <bean id="pathResolver"
-        class="de.berlios.gpon.service.exploration.paths.PathResolverImpl">
-    <property name="pathFinder" ref="pathFinder"/>
-  </bean>
-  
-  
+  </bean> 
 </beans>

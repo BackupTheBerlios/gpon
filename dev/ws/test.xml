@@ -12,7 +12,7 @@
 		</OrUpdateUsingKeys>
 		<CreateObject>
 			<Property name="name" value="Schulz" />
-			<Property name="firstname" value="Daniel" />
+			<Property name="firstname" value="Daniel (Muffel)" />
 			<Property name="birthday" value="1.2.1974" />
 		</CreateObject>
 		<CreateObject>

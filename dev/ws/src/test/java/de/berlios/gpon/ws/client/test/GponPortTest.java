@@ -1,6 +1,7 @@
 package de.berlios.gpon.ws.client.test;
 
 import java.io.File;
+import java.net.URL;
 
 import org.apache.xmlbeans.XmlOptions;
 
@@ -15,16 +16,18 @@ import de.berlios.gpon.xmlscript.Reference;
 public class GponPortTest 
 extends TestCase
 {
+	private String ENDPOINT_URL = "http://127.0.0.1:58080/ws/services/Gpon";
+	
 	
 	public void testGponRunScript() throws Exception {
 
-	   if (true)
+	   if (false)
 		return;
 		
 		GponBindingStub binding;
         try {
             binding = (GponBindingStub)
-                          new GponLocator().getGponPort();
+                          new GponLocator().getGponPort(new URL(ENDPOINT_URL));
         }
         catch (javax.xml.rpc.ServiceException jre) {
             if(jre.getLinkedCause()!=null)

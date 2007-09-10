@@ -175,7 +175,9 @@
          </property>
     </bean>
     <bean id="scriptProcessorTarget" 
-       class="de.berlios.gpon.xmlscript.process.DefaultPluggableProcessor"/>
+       class="de.berlios.gpon.xmlscript.process.DefaultPluggableProcessor">
+       <property name="scriptContext" ref="DefaultScriptContext"/>
+    </bean>
 
     <bean id="scriptProcessor" 
     	class="org.springframework.aop.framework.ProxyFactoryBean">
