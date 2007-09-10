@@ -35,7 +35,7 @@ public interface GponDataDao
 
   // Item CUD
   public void addItem(Item item);
-  
+  public void addItem(Item item, List associationList);
   public void updateItem(Item item);
   public void updateItem(Item item, List associationList);
   
@@ -49,6 +49,5 @@ public interface GponDataDao
   
   // aux
   public void refresh(Object o);
-public void addItem(Item item, List associationList);
-
+  
 }

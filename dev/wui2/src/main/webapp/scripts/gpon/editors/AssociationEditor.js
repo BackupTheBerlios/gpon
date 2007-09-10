@@ -1,10 +1,13 @@
+var ASSOCEDITOR_RENDER_STAGE_ID = 'AssocEditorRenderStage';
+
 AssociationEditor = 
 new Class({
  // current item type
  item: null, /* RemotItemType */
  associationType: null, /* RemoteAssociationType */
  reverse: null, /* boolean */
- assoaciatedItemIds: null, /* array of associated items */
+ multiplicity: null , /* 'one', 'many' */
+ associatedItemIds: null, /* array of associated items */
  currentSelectedItemId: null, /* selected via ac_field */
  associatedItemsDisplay: null, /* widget to display associated items */
  initialize: function(config) 
@@ -14,10 +17,19 @@ new Class({
     */
    this.associationType = config.associationType;
    this.reverse = config.reverse;
+   this.multiplicity = 'many';
+   this.mapKey       = config.mapKey;
+   
+   if (this.associationType.multiplicity == 'OneToMany' &&
+       this.reverse) 
+   {
+	    this.multiplicity = 'one';
+   }
+
    this.dataService = config.dataService;
    this.createEvent("propertyChanged");
    this.createEvent("syncedWithDB");
-   this.assoaciatedItemIds = [];
+   this.associatedItemIds = [];
    this.otherItemType = 
      this.dataService.getItemTypeById(
       (this.reverse)?
@@ -26,15 +38,15 @@ new Class({
  },
  setAssociatedItemIds: function(ids)
  {
- 	this.assoaciatedItemIds = ids;
+ 	this.associatedItemIds = ids;
  },
  getAssociatedItemIds: function() 
  {
- 	return this.assoaciatedItemIds;
+ 	return this.associatedItemIds;
  },
  getInputNode: function() 
  {
-   var elem = new Element('div');
+   var elem = new Element('div').injectInside(this._getRenderArea());
    elem.appendText('ae: '+this.associationType.name+' ');
    if (this.reverse) 
    {
@@ -82,7 +94,7 @@ new Class({
     
     // display associated items with typic columns
     me.associatedItemsDisplay = 
-     new Element('input').injectInside(elem);
+     new Element('div').injectInside(elem);
     
     me.refreshAssociatedItems();
     
@@ -95,9 +107,13 @@ new Class({
      if (me.currentSelectedItemId &&
          me.currentSelectedItemId > 0) 
      {
-       if (!me.assoaciatedItemIds.contains(me.currentSelectedItemId)) 
+       if (!me.associatedItemIds.contains(me.currentSelectedItemId)) 
        {
-         me.assoaciatedItemIds.push(me.currentSelectedItemId);
+         if (me.multiplicity == 'one') 
+         {
+         	me.associatedItemIds = [];
+         }
+         me.associatedItemIds.push(me.currentSelectedItemId);
          me.currentSelectedItemId = 0;
          me.refreshAssociatedItems();
          oAutoComp._clearSelection();
@@ -146,9 +162,95 @@ new Class({
  },
  // refresh the associated items display
  refreshAssociatedItems: function() {
-   // TODO: items should be displayed in a table
-   this.associatedItemsDisplay.value =
-   	this.assoaciatedItemIds.join(',');
+ 
+   var me = this; 
+   var typeId = (this.reverse)?this.associationType.itemATypeId:
+      		                this.associationType.itemBTypeId;
+   var type   = this.dataService.getItemTypeById(typeId);   		                
+   // retrieve all items via data service
+   
+   var associatedMappedObjects = [];
+   
+   if (this.associatedItemIds && 
+       this.associatedItemIds !=null && 
+       this.associatedItemIds.length > 0) 
+   {
+     var items =
+      this.associatedItemIds.map
+      (
+      	function(element, index) 
+      	{
+      		var item = me.dataService.getItemById(element);
+      		// cast
+      		item.typeId = 
+      		 typeId;
+      		return item;
+      	}     
+      )
+ 
+ 	  associatedMappedObjects = items.map(this.dataService.itemToIpdByIdMap);
+ 
+   }
+   
+   var fooFmt = function (elCell, oRecord, oColumn, oData) 
+   { 
+    $(elCell).empty();
+    
+    if (oData && oData.value) {
+     $(elCell).appendText(oData.value);
+    }
+   };
+    
+   var myColumnHeaders = [];
+   var myFields        = [];
+   
+   myColumnHeaders.push({key: 'id', label: 'ID', sortable:true, resizeable:true});
+   myFields.push('id');
+   
+   addColumnHeaderFnc = function(element, id) 
+   {
+       // el is a remoteItemPropertyDecl object
+   	   myColumnHeaders.push(
+   	     {
+   	       key: 'ipd'+element.id,
+   	       label: element.description,
+   	       sortable:true, 
+   	       resizeable:true,
+   	       formatter: fooFmt
+   	     }
+   	   );
+   	   
+   	   myFields.push('ipd'+element.id);
+   }
+   
+   var actionFmt = function (elCell, oRecord, oColumn, oData) 
+   {   
+       var link = new Element('a');
+  	   link.appendText('remove');
+  	   link.href='#';
+	   link.onclick = function() 
+	   {
+	     me.removeItem(oData);
+	   }.bind(this);
+	   $(elCell).empty();
+	   link.injectInside($(elCell));
+    
+   }; 
+   
+   // a column per property
+   type.itemPropertyDecls.forEach(addColumnHeaderFnc.bind(this));
+    
+   myColumnHeaders.push({key: 'id', label: 'actions', formatter: actionFmt.bind(this)});
+   myFields.push('id'); 
+    
+   var myColumnSet = new YAHOO.widget.ColumnSet(myColumnHeaders);
+
+   var myDataSource = new YAHOO.util.DataSource(associatedMappedObjects);
+   myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+   myDataSource.responseSchema = {
+     fields: myFields
+   };
+   var myDataTable = new YAHOO.widget.DataTable(this.associatedItemsDisplay, myColumnSet, myDataSource);
  },
  // Callback Handlers to react on server events
  onUpdateCallback: function (obj) 
@@ -166,6 +268,24 @@ new Class({
   {
   	// rethrow
   	this.fireEvent("propertyChanged",argument);   
+  },
+  removeItem: function(id) 
+  {
+    this.associatedItemIds.remove(id);
+    this.refreshAssociatedItems();
+  	this.fireEvent("propertyChanged",this);
+  },
+  _getRenderArea: function() 
+  {
+    if ($(ASSOCEDITOR_RENDER_STAGE_ID)==null) 
+    {
+		var el = new Element('div'); 
+		el.setStyles('width: 0px; height: 0px; display: none');
+		el.id = ASSOCEDITOR_RENDER_STAGE_ID;
+		el.injectInside($(document.body));   
+    }
+    
+   	return $(ASSOCEDITOR_RENDER_STAGE_ID);
   }
  }
 );

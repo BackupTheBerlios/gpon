@@ -67,7 +67,7 @@ function getNewAssociationTypeEditor()
 function newItemType(destination) 
 {
   var editor = getNewItemTypeEditor();
-  editor.setNewObject(sampleType);
+  // editor.setNewObject({});
   // editor.getInputNode().injectInside($(destination));
 
   var panel = getPanel();
@@ -311,7 +311,7 @@ function pickAndEditItem(params)
 {
  var id = params.id;
  
- var itemEditor = new ItemEditor({itemTypeId: 2, dataService: GponDataService});
+ var itemEditor = new ItemEditor({itemTypeId: params.type.id, dataService: GponDataService});
 	
  var item = GponDataService.getItemById(id);	
 	
@@ -335,9 +335,36 @@ function pickAndEditItem(params)
  panel.focus();
 }
 
+
 function showNewItem() 
 {
-	var itemEditor = new ItemEditor({itemTypeId: 2, dataService: GponDataService});
+  var panel = getPanel({width: undefined});
+  var setHeader = function(title) {
+     panel.setHeader(
+     "<div class='tl'></div><span>"+
+     title+
+     "</span><div class='tr'></div>");
+   }
+
+  setHeader("Select Item Type");
+  
+  var createLauncher = new ItemCreateLauncher({dataService: GponDataService});
+  
+  createLauncher.subscribe("createItem",showNewItemEditor);
+  
+  panel.setBody(createLauncher.getElement());
+  panel.render($(gpon.ui.components.renderStageId));
+  gpon.ui.components.wm.register(panel);
+  panel.show();
+  panel.focus();
+}
+
+function showNewItemEditor(params) 
+{
+	var itemTypeId = params.itemTypeId;
+    var itemType = GponDataService.getItemTypeById(itemTypeId);
+
+	var itemEditor = new ItemEditor({itemTypeId: itemTypeId, dataService: GponDataService});
 	
 	var panel = getPanel();
 
@@ -348,7 +375,7 @@ function showNewItem()
      "</span><div class='tr'></div>");
    }
 
-    setHeader("New Item");
+    setHeader("New Item ("+itemType.name+":"+itemType.description+")");
     panel.setFooter("&minus; General Purpose Object Network &minus;");
     panel.setBody(itemEditor.getInputNode());
     panel.render($(gpon.ui.components.renderStageId));

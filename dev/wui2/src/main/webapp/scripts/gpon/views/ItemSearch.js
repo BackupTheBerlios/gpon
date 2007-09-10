@@ -59,7 +59,7 @@ new Class({
   getElement: function()
   {
     var tabContainer = new Element('div').injectInside(this._getRenderArea());
-    tabContainer.setStyle('height','300px');
+    tabContainer.addClass('itemsearch-content-area');
   
     this.tabView = new YAHOO.widget.TabView();
     
@@ -219,7 +219,7 @@ new Class({
   	   link.href='#';
 	   link.onclick = function() 
 	   {
-	     this.fireEvent("editItem", { id: oData });
+	     this.fireEvent("editItem", { id: oData, type: this.type });
 	   }.bind(this);
 	   $(elCell).empty();
 	   link.injectInside($(elCell));
@@ -273,12 +273,7 @@ new Class({
      fields: myFields
    };
    var myDataTable = new YAHOO.widget.DataTable(elem, myColumnSet, myDataSource, 
-	   {paginator: true, 
-		  rowsPerPage: 5, 
-			paginatorOptions: {
-			 containers: [pageLinksTop,pageLinksBottom]
-			}
-		 });
+	   { paginator:{ rowsPerPage: 10 ,containers: [pageLinksTop, pageLinksBottom]  },  paginated:true} );
    
    
    

@@ -60,4 +60,28 @@ extends Base
 	public Item getItem() {
 		return item;
 	}
+
+	public boolean equals(Object obj) {
+		
+		if (obj instanceof ItemProperty) 
+		{
+			ItemProperty other = (ItemProperty)obj;
+			
+			if (other != null && other.getPropertyDecl()!=null && 
+				getPropertyDecl().getId().equals(other.getPropertyDecl().getId())) 
+			{
+				return true;
+			} 
+			
+			return false;
+		}
+		
+		return false;
+	}
+
+	public int hashCode() {
+		return getPropertyDecl().getId().hashCode();
+	}
+	
+	
 }

@@ -328,8 +328,12 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 		
 		// union
 		Set allAssoc = new HashSet();
-		allAssoc.addAll(item.getAssociationsA());
-		allAssoc.addAll(item.getAssociationsB());
+		if (item.getAssociationsA()!=null) {
+			allAssoc.addAll(item.getAssociationsA());
+		}
+		if (item.getAssociationsB()!=null) {
+			allAssoc.addAll(item.getAssociationsB());
+		}
 		
 		
 		Iterator currentAssocIterator =
@@ -375,7 +379,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 			}
 		}
 		
-		// TODO: dissociateIfNecessary has to a configurable
+		// TODO: dissociateIfNecessary has to be a configurable
 		// strategy
 		checkAssociationConstraints(item,newAssociations,true);
 		
@@ -390,10 +394,20 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 					
 					if (item.getId().equals(assoc.getItemA())) 
 					{
+						if (item.getAssociationsA()==null) 
+						{
+							item.setAssociationsA(new HashSet());
+						} 
+						
 						item.getAssociationsA().add(assoc);
 					}
 					else 
 					{
+						if (item.getAssociationsB()==null) 
+						{
+							item.setAssociationsB(new HashSet());
+						}
+						
 						item.getAssociationsB().add(assoc);
 					}
 				}
@@ -416,11 +430,38 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 
 	public void addItem(Item item, List associationList) {
 		
-		Set set = new HashSet();
 		
-		set.addAll(associationList);
+		if (associationList!=null && associationList.size()>0) 
+		{
 		
-		item.setAssociationsA(set);
+		Set setA = new HashSet();
+		Set setB = new HashSet();
+		
+		Iterator it = associationList.iterator();
+		
+		while (it.hasNext()) 
+		{
+			Association assoc = (Association)it.next();
+			
+			if (assoc.getItemA()==null) 
+			{
+				assoc.setItemA(item);
+				setA.add(assoc);
+			}
+			else if (assoc.getItemB()==null)
+			{
+				assoc.setItemB(item);
+				setB.add(assoc);
+			}
+			else 
+			{
+				// both ids present, side does not matter
+				setA.add(assoc);
+			}
+		}
+		item.setAssociationsA(setA);
+		item.setAssociationsB(setB);
+		}
 		
 		addItem(item);
 		

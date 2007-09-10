@@ -1,6 +1,9 @@
 package de.berlios.gpon.wui2;
       
 
+import java.nio.MappedByteBuffer;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -10,15 +13,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 
+import de.berlios.gpon.common.Association;
 import de.berlios.gpon.common.AssociationType;
 import de.berlios.gpon.common.Item;
 import de.berlios.gpon.common.ItemProperty;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
+import de.berlios.gpon.common.util.ItemMappedById;
 import de.berlios.gpon.common.util.ItemTypeMappedById;
 import de.berlios.gpon.persistence.GponDataDao;
 import de.berlios.gpon.persistence.GponModelDao;
 import de.berlios.gpon.persistence.search.SimpleQuery;
+import de.berlios.gpon.wui2.common.RemoteAssociation;
 import de.berlios.gpon.wui2.common.RemoteAssociationType;
 import de.berlios.gpon.wui2.common.RemoteItem;
 import de.berlios.gpon.wui2.common.RemoteItemProperty;
@@ -79,21 +85,29 @@ implements AjaxService
 
 	public RemoteItem updateItem(RemoteItem rItem) {
 		Item item = convertToItem(rItem);
+		List assocList = convertToAssociations(rItem.getAssociations());
+		List propList  = new ArrayList(item.getProperties());
 		
-		// TODO: Associations
-		gponDataDao.updateItem(item);
-		// PRELIMINARY: to load associations back
-		gponDataDao.refresh(item);
+		Item dbItem = gponDataDao.findItemById(item.getId()); 
 		
-		return RemoteObjectConverter.convertItem(item);
+		ItemMappedById imbi = new ItemMappedById(dbItem);
+		
+		imbi.syncWith(new ItemMappedById(item));
+		
+		Item syncedItem = imbi.getItem();
+		
+		gponDataDao.updateItem(syncedItem,assocList);
+		
+		return RemoteObjectConverter.convertItem(syncedItem);
 		
 	}
 
 	public RemoteItem createItem(RemoteItem rItem) {
 		
 		Item item = convertToItem(rItem);
+		List assocList = convertToAssociations(rItem.getAssociations());
 		
-		gponDataDao.addItem(item);
+		gponDataDao.addItem(item,assocList);
 		
 		return RemoteObjectConverter.convertItem(item);
 	}
@@ -307,6 +321,48 @@ implements AjaxService
 		
 		return item;
     }
+	
+	private Association convertToAssociation(RemoteAssociation rAssoc) 
+	{
+		Association assoc = new Association();
+		AssociationType assocT = gponModelDao.findAssociationTypeById(rAssoc.getTypeId());
+		
+		assoc.setId(rAssoc.getId());
+		assoc.setAssociationType(assocT);
+		
+		Item itemA = null;
+		Item itemB = null;
+		
+		if (rAssoc.getItemAId()!=null) {
+			itemA = gponDataDao.findItemById(rAssoc.getItemAId());
+		}
+		if (rAssoc.getItemBId()!=null) {
+			itemB = gponDataDao.findItemById(rAssoc.getItemBId());
+		}
+		
+		assoc.setItemA(itemA);
+		assoc.setItemB(itemB);
+		
+		return assoc;
+	}
+	
+	private List convertToAssociations(RemoteAssociation[] rAssoces) 
+	{
+		if (rAssoces==null || rAssoces.length==0) 
+		{
+			return null;
+		}		
+		
+		List list = new ArrayList();
+		
+		for (int i = 0; i < rAssoces.length; i++) 
+		{
+			RemoteAssociation rAssoc = rAssoces[i];
+			list.add(convertToAssociation(rAssoc));
+		}
+		
+		return list;
+	}
 
 	private Set convertToProperties(RemoteItemProperty[] properties, ItemType type) {
 		

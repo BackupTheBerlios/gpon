@@ -21,11 +21,21 @@
         <prop key="hibernate.connection.url">jdbc:postgresql://127.0.0.1/gpon_a</prop>
         <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
         -->  
-        <!-- Derby -->  
+        <!-- Derby  -->  
+        <!-- Network -->
+        <!-- 
         <prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</prop>
         <prop key="hibernate.connection.url">jdbc:derby://localhost:1527/gpon_a;create=true</prop>
+          -->
+        <!-- Embedded  
+             NOTE: you have to place derby.jar and derbytools.jar in your classpath 
+             (i.e. your containers lib path). 
+        -->
+		<prop key="hibernate.connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</prop>
+		<prop key="hibernate.connection.url">jdbc:derby:gpon_a;create=true</prop>
+		
         <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
-        
+        <!--  End of Derby  -->
         
         <prop key="hibernate.connection.username">gpon</prop>
         <prop key="hibernate.connection.password">gpon</prop>

@@ -93,13 +93,7 @@ new Class({
   	 var plc2 = new Element('div').addClass('pagelinks-bottom').injectInside(this.tabRenderTo);
   	 
   	 var dataTable = new YAHOO.widget.DataTable(body, columnSet, dataSource,
-   	  {paginator:true, 
-   	   paginatorOptions: 
-   	    { 
-   	      rowsPerPage: 10,
-   	      containers: [plc1, plc2] 
-   	    } 
-   	   });
+   	  	   { paginator:{ rowsPerPage: 10 ,containers: [plc1, plc2]  },  paginated:true});
   
      /* Begin of DD-Resizer Adjustment*/
      var colList = dataTable.getColumnSet().flat;

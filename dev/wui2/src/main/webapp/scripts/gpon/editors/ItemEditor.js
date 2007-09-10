@@ -1,4 +1,4 @@
-var ITEMEDITOR_RENDER_STAGE_ID = 'ItemSearchRenderStage';
+var ITEMEDITOR_RENDER_STAGE_ID = 'ItemEditorRenderStage';
 
 ItemEditor = 
 new Class({
@@ -17,9 +17,9 @@ new Class({
    mappedAssociations:
    {
     // each association type has its own slot
-    a<'-' if reverse><assType 1> : [ ... associations ... ] ,
+    a<'-' if reverse><assType 1> : [ ... associated ids ... ] ,
     ...
-    a<'-' if reverse><assType m> : [ ... associations ... ]
+    a<'-' if reverse><assType m> : [ ... associated ids ... ]
    }
  }
  */
@@ -89,12 +89,12 @@ new Class({
    	  
    	  if (item.id == association.itemAId) {
    	    // normal direction
-		mappedItem.mappedAssociations['a'+association.typeId].push(association);
+		mappedItem.mappedAssociations['a'+association.typeId].push(association.itemBId);
    	  } 
    	  else 
    	  {
    	    // reverse direction
-		mappedItem.mappedAssociations['a-'+association.typeId].push(association);
+		mappedItem.mappedAssociations['a-'+association.typeId].push(association.itemAId);
    	  }
    	}
    	
@@ -164,18 +164,20 @@ new Class({
  },
  getInputNode: function() 
  {
+   me = this;
+ 
    // mission: build up a tabview container
-    var tabContainer = new Element('div').injectInside(this._getRenderArea());
-    tabContainer.setStyle('height','300px');
+   var tabContainer = new Element('div').injectInside(this._getRenderArea());
+   tabContainer.setStyle('height','300px');
   
-    this.tabView = new YAHOO.widget.TabView();
+   this.tabView = new YAHOO.widget.TabView();
    
-    this.mainTab = new YAHOO.widget.Tab({
+   this.mainTab = new YAHOO.widget.Tab({
         label: 'Attr.',
         // content: '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>',
         contentEl: this.getMainTabNode(),
         active: true
-    });
+   });
     
    this.tabView.addTab(this.mainTab); 
    
@@ -200,7 +202,8 @@ new Class({
 	      {
 	       dataService: this.dataService,
 	       associationType: at,
-	       reverse: false
+	       reverse: false,
+	       mapKey: 'a'+at.id
 	      };
 	   
 	      var assocEditor = new AssociationEditor(config);
@@ -213,11 +216,8 @@ new Class({
 	  	       j < this.mappedItem.mappedAssociations['a'+at.id].length; 
 	  	       j++) 
 	  	  {
-			var association = this.mappedItem.mappedAssociations['a'+at.id][j];
-			if (association.itemAId = this.mappedItem.id) 
-			{
-			  associatedIds.push(association.itemBId);
-			}  	  	
+			var associatedId = this.mappedItem.mappedAssociations['a'+at.id][j];
+		    associatedIds.push(associatedId);
 	  	  }
 	   
 	      assocEditor.setAssociatedItemIds(associatedIds);
@@ -244,7 +244,8 @@ new Class({
 	      {
 	       dataService: this.dataService,
 	       associationType: at,
-	       reverse: true
+	       reverse: true,
+	       mapKey: 'a-'+at.id
 	      };
 	   
 	      var assocEditor = new AssociationEditor(config);
@@ -257,11 +258,8 @@ new Class({
 	  	       j < this.mappedItem.mappedAssociations['a-'+at.id].length; 
 	  	       j++) 
 	  	  {
-			var association = this.mappedItem.mappedAssociations['a-'+at.id][j];
-			if (association.itemBId = this.mappedItem.id) 
-			{
-			  associatedIds.push(association.itemAId);
-			}  	  	
+			var associatedId = this.mappedItem.mappedAssociations['a-'+at.id][j];
+		    associatedIds.push(associatedId);
 	  	  }
 	   
 	      assocEditor.setAssociatedItemIds(associatedIds);
@@ -344,10 +342,12 @@ new Class({
  onAssociationChange: function(argument, associatedObject) 
   {
    // argument: the association editor
+   var assocEditor = argument;	
    	
+   this.mappedItem.mappedAssociations[assocEditor.mapKey] 
+   			= assocEditor.getAssociatedItemIds();
   
-  
-   alert("association changed");
+   alert("association changed: "+this.mappedItem.mappedAssociations[assocEditor.mapKey]);
   },
  /*
   * reads out the mapped item
@@ -360,6 +360,7 @@ new Class({
    item.typeId = mappedItem.typeId;
   
    item.properties = [];
+   item.associations = [];
   
    for (prop in mappedItem.mappedProperties) 
    {
@@ -369,6 +370,47 @@ new Class({
    	 item.properties.push(mappedItem.mappedProperties[prop]);
    	}
    }
+   
+   for (assocKey in mappedItem.mappedAssociations) 
+   {
+    if (mappedItem.mappedAssociations[assocKey]==null || 
+	    mappedItem.mappedAssociations[assocKey].length == 0) 
+	 {
+	 	continue;   
+	 }
+      
+    var reverse = false;
+    var atId = -1;
+   
+   	if (assocKey.charAt(1)=='-') 
+   	{
+   	  reverse = true;
+   	  atId = parseInt(assocKey.substr(2));
+   	}
+   	else 
+   	{
+   	  atId = parseInt(assocKey.substr(1));
+   	}
+   
+    for (var i = 0; i < mappedItem.mappedAssociations[assocKey].length; i++) 
+    {
+      var assoc = {};
+      assoc.typeId = atId;
+      var otherItemId =  mappedItem.mappedAssociations[assocKey][i];
+      if (reverse) 
+      {
+      	assoc.itemAId = otherItemId;
+      	assoc.itemBId = item.id;
+      }
+      else 
+      {
+      	assoc.itemAId = item.id;
+      	assoc.itemBId = otherItemId;
+      }
+      item.associations.push(assoc);
+    } 
+   }
+   
    return item;
   },
   _getRenderArea: function() 

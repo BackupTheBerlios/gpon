@@ -3,7 +3,14 @@ body
 {
  text-align: left;
  /* background-color: #a3b4c6; */
- background-color: #fcfffe;
+ background: #fcfffe url("assets/gpon-bg2.png") no-repeat fixed left top;
+}
+
+input, textarea, select   
+{
+ border-width: 1px;
+ border-style: solid; 
+ /* border-color: #2647A0; */
 }
 
 th, td {
@@ -72,19 +79,17 @@ overflow: visible;
 
 .focused .yui-panel  .hd 
 {
- background-color: #defff4;
- /* background-color: #6096BF; */
- /* color: #fff; */
- color: #000; 
- /* color: #9BB3AA; */
+ background: #2647A0 url(scripts/yui23/assets/skins/sam/sprite.png) repeat-x scroll left -1400px; 
+ color: #fff; 
 }
 .yui-panel .hd 
 { 
-	background:#dfdfdf url(scripts/yui22/button/assets/background.png) repeat scroll left center;
+	background: #2647A0 url(scripts/yui23/assets/skins/sam/sprite.png) repeat-x scroll;
+	/* background:#dfdfdf url(scripts/yui22/button/assets/background.png) repeat scroll left center; */
 	border: 1px solid #aeaeae; 
 	border-style:solid solid none;
 	/* background-color:#dfdfdf; */
-	color:#666; 
+	color:#000; 
 }
 
 .yui-panel .ft { 
@@ -246,5 +251,10 @@ background:#426FD9 none repeat scroll 0%;
 color:#FFFFFF;
 }
     
+/* item search */
+.itemsearch-content-area 
+{
+  min-height: 300px;
+}
     
     
