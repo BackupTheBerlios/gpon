@@ -101,7 +101,8 @@ new Class({
   	var myLabelFunc = function (elem) { return elem.description+' ('+elem.id+')'};
   	// enumeration base -> form element becomes a pull down now
   	var typesBase = GponBasicService.toKeyValueList(itemTypes, {srcValue: myLabelFunc}); 
-    typeChooser.setEnumBase(typesBase);
+  	var emptyPlusTypesBase = [{key: '-', value: null}].concat(typesBase);
+    typeChooser.setEnumBase(emptyPlusTypesBase);
     typeChooser.getInputNode().injectInside(elem);
     // wire it
     typeChooser.subscribe('propertyChanged', this.displaySearchDialog.bind(this));
