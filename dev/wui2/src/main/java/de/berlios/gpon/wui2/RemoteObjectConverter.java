@@ -140,11 +140,11 @@ public class RemoteObjectConverter {
 		);
 		
 		Set allAssociations = new HashSet();
-		if (itemType.getAssociationTypesA()!=null) {
-			allAssociations.addAll(itemType.getAssociationTypesA());
+		if (itemType.getInheritedAssociationTypesA()!=null) {
+			allAssociations.addAll(itemType.getInheritedAssociationTypesA());
 		}
-		if (itemType.getAssociationTypesB()!=null) {
-			allAssociations.addAll(itemType.getAssociationTypesB());
+		if (itemType.getInheritedAssociationTypesB()!=null) {
+			allAssociations.addAll(itemType.getInheritedAssociationTypesB());
 		}
 		rItemType.setAssociationTypes(convertAssociationTypes(allAssociations));
 		
