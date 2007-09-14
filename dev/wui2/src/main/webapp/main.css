@@ -3,7 +3,7 @@ body
 {
  text-align: left;
  /* background-color: #a3b4c6; */
- background: #fcfffe url("assets/gpon-bg2.png") no-repeat fixed left top;
+ background: #fff url("assets/gpon-bg2.png") no-repeat fixed left top;
 }
 
 input, textarea, select   
@@ -72,10 +72,12 @@ overflow: visible;
 .yui-panel .pagelinks-top, .yui-panel  .pagelinks-bottom { text-align: center; }
 .yui-panel { font-family: verdana, sans-serif; border:none; overflow:visible; background-color:transparent; }
 .yui-panel .bd { 
-	    overflow: visible; 
+	    /* overflow: visible;  */
+	    overflow: auto;
 	    padding:4px; 
 	    border:1px solid #aeaeae; 
-	    background-color:#FFF; }
+        background-color:#FFF; 
+}
 
 .focused .yui-panel  .hd 
 {
@@ -251,7 +253,7 @@ background:#426FD9 none repeat scroll 0%;
 color:#FFFFFF;
 }
     
-/* item search */
+/* item  */
 .itemsearch-content-area 
 {
   min-height: 300px;
