@@ -1,0 +1,185 @@
+<html>
+<head>
+<script type="text/javascript" src="scripts/mootools/mootools.v1.11.js"></script>
+<script type="text/javascript" src="scripts/yui23/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="scripts/yui23/dom/dom.js"></script>
+<script type="text/javascript" src="scripts/yui23/event/event.js"></script>
+<!-- 
+<script type="text/javascript" src="scripts/yui23/element/element-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/logger/logger.js"></script>
+<script type="text/javascript" src="scripts/yui23/dragdrop/dragdrop.js"></script>
+<script type="text/javascript" src="scripts/yui23/datasource/datasource-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/datatable/datatable-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/container/container-debug.js"></script>
+<script type="text/javascript" src="scripts/yui23/animation/animation.js"></script>
+<script type="text/javascript" src="scripts/yui23/button/button-beta.js"></script>
+<script type="text/javascript" src="scripts/yui23/tabview/tabview.js"></script>
+<script type="text/javascript" src="scripts/yui23/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="scripts/yui23/autocomplete/autocomplete-debug.js"></script>
+<script type="text/javascript" src="scripts/yui22-user/resize-panel.js"></script>
+-->
+<!-- 
+<script type="text/javascript" src="scripts/gpon/gpon-data.js"></script>
+-->
+<script type="text/javascript" src="scripts/gpon/gpon-base.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-templates.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-forms-pluggable.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-ui-addons.js"></script>
+
+<script type="text/javascript">
+
+var inputHandlerRegistry = {};
+
+var mappedItem = { ipd112 : 'Hallo', 
+                   img: 'http://www.google.de/intl/en_com/images/logo_plain.png', 
+                   flag: true
+                   };
+
+var MyCustomInput2 = new Class(
+{
+	initialize: function(value, onChangeFunc, enumBase, readOnly) 
+	{
+		this.value = value;
+		this.onChange = onChangeFunc;
+		if ($type(enumBase)) 
+		{
+			this.isEnumBased = true;
+	  		this.enumBase    = enumBase;		
+		}
+		this.readOnly = readOnly;
+	},
+	getElement: function() 
+	{
+		var container = new Element('div').setStyles({'background-color':'red','width':'auto'});;
+		
+		var node = new Element('input');
+		var img = new Element('img');
+		
+		var me = this;
+		var img = new Element('img');
+		if (this.readOnly) 
+		{
+		  node.disabled=true;
+		}
+		node.addEvent('change',function() {
+         me.onChange(this.value);
+         img.src = this.value;
+        });		
+        
+        img.injectInside(container);
+        img.setStyles({'height':'40px','width':'auto'});;
+        node.injectInside(container);
+        if (this.value) {
+			node.value=this.value;
+			img.src=this.value;
+		}
+        
+        return container;
+	} 
+}
+);
+
+function start() 
+{
+	var gfe = new GponFormElement(
+		{  targetObject       : mappedItem,
+	       targetPropertyExpr : 'ipd112',
+	       customInputElementClass: gpon.ui.addons.defaults.DefaultTextInput
+	       }
+	);
+	
+	/* gfe.setEnumBase([{text: 'Hallo', value: '1'}, {text: 'Tschuess', value: '2'}]); */
+	
+	gfe.getInputNode().injectInside($('target'));
+
+	gfe.subscribe('propertyChanged',report);
+
+	var gfe2 = new GponFormElement(
+		{  targetObject       : mappedItem,
+	       targetPropertyExpr : 'img',
+	       customInputElementClass: MyCustomInput2,
+	       readOnly: true
+	       }
+	);
+	
+	gfe2.getInputNode().injectInside($('target'));
+	
+	gfe2.subscribe('propertyChanged',report);
+	
+	var gfe3 = new GponFormElement(
+		{  targetObject       : mappedItem,
+	       targetPropertyExpr : 'flag',
+	       customInputElementClass: gpon.ui.addons.defaults.DefaultBooleanInput,
+	       readOnly: false
+	       }
+	);
+	
+	gfe3.getInputNode().injectInside($('target'));
+	
+	gfe3.subscribe('propertyChanged',report);
+}
+
+function report() 
+{
+  alert('Master received change event -> '+Json.toString(mappedItem));
+}
+
+</script>
+</head>
+<body onload="start();">
+<h1>Customized GponFormElement - Test</h1>
+<div id="target">
+</div>
+A Custom Input Element has to implement the following:
+<ul>
+<li>constructor: ctor(value, onChangeFunc, enumBase)</li>
+<li>the method 'getElement' returning the widgets dom element: El getElement()</li>
+</ul>
+Here is an example:
+<pre>
+var MyCustomTextAreaInput = new Class(
+{
+	initialize: function(value, onChangeFunc, enumBase) 
+	{
+		this.value = value;
+		this.onChange = onChangeFunc;
+		if ($type(enumBase)) 
+		{
+			this.isEnumBased = true;
+	  		this.enumBase    = enumBase;		
+		}
+	},
+	getElement: function() 
+	{
+		var node = new Element('textarea');
+        if (this.value) {
+			node.value=this.value;
+		}
+		node.rows=10;
+		node.cols=40;
+		var me = this;
+		node.addEvent('change',function() {
+         me.onChange(this.value);
+        });		
+        return node;
+	} 
+}
+);
+</pre>
+Create a customized GponFormElement: 
+<pre>
+
+var item = { prop: 'Hallo' };
+
+var gfe = new GponFormElement(
+		{  targetObject       :  item,
+	       targetPropertyExpr : 'prop',
+	       customInputElementClass: MyCustomTextAreaInput
+	       }
+	);
+	
+gfe.getInputNode().injectInside($('target'));
+</pre>
+
+</body>
+</html>
