@@ -3,8 +3,6 @@
  *
  */
 
-YAHOO.namespace("gpon.ui.components");
-var gpon = YAHOO.gpon; 
 
 gpon.ui.components._elid_seq = 1;
 gpon.ui.components.wm = new YAHOO.widget.OverlayManager();

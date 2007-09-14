@@ -1,3 +1,7 @@
+YAHOO.namespace("gpon.ui.components");
+var gpon = YAHOO.gpon; 
+
+
 var GponBasicService = 
 {
   uiElementSequence: 0,
@@ -14,26 +18,26 @@ var GponBasicService =
   },
   simpleTypes:
   {
-	  SHORTTEXT_TYPE: 1,
-	  DATE_TYPE: 5,
+	  TEXT_TYPE: 1,
+	  URL_TYPE: 2,
 	  DECIMAL_TYPE: 3,
 	  INTEGER_TYPE: 3,
 	  IMGURL_TYPE: 4,
-	  URL_TYPE: 2,
-	  LONGTEXT_TYPE: 1,
-	  BOOLEAN_TYPE: 1
+	  DATE_TYPE: 5,
+	  BOOLEAN_TYPE: 6
   },
   simpleTypesLabel:
   {
-	  SHORTTEXT_TYPE: 'shorttext',
+	  TEXT_TYPE: 'text',
 	  DATE_TYPE: 'date',
 	  DECIMAL_TYPE: 'decimal',
 	  INTEGER_TYPE: 'integer',
 	  IMGURL_TYPE: 'imgurl',
 	  URL_TYPE: 'url',
-	  LONGTEXT_TYPE: 'longtext',
 	  BOOLEAN_TYPE: 'boolean'
   },
+  /** Utility function to generate a key value list from an object list.
+   */
   toKeyValueList: function(list, custOpts) 
   {
     if (list==null || list.length == 0) 
