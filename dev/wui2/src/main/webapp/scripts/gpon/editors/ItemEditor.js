@@ -27,7 +27,7 @@ new Class({
  initialize: function(config) 
  {
    this.mode = "create";
-   this.dataService    = config.dataService;
+   this.dataService = config.dataService;
    this.setItemType(this.dataService.getItemTypeById(config.itemTypeId));
    this.mappedItem = this.mapItem(null, this.getItemType());
    this.createEvent("propertyChanged");
@@ -150,10 +150,13 @@ new Class({
        var ipdNode = new Element('div').injectInside(node);
        ipdNode.appendText(ipd.description);
        
+       var inputElClass = gpon.ui.addons.defaults.inputsById[ipd.valueTypeId];
+       
        var inputEl = new GponFormElement(
          { targetObject       : this.mappedItem.mappedProperties,
 	       targetPropertyExpr : 'p'+ipd.id+'.value',
-	       targetPropertyType : 'shorttext'});
+	       customInputElementClass: inputElClass
+	       });
 	       
        inputEl.subscribe("propertyChanged", this.onChange.bind(this));
        inputEl.getInputNode().injectInside(node);   
