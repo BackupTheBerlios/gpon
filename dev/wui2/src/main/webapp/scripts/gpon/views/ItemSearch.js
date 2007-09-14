@@ -232,6 +232,25 @@ new Class({
     $(elCell).empty().appendText(this.dataService.getItemTypeById(oData).name);
    }; 
 
+   /*
+    * sortfunction for sorting values
+    */
+   var getSortFunction = function (key) {
+    return function(a, b, desc) {
+         var itemPropA = a.getData(key)
+         var itemPropB = b.getData(key);
+	     var sorted = YAHOO.util.Sort.compare(itemPropA?itemPropA.value:null,itemPropB?itemPropB.value:null, desc);
+	     if(sorted === 0) {
+	        return YAHOO.util.Sort.compare(a.getId(),b.getId(), desc);
+	     }
+	     else 
+	     {
+	        return sorted;
+	     }
+	   }
+   }
+   
+
     
    var myColumnHeaders = [];
    var myFields        = [];
@@ -251,7 +270,8 @@ new Class({
    	       label: element.description,
    	       sortable:true, 
    	       resizeable:true,
-   	       formatter: fooFmt
+   	       formatter: fooFmt,
+   	       sortOptions: { sortFunction: getSortFunction('ipd'+element.id)}
    	     }
    	   );
    	   
@@ -263,8 +283,6 @@ new Class({
    
    myColumnHeaders.push({key: 'id', label: 'actions', formatter: actionFmt.bind(this)});
    myFields.push('id');
-   
-   
     
    var myColumnSet = new YAHOO.widget.ColumnSet(myColumnHeaders);
 
