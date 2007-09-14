@@ -49,8 +49,7 @@ public class DateType
   static final ValueType DATETYPE_VTD =
     new ValueType(DATETYPE_TYPE_ID,
                             DateType.class.getName(),
-                            "date/time",
-                            "",
+                            "date/time",                    
                             false
                             );
   Date   _core=null;

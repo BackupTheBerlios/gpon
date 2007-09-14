@@ -70,7 +70,13 @@ public class ValueTypeRepository
     typedefsById.put       (DateType.DATETYPE_VTD.getId(), 
                             DateType.DATETYPE_VTD);                     
     typedefsByClassName.put(DateType.DATETYPE_VTD.getClassName(), 
-                            DateType.DATETYPE_VTD);                             
+                            DateType.DATETYPE_VTD);  
+    
+    // Boolean Type
+    typedefsById.put       (BooleanType.BOOLEANTYPE_VTD.getId(), 
+    						BooleanType.BOOLEANTYPE_VTD);                     
+    typedefsByClassName.put(BooleanType.BOOLEANTYPE_VTD.getClassName(), 
+    						BooleanType.BOOLEANTYPE_VTD); 
    
   }
 

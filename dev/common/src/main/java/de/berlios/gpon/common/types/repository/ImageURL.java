@@ -31,7 +31,6 @@ public class ImageURL extends URL
     new ValueType(IMAGEURL_TYPE_ID,
                   ImageURL.class.getName(),
                   "image urls",
-                  "img",
                   false);
 
 

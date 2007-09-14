@@ -37,7 +37,6 @@ public class ShortText
     new ValueType(SHORTTEXT_TYPE_ID,
                             de.berlios.gpon.common.types.repository.ShortText.class.getName(),
                             "short text",
-                            "",
                             false);
   
   public void setDataInInputForm(String data)

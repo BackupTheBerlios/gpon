@@ -40,7 +40,6 @@ public class URL
     new ValueType(URL_TYPE_ID,
                             URL.class.getName(),
                             "urls",
-                            "a",
                             false);
 
   private String _data;

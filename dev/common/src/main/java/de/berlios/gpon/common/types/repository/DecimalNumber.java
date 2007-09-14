@@ -40,7 +40,6 @@ public class DecimalNumber
     new ValueType(DECIMALNUMBER_TYPE_ID,
                             DecimalNumber.class.getName(),
                             "decimal numbers",
-                            "",
                             true);
 
   String _data;
