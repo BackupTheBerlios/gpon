@@ -259,4 +259,14 @@ color:#FFFFFF;
   min-height: 300px;
 }
     
+/* derived simple types */
+.dst-text-editor, .dst-text-view, .dst-longtext-editor, .dst-longtext-view  
+{
+ border: 1px solid green;
+}
+
+.dst-boolean-editor, .dst-boolean-view 
+{
+
+}
     

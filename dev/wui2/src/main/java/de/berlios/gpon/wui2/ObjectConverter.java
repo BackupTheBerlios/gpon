@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.BeanUtils;
+
 import de.berlios.gpon.common.Association;
 import de.berlios.gpon.common.AssociationType;
 import de.berlios.gpon.common.Base;
@@ -14,6 +16,9 @@ import de.berlios.gpon.common.Item;
 import de.berlios.gpon.common.ItemProperty;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
+import de.berlios.gpon.common.util.ItemTypeMappedById;
+import de.berlios.gpon.persistence.GponDataDao;
+import de.berlios.gpon.persistence.GponModelDao;
 import de.berlios.gpon.wui2.common.RemoteAssociation;
 import de.berlios.gpon.wui2.common.RemoteAssociationType;
 import de.berlios.gpon.wui2.common.RemoteItem;
@@ -21,9 +26,29 @@ import de.berlios.gpon.wui2.common.RemoteItemProperty;
 import de.berlios.gpon.wui2.common.RemoteItemPropertyDecl;
 import de.berlios.gpon.wui2.common.RemoteItemType;
 
-public class RemoteObjectConverter {
+public class ObjectConverter {
 
-	public static RemoteItem[] convertItems(Collection items) 
+	GponModelDao gponModelDao = null;
+	GponDataDao  gponDataDao  = null;
+	
+	
+	public GponDataDao getGponDataDao() {
+		return gponDataDao;
+	}
+
+	public void setGponDataDao(GponDataDao gponDataDao) {
+		this.gponDataDao = gponDataDao;
+	}
+
+	public GponModelDao getGponModelDao() {
+		return gponModelDao;
+	}
+
+	public void setGponModelDao(GponModelDao gponModelDao) {
+		this.gponModelDao = gponModelDao;
+	}
+
+	public  RemoteItem[] convertItems(Collection items) 
 	{
 		if (items==null || items.size()==0) 
 		{
@@ -43,7 +68,7 @@ public class RemoteObjectConverter {
 		return (RemoteItem[])list.toArray(new RemoteItem[0]);	
 	}
 
-	public static RemoteItem convertItem(Item item) 
+	public  RemoteItem convertItem(Item item) 
 	{
 		RemoteItem rItem = new RemoteItem();
 		
@@ -60,7 +85,7 @@ public class RemoteObjectConverter {
 		return rItem;
 	}
 
-	public static  RemoteItemProperty[] convertProperties(Collection properties) {
+	public   RemoteItemProperty[] convertProperties(Collection properties) {
 		if (properties==null || properties.size()==0) 
 		{
 			return null;
@@ -79,7 +104,7 @@ public class RemoteObjectConverter {
 		return (RemoteItemProperty[])list.toArray(new RemoteItemProperty[0]);
 	}
 
-	public static  RemoteItemProperty convertProperty(ItemProperty prop) {
+	public   RemoteItemProperty convertProperty(ItemProperty prop) {
 		
 		RemoteItemProperty rProp = new RemoteItemProperty();
 		
@@ -90,7 +115,7 @@ public class RemoteObjectConverter {
 		return rProp;
 	}
 
-	public static RemoteAssociation[] convertAssociations(Collection associations) {
+	public  RemoteAssociation[] convertAssociations(Collection associations) {
 		if (associations==null || associations.size()==0) 
 		{
 			return null;
@@ -109,7 +134,7 @@ public class RemoteObjectConverter {
 		return (RemoteAssociation[])list.toArray(new RemoteAssociation[0]);
 	}
 
-	public static RemoteAssociation convertAssociation(Association association) {
+	public  RemoteAssociation convertAssociation(Association association) {
 		RemoteAssociation rAssociation =
 			new RemoteAssociation();
 		rAssociation.setId(association.getId());
@@ -119,7 +144,7 @@ public class RemoteObjectConverter {
 		return rAssociation;
 	}
 
-	public static  RemoteItemType convertItemType(ItemType itemType) 
+	public   RemoteItemType convertItemType(ItemType itemType) 
 	{
 		RemoteItemType rItemType =
 			new RemoteItemType();
@@ -151,7 +176,7 @@ public class RemoteObjectConverter {
 		return rItemType;
 	}
 
-	public static RemoteAssociationType convertAssociatonType(AssociationType associationType) 
+	public  RemoteAssociationType convertAssociatonType(AssociationType associationType) 
 	{
 		RemoteAssociationType rAsscociationType
 		 = new RemoteAssociationType();
@@ -171,7 +196,7 @@ public class RemoteObjectConverter {
 		return rAsscociationType;
 	}
 
-	public static RemoteAssociationType[] convertAssociationTypes(Collection associationTypes) {
+	public  RemoteAssociationType[] convertAssociationTypes(Collection associationTypes) {
 		if (associationTypes==null || associationTypes.size()==0) 
 		{
 			return null;
@@ -190,7 +215,7 @@ public class RemoteObjectConverter {
 		return (RemoteAssociationType[])list.toArray(new RemoteAssociationType[0]);
 	}
 
-	public static RemoteItemPropertyDecl convertPropertyDecl(ItemPropertyDecl propertyDecl) 
+	public  RemoteItemPropertyDecl convertPropertyDecl(ItemPropertyDecl propertyDecl) 
 	{
 		RemoteItemPropertyDecl rPropDecl =
 			new RemoteItemPropertyDecl();
@@ -201,12 +226,14 @@ public class RemoteObjectConverter {
 		rPropDecl.setTypic(propertyDecl.getTypic().booleanValue());
 		rPropDecl.setName(propertyDecl.getName());
 		rPropDecl.setTypeId(propertyDecl.getItemType().getId());
-		rPropDecl.setValueTypeId(propertyDecl.getPropertyValueTypeId());
+		rPropDecl.setValueType(propertyDecl.getValueType());
+		rPropDecl.setDerivedType(propertyDecl.getDerivedValueType());
+		rPropDecl.setValueTypeProperties(propertyDecl.getValueTypeProperties());
 		
 		return rPropDecl;
 	}
 
-	public static RemoteItemPropertyDecl[] convertPropertyDecls(Collection propDecls) 
+	public  RemoteItemPropertyDecl[] convertPropertyDecls(Collection propDecls) 
 	{
 		if (propDecls==null || propDecls.size()==0) 
 		{
@@ -227,7 +254,7 @@ public class RemoteObjectConverter {
 		         list.toArray(new RemoteItemPropertyDecl[0]);
 	}
 
-	public static RemoteItemType[] convertItemTypes(Collection itemTypes) {
+	public  RemoteItemType[] convertItemTypes(Collection itemTypes) {
 		if (itemTypes==null || itemTypes.size()==0) 
 		{
 			return null;
@@ -246,7 +273,7 @@ public class RemoteObjectConverter {
 		return (RemoteItemType[])list.toArray(new RemoteItemType[0]);
 	}
 
-	public static Long[] convertToIdList(Collection baseObjects) 
+	public  Long[] convertToIdList(Collection baseObjects) 
 	{
 		if (baseObjects==null || baseObjects.size()==0) 
 		{
@@ -264,6 +291,162 @@ public class RemoteObjectConverter {
 		
 		return (Long[])
 		         list.toArray(new Long[0]);
+	}
+
+	public ItemType convertRemoteItemType(RemoteItemType type) 
+	{
+		return convertRemoteItemType(type,false);
+	}
+
+	public ItemType convertRemoteItemType(RemoteItemType type, boolean fakeIpdIds) {
+		
+		ItemType itemType = new ItemType();
+		
+		itemType.setId(type.getId());
+		
+		if (type.getBaseTypeId()!=null && type.getBaseTypeId().longValue() > 0L) 
+		{
+			itemType.setBaseType(
+			  gponModelDao.findItemTypeById(type.getBaseTypeId())	
+			);
+		}
+		
+		itemType.setDescription(type.getDescription());
+		itemType.setName(type.getName());
+		
+		if (type.getItemPropertyDecls()!=null) {
+		
+		Set propDecls = new HashSet();
+		
+		int id = -1;
+		
+		for (int i = 0; i < type.getItemPropertyDecls().length; i++) 
+		{
+			RemoteItemPropertyDecl rPropDecl =
+				type.getItemPropertyDecls()[i];
+			
+			ItemPropertyDecl ipd =
+				new ItemPropertyDecl();
+			ipd.setId(znnvl(rPropDecl.getId(), fakeIpdIds?(new Long(id--)):null));
+			ipd.setDescription(rPropDecl.getDescription());
+			ipd.setMandatory(new Boolean(rPropDecl.isMandatory()));
+			ipd.setTypic(new Boolean(rPropDecl.isTypic()));
+			ipd.setName(rPropDecl.getName());
+			ipd.setValueType(rPropDecl.getValueType());
+			ipd.setDerivedValueType(rPropDecl.getDerivedType());
+			ipd.setValueTypeProperties(rPropDecl.getValueTypeProperties());
+			ipd.setItemType(itemType);
+			propDecls.add(ipd);
+		}
+		itemType.setItemPropertyDecls(propDecls);
+		}
+		
+		return itemType;
+	}
+
+	public Long znnvl(Long value, Long onZeroNegativeOrNull) 
+	{
+		if (value == null || value.longValue()<=0) 
+		{
+			return onZeroNegativeOrNull;
+		}
+		
+		return value;
+	}
+
+	public AssociationType convertRemoteAssociationType(RemoteAssociationType rAt) 
+	{
+		AssociationType at = new AssociationType();
+		
+		BeanUtils.copyProperties(rAt,at);
+		
+		at.setItemAType(gponModelDao.findItemTypeById(rAt.getItemATypeId()));
+		at.setItemBType(gponModelDao.findItemTypeById(rAt.getItemBTypeId()));
+		
+		return at;
+	}
+
+	public Item convertRemoteItem(RemoteItem rItem) 
+	{
+		Item item = new Item();
+		ItemType itemType = gponModelDao.findItemTypeById(rItem.getTypeId());
+		
+		item.setId(rItem.getId());
+		item.setItemType(itemType);
+		item.setProperties(convertRemoteProperties(rItem.getProperties(),itemType));
+		
+		return item;
+	}
+
+	public Association convertRemoteAssociation(RemoteAssociation rAssoc) 
+	{
+		Association assoc = new Association();
+		AssociationType assocT = gponModelDao.findAssociationTypeById(rAssoc.getTypeId());
+		
+		assoc.setId(rAssoc.getId());
+		assoc.setAssociationType(assocT);
+		
+		Item itemA = null;
+		Item itemB = null;
+		
+		if (rAssoc.getItemAId()!=null) {
+			itemA = gponDataDao.findItemById(rAssoc.getItemAId());
+		}
+		if (rAssoc.getItemBId()!=null) {
+			itemB = gponDataDao.findItemById(rAssoc.getItemBId());
+		}
+		
+		assoc.setItemA(itemA);
+		assoc.setItemB(itemB);
+		
+		return assoc;
+	}
+
+	public List convertRemoteAssociations(RemoteAssociation[] rAssoces) 
+	{
+		if (rAssoces==null || rAssoces.length==0) 
+		{
+			return null;
+		}		
+		
+		List list = new ArrayList();
+		
+		for (int i = 0; i < rAssoces.length; i++) 
+		{
+			RemoteAssociation rAssoc = rAssoces[i];
+			list.add(convertRemoteAssociation(rAssoc));
+		}
+		
+		return list;
+	}
+
+	public Set convertRemoteProperties(RemoteItemProperty[] properties, ItemType type) {
+		
+		Set set = new HashSet();
+		
+		if (properties != null) 
+		{
+			for (int i=0; i < properties.length; i++) 
+			{
+				RemoteItemProperty prop = properties[i];
+				set.add(convertRemoteProperty(prop, type));
+			}
+		}
+		
+		return set;
+	}
+
+	public ItemProperty convertRemoteProperty(RemoteItemProperty rProp, ItemType type) {
+		ItemProperty prop = new ItemProperty();
+		ItemTypeMappedById mappedType =
+			new ItemTypeMappedById(type);
+		
+		
+		prop.setId(rProp.getId());
+		prop.setPropertyDecl(mappedType.getItemPropertyDecl(rProp.getDeclId()+""));
+		prop.setValue(rProp.getValue());
+		
+		return prop;
 	}
 
 }

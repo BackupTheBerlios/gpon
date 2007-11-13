@@ -72,7 +72,7 @@ new Class({
    
    var baseTypes = [{value: -1, text: '-'}];
    
-   for (var i=0; i < itemTypes.length; i++) 
+   for (var i=0; $type(itemTypes) && i < itemTypes.length; i++) 
    {
      var itemType = itemTypes[i];
      if ($type(this.itemTypeObject) && 
@@ -216,13 +216,38 @@ new Class({
    
    var simpleTypeElement = new GponFormElement(
       { targetObject       : this.itemTypeObject,
-	    targetPropertyExpr : 'itemPropertyDecls['+idx+'].valueTypeId',
+	    targetPropertyExpr : 'itemPropertyDecls['+idx+'].valueType',
 	    targetPropertyType : 'shorttext',
 	    readOnly           : readOnly
 	    });
+	    	    
    simpleTypeElement.setEnumBase(simpleTypes);
    simpleTypeElement.subscribe("propertyChanged", this.onChange.bind(this));
    simpleTypeElement.getInputNode().injectInside(ipdTemplate.getAp('simpletype'));
+
+   // derived type
+   //  is triggered by simpleType Changes 
+   
+   var no = idx;	 
+   var derivedTypeParentEl = ipdTemplate.getAp('derivedtype')
+   var me = this;
+      
+   var onValueTypeChangeFnc = function(argument, associatedObject) 
+   {
+     me._showDerivedTypeEditor(derivedTypeParentEl, 
+                               no, 
+                               argument.newValue, 
+                               readOnly, 
+                               true /* reset */)
+   }    
+   
+   simpleTypeElement.subscribe("propertyChanged", onValueTypeChangeFnc);
+   this._showDerivedTypeEditor(derivedTypeParentEl, 
+                               no, 
+                               this.itemTypeObject.itemPropertyDecls[no].valueType, 
+                               readOnly,
+                               false /* kein reset */)
+   
    
    // mandatory
    var ipdMandElement = new GponFormElement({ targetObject       : this.itemTypeObject,
@@ -253,6 +278,54 @@ new Class({
     delBtn.injectInside(ipdTemplate.getAp('delBtn'));
    }
    return ipdNode;
+ },
+ _showDerivedTypeEditor: function(parentEl, ipdNo, simpleType, readOnly, reset) 
+ {
+    parentEl.empty();
+
+    if (reset) 
+    {
+     this.itemTypeObject.itemPropertyDecls[ipdNo].derivedType = null;
+    }
+
+ 
+    // derived type
+    var foundSome=false;
+    var derivedTypes = new Array();
+    derivedTypes.push({text: '-', value: undefined});
+   
+    // search derived types for given simple type in gpon.dst
+    // see ext/derived-simpletypes.js
+    for (i in gpon.dst) 
+    {
+       var derivedType = gpon.dst[i];
+       
+       if (derivedType.base == simpleType) {
+        foundSome = true;
+	    var elem = {};
+	    elem.value = derivedType.name;
+	    elem.text  = derivedType.name;
+	    derivedTypes.push(elem);
+	   }
+    }
+   
+    if (!foundSome) 
+    {
+      // no action
+      return;
+    }
+   
+   
+    var derivedTypeElement = new GponFormElement(
+      { targetObject       : this.itemTypeObject,
+	    targetPropertyExpr : 'itemPropertyDecls['+ipdNo+'].derivedType',
+	    targetPropertyType : 'shorttext',
+	    readOnly           : readOnly
+	    });
+	    	    
+    derivedTypeElement.setEnumBase(derivedTypes);
+    derivedTypeElement.subscribe("propertyChanged", this.onChange.bind(this));
+    derivedTypeElement.getInputNode().injectInside(parentEl);
  },
  removeIpd: function(nodeId, index) 
  {

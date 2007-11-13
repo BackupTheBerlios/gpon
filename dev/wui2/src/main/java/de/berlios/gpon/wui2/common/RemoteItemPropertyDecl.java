@@ -4,7 +4,9 @@ public class RemoteItemPropertyDecl {
 	Long    id;
 	String  name;
 	String  description;
-	Long    valueTypeId;
+	String    valueType;
+	String  derivedType;
+	String  valueTypeProperties;
 	Long    typeId; // to detect inherited properties
 	boolean mandatory;
 	boolean typic;
@@ -45,10 +47,22 @@ public class RemoteItemPropertyDecl {
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
-	public Long getValueTypeId() {
-		return valueTypeId;
+	public String getValueType() {
+		return valueType;
 	}
-	public void setValueTypeId(Long valueTypeId) {
-		this.valueTypeId = valueTypeId;
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
+	}
+	public String getDerivedType() {
+		return derivedType;
+	}
+	public void setDerivedType(String derivedType) {
+		this.derivedType = derivedType;
+	}
+	public String getValueTypeProperties() {
+		return valueTypeProperties;
+	}
+	public void setValueTypeProperties(String valueTypeProperties) {
+		this.valueTypeProperties = valueTypeProperties;
 	}
 }

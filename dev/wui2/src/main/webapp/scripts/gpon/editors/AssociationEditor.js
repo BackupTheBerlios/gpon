@@ -188,7 +188,7 @@ new Class({
       	}     
       )
  
- 	  associatedMappedObjects = items.map(this.dataService.itemToIpdByIdMap);
+ 	  associatedMappedObjects = items.map(this.dataService.itemToIpByIdMap);
  
    }
    

@@ -1,7 +1,5 @@
-
 /*
- * a form element is connected to 
- * an objects property 
+ * a form element is connected to a target property of a target object
  *
  * var foo = {name: 'Bob', address: {street: 'Park Street', town: 'Virginia'}} 
  *
@@ -13,10 +11,15 @@ var GponFormElement = new Class(
 {
 	initialize: function(config) 
 	{
-	  this.targetObject = config.targetObject;
-	  this.propExpr     = config.targetPropertyExpr;
-	  this.simpleType   = config.targetPropertyType;
-	  this.readOnly     = false;
+	  this.targetObject     = config.targetObject;
+	  this.propExpr         = config.targetPropertyExpr;
+	  this.simpleType       = config.targetPropertyType;
+	  this.readOnly         = false;
+	  /**
+	   * TODO: CustomInputElement should be well documented
+	   */
+	  // this.customInputElementClass = config.customInputElementClass;
+	  this.ipd = config.ipd;
 	  if ($type(config.readOnly)) 
 	  {
 	  	this.readOnly = config.readOnly; 
@@ -34,10 +37,68 @@ var GponFormElement = new Class(
 	},
 	getInputNode: function() 
 	{
-		if ($type(this.inputNode)) 
+	    if (!$type(this.inputNode)) 
 		{
-			return this.inputNode;
+			if ($type(this.ipd)) 
+			{
+				this.inputNode = this.getInputNodeCustom();
+			}
+			else 
+			{
+				this.inputNode = this.getInputNodeDefault();
+			}
 		}
+		
+		return this.inputNode;
+	},
+	getInputNodeCustom: function() 
+	{
+		var me = this;
+	    var value = this.getObjectsValue();
+		// callback method
+		var onChangeFunc = function(value) 
+		{
+			me.onChange(value);
+		}
+	    // CTOR called with initial value
+		var inputEl = null; 
+		
+		if ($type(this.ipd.derivedType) &&
+			$type(gpon.dst[this.ipd.valueType+':'+this.ipd.derivedType])) 
+		{
+		    // derived simple type
+		    var dst = gpon.dst[this.ipd.valueType+':'+this.ipd.derivedType];
+		    var opts = {
+		      value: value,
+		      onChange: onChangeFunc,
+		      enumBase: this.enumBase, 
+		      readOnly: this.readOnly
+		    }
+			return dst.getEditor(opts);
+		}
+		else if ($type(gpon.dst[this.ipd.valueType]))
+		{
+		    // derived simple type (only for the simple type)
+		    var dst = gpon.dst[this.ipd.valueType];
+		    var opts = {
+		      value: value,
+		      onChange: onChangeFunc,
+		      enumBase: this.enumBase, 
+		      readOnly: this.readOnly
+		    }
+			return dst.getEditor(opts);
+		} 
+		else 
+		{
+		 var customInputElementClass = 
+		 	gpon.ui.addons.defaults.inputsById[this.ipd.valueType];   
+		 var iel = new customInputElementClass(onChangeFunc, value, this.enumBase, this.readOnly);		
+		 return iel.getElement();
+        }
+	}, 
+	getInputNodeDefault: function() 
+	{
+		
 		
 		var node = null;
 		var value = this.getObjectsValue();
@@ -94,8 +155,7 @@ var GponFormElement = new Class(
          me.onChange((me.simpleType=='boolean')?this.checked:this.value)
         });
         node.disabled=this.readOnly;
-		this.inputNode = node;
-		return this.inputNode;
+		return node;
 	},
 	onChange: function(newValue) 
 	{ 

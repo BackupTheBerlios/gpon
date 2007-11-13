@@ -65,7 +65,6 @@ new Class({
     
     this.queryTab = new YAHOO.widget.Tab({
         label: 'Query',
-        // content: '<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>',
         contentEl: this.getQueryTabElement(),
         active: true
     });
@@ -191,26 +190,39 @@ new Class({
    var elem = new Element('div').injectInside(this.searchResultEl).addClass('gpon-ui-i-tab');
    var pageLinksBottom = new Element('div').injectInside(this.searchResultEl).addClass('pagelinks-bottom');
    
-   var mapped = this.resultSet.map(this.dataService.itemToIpdByIdMap);
+   var mapped = this.resultSet.map(this.dataService.itemToIpByIdMap);
    
-   /*
-    var myColumnHeaders = [
-     {key:"lnr_g",      text: " ", formatter: myFnc},
-     {key:"lnr_g",      text: "Nr.",        sortable:true, resizeable:true},
-     {key:"werktitel",  text: 'Titel',      sortable:true, resizeable:true},
-     {key:"bearbeiter", text: 'Bearbeiter', sortable:true, resizeable:true},
-     {key:"kompo",      text: 'Komponist',  sortable:true, resizeable:true},
-     {key:"interpret",  text: "Interpret",  sortable:true, resizeable:true}
-    ];
-    */
-   // FIXME: formatters should be defined in GponBasicService (accessible by ipd id) 
-   var fooFmt = function (elCell, oRecord, oColumn, oData) 
+   var getFormatterFunction = function(ipd) {
+   return function (elCell, oRecord, oColumn, oData) 
    { 
     $(elCell).empty();
     
     if (oData && oData.value) {
-     $(elCell).appendText(oData.value);
+		var element = null;
+		
+		if ($type(ipd.derivedType) &&
+			$type(gpon.dst[ipd.valueType+':'+ipd.derivedType])) 
+		{
+		    // derived simple type
+		    var dst = gpon.dst[ipd.valueType+':'+ipd.derivedType];
+			element = dst.getView(oData.value);
+		}
+		else if ($type(gpon.dst[ipd.valueType]))
+		{
+		    // derived simple type (only for the simple type)
+		    var dst = gpon.dst[ipd.valueType];
+			element = dst.getView(oData.value);
+		} 
+		else 
+		{
+		 var iel = 
+		 	new gpon.ui.addons.defaults.outputsById[ipd.valueType](oData.value);   
+		 element = iel.getElement();
+        }
+		
+		element.injectInside($(elCell));
     }
+   }
    };
     
    var actionFmt = function (elCell, oRecord, oColumn, oData) 
@@ -249,9 +261,7 @@ new Class({
 	     }
 	   }
    }
-   
-
-    
+      
    var myColumnHeaders = [];
    var myFields        = [];
    
@@ -270,7 +280,7 @@ new Class({
    	       label: element.description,
    	       sortable:true, 
    	       resizeable:true,
-   	       formatter: fooFmt,
+   	       formatter: getFormatterFunction(element),
    	       sortOptions: { sortFunction: getSortFunction('ipd'+element.id)}
    	     }
    	   );

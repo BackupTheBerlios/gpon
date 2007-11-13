@@ -89,12 +89,16 @@ new Class({
    	  
    	  if (item.id == association.itemAId) {
    	    // normal direction
-		mappedItem.mappedAssociations['a'+association.typeId].push(association.itemBId);
+   	    if (mappedItem.mappedAssociations['a'+association.typeId]) {
+		 mappedItem.mappedAssociations['a'+association.typeId].push(association.itemBId);
+		}
    	  } 
    	  else 
    	  {
    	    // reverse direction
-		mappedItem.mappedAssociations['a-'+association.typeId].push(association.itemAId);
+   	    if (mappedItem.mappedAssociations['a-'+association.typeId]) {
+		 mappedItem.mappedAssociations['a-'+association.typeId].push(association.itemAId);
+		}
    	  }
    	}
    	
@@ -150,12 +154,10 @@ new Class({
        var ipdNode = new Element('div').injectInside(node);
        ipdNode.appendText(ipd.description);
        
-       var inputElClass = gpon.ui.addons.defaults.inputsById[ipd.valueTypeId];
-       
        var inputEl = new GponFormElement(
          { targetObject       : this.mappedItem.mappedProperties,
 	       targetPropertyExpr : 'p'+ipd.id+'.value',
-	       customInputElementClass: inputElClass
+	       ipd: ipd
 	       });
 	       
        inputEl.subscribe("propertyChanged", this.onChange.bind(this));

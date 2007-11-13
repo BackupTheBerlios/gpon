@@ -58,8 +58,10 @@
 <script type="text/javascript" src="scripts/gpon/gpon-data.js"></script>
 <script type="text/javascript" src="scripts/gpon/gpon-base.js"></script>
 <script type="text/javascript" src="scripts/gpon/gpon-templates.js"></script>
-<script type="text/javascript" src="scripts/gpon/gpon-forms-pluggable.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-forms.js"></script>
 <script type="text/javascript" src="scripts/gpon/gpon-ui-addons.js"></script>
+<script type="text/javascript" src="scripts/gpon/ext/simpletypes.js"></script>
+<script type="text/javascript" src="scripts/gpon/plugins/PluginManager.js"></script>
 <script type="text/javascript" src="scripts/gpon/editors/ItemTypeEditor.js"></script>
 <script type="text/javascript" src="scripts/gpon/editors/AssociationTypeEditor.js"></script>
 <script type="text/javascript" src="scripts/gpon/editors/ItemEditor.js"></script>
@@ -79,8 +81,11 @@ DWREngine.setAsync(false);
 /* wiring */
 
 
-
 function on() {
+
+var pm = new PluginManager({dataService: GponDataService});
+
+pm.load();
 
 gpon.ui.components.renderStageId = 'ui_renderstage';
 
@@ -106,6 +111,7 @@ gpon.ui.components.wm.register(panel);
 panel.show();
 panel.focus();
 }
+
 </script>
 </head>
 <body class="yui-skin-sam" onload="on();">

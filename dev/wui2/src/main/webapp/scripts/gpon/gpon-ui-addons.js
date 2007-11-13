@@ -78,7 +78,6 @@ gpon.ui.addons.defaults.DefaultTextInput = new Class(
 		  node.disabled=true;
 		}
 		node.addEvent('change',function() {
-		 alert('DTE');
          me.onChange(this.value);
         });		
         
@@ -150,8 +149,19 @@ gpon.ui.addons.defaults.DefaultBooleanInput = new Class(
 }
 );
 
+/*
+
+    _                   _          _                           _
+   (_)_ __  _ __  _   _| |_    ___| | ___ _ __ ___   ___ _ __ | |_ ___
+   | | '_ \| '_ \| | | | __|  / _ \ |/ _ \ '_ ` _ \ / _ \ '_ \| __/ __|
+   | | | | | |_) | |_| | |_  |  __/ |  __/ | | | | |  __/ | | | |_\__ \
+   |_|_| |_| .__/ \__,_|\__|  \___|_|\___|_| |_| |_|\___|_| |_|\__|___/
+           |_|
+
+*/
 
 gpon.ui.addons.defaults.inputsById = [];
+
 
 gpon.ui.addons.defaults.inputsById[GponBasicService.simpleTypes.TEXT_TYPE] 
  = gpon.ui.addons.defaults.DefaultTextInput;
@@ -168,4 +178,115 @@ gpon.ui.addons.defaults.inputsById[GponBasicService.simpleTypes.URL_TYPE]
 gpon.ui.addons.defaults.inputsById[GponBasicService.simpleTypes.BOOLEAN_TYPE]
  = gpon.ui.addons.defaults.DefaultBooleanInput;
 
+/*
+               _               _          _                           _
+    ___  _   _| |_ _ __  _   _| |_    ___| | ___ _ __ ___   ___ _ __ | |_ ___
+   / _ \| | | | __| '_ \| | | | __|  / _ \ |/ _ \ '_ ` _ \ / _ \ '_ \| __/ __|
+  | (_) | |_| | |_| |_) | |_| | |_  |  __/ |  __/ | | | | |  __/ | | | |_\__ \
+   \___/ \__,_|\__| .__/ \__,_|\__|  \___|_|\___|_| |_| |_|\___|_| |_|\__|___/
+                  |_|
+*/
+gpon.ui.addons.defaults.outputsById = [];
 
+gpon.ui.addons.defaults.DefaultBooleanOutput = new Class(
+{
+	initialize: function(value) 
+	{
+		this.value = value;
+		
+		if ($type(this.value)) 
+		{
+		  if ($type(this.value) == 'boolean') 
+		  {
+		  	// ok
+		  }
+		  else 
+		  {
+		    this.value = ((''+this.value).toLowerCase() == 'true');
+		  }
+		}
+	},
+	getElement: function() 
+	{
+		node = new Element('input');
+		node.type='checkbox';
+		if (this.value!=null) {
+		 node.defaultChecked = this.value; // IE
+		 node.checked = this.value;
+		}
+		
+		var me = this;
+		node.disabled=true;
+        
+        if (this.value) {
+			node.value=this.checked;
+		}
+        
+        return node;
+	} 
+}
+);
+
+gpon.ui.addons.defaults.DefaultTextOutput = new Class(
+{
+	initialize: function(value) 
+	{
+		this.value = value;		
+	},
+	getElement: function() 
+	{
+		node = new Element('span');
+
+		node.appendText(this.value);
+        
+        return node;
+	} 
+}
+);
+
+gpon.ui.addons.defaults.DefaultUrlOutput = new Class(
+{
+	initialize: function(value) 
+	{
+		this.value = value;		
+	},
+	getElement: function() 
+	{
+		node = new Element('a');
+		node.href = this.value;		
+		node.appendText(this.value);
+        
+        return node;
+	} 
+}
+);
+
+gpon.ui.addons.defaults.DefaultImgUrlOutput = new Class(
+{
+	initialize: function(value) 
+	{
+		this.value = value;		
+	},
+	getElement: function() 
+	{
+		node = new Element('img');
+		node.src = this.value;		
+		node.title = this.value;
+		node.alt = this.value;
+        
+        return node;
+	} 
+}
+);
+
+gpon.ui.addons.defaults.outputsById[GponBasicService.simpleTypes.TEXT_TYPE] 
+ = gpon.ui.addons.defaults.DefaultTextOutput;
+gpon.ui.addons.defaults.outputsById[GponBasicService.simpleTypes.DATE_TYPE]
+ = gpon.ui.addons.defaults.DefaultTextOutput;
+gpon.ui.addons.defaults.outputsById[GponBasicService.simpleTypes.DECIMAL_TYPE]
+ = gpon.ui.addons.defaults.DefaultTextOutput;
+gpon.ui.addons.defaults.outputsById[GponBasicService.simpleTypes.URL_TYPE]
+ = gpon.ui.addons.defaults.DefaultUrlOutput;
+gpon.ui.addons.defaults.outputsById[GponBasicService.simpleTypes.BOOLEAN_TYPE]
+ = gpon.ui.addons.defaults.DefaultBooleanOutput;
+ 

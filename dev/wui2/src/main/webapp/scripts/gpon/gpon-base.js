@@ -18,21 +18,17 @@ var GponBasicService =
   },
   simpleTypes:
   {
-	  TEXT_TYPE: 1,
-	  URL_TYPE: 2,
-	  DECIMAL_TYPE: 3,
-	  INTEGER_TYPE: 3,
-	  IMGURL_TYPE: 4,
-	  DATE_TYPE: 5,
-	  BOOLEAN_TYPE: 6
+	  TEXT_TYPE: 'text',
+	  URL_TYPE: 'url',
+	  DECIMAL_TYPE: 'decimal',
+	  DATE_TYPE: 'date',
+	  BOOLEAN_TYPE: 'boolean'
   },
   simpleTypesLabel:
   {
 	  TEXT_TYPE: 'text',
 	  DATE_TYPE: 'date',
 	  DECIMAL_TYPE: 'decimal',
-	  INTEGER_TYPE: 'integer',
-	  IMGURL_TYPE: 'imgurl',
 	  URL_TYPE: 'url',
 	  BOOLEAN_TYPE: 'boolean'
   },

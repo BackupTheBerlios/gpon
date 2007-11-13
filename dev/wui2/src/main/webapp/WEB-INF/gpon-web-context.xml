@@ -55,9 +55,13 @@
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   <!-- Data Part Data Access Object -->
-  <bean id="gponDataDao" class="de.berlios.gpon.persistence.GponDataDaoImpl" lazy-init="true">
+  <bean id="dataValidator" 
+  		class="de.berlios.gpon.service.data.validation.DefaultDataValidator"/>
+  
+  <bean id="gponDataDao" class="de.berlios.gpon.persistence.GponDataDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
     <property name="modelDao" ref="gponModelDao"/>
+    <property name="dataValidator" ref="dataValidator"/>
   </bean>
   <!-- -->
   <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager" lazy-init="true">
@@ -233,10 +237,16 @@
   </bean>
   
   <!--  AjaxService  -->
+  <bean id="objectConverter" class="de.berlios.gpon.wui2.ObjectConverter">
+    <property name="gponDataDao" ref="txGponDataDao"/>
+    <property name="gponModelDao" ref="txGponModelDao"/>
+  </bean>
+  
   <bean id="ajaxService"
         class="de.berlios.gpon.wui2.AjaxServiceImpl">
     <property name="gponDataDao" ref="txGponDataDao"/>
     <property name="gponModelDao" ref="txGponModelDao"/>
+    <property name="objectConverter" ref="objectConverter"/>
   </bean>
   
 </beans>

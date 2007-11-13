@@ -61,6 +61,18 @@ var GponDataServiceClass = new Class(
   
     return this.itemTypesById[id];
   },
+  getItemTypeByName: function (name) 
+  {
+    this.getAllItemTypes(); 
+  
+    if ($type(this.itemTypesByName)) 
+    {
+     return this.itemTypesByName[name];
+    }
+  
+    return null;
+    
+  },
   /* getAllItemTypes */
   getAllItemTypes: function() 
   {
@@ -68,7 +80,8 @@ var GponDataServiceClass = new Class(
      var cb = function(types) 
      {
        this.itemTypes = types;
-       this.itemTypesById = this._mapById(types);
+       this.itemTypesById   = this._mapById(types);
+       this.itemTypesByName = this._mapByName(types);
      }
      this.ajaxService.getAllItemTypes(cb.bind(this));
      this.modelDirty.it=false;
@@ -125,13 +138,26 @@ var GponDataServiceClass = new Class(
     return result;
   },
   /**
-   * itemToIpdIdMap converts a remoteItem object to a map
+   * itemToIpIdMap converts a remoteItem object to a map
    * every itemProperty is mapped to its id prefixed by 'ipd' (decorator funcs have to applied for proper rendering)
    * id is mapped to key 'id'
    * typeId is mapped to key 'typeId'
    * complete item is mapped to key 'item'
    */
-   itemToIpdByIdMap: function (item) 
+   itemToIpByIdMap: function (item) 
+   {
+     var mapped = {};
+     mapped.id = item.id;
+     mapped.typeId = item.typeId;
+     mapped.item = item;
+     for (var pix=0; item.properties && pix < item.properties.length; pix++) 
+     {
+       var  property = item.properties[pix];
+       mapped['ipd'+property.declId]=property;
+     } 
+     return mapped;
+   },
+   itemToIpByIdMap: function (item) 
    {
      var mapped = {};
      mapped.id = item.id;
@@ -155,6 +181,15 @@ var GponDataServiceClass = new Class(
        map[objects[i].id] = objects[i];
    }
    return map;
+  },
+  _mapByName: function(objects) 
+  {
+   var map = {}; 
+   for (var i = 0; i < objects.length; i++) 
+   {
+       map[objects[i].name] = objects[i];
+   }
+   return map;
   }
 });
 
@@ -170,6 +205,8 @@ var GponDataService = new GponDataServiceClass(ajaxService);
 
 var GponItemWrapper = new Class(
  {
+  propsByName: null,
+  _specificValues: null,
   /*
    * CTOR
    */
@@ -177,12 +214,24 @@ var GponItemWrapper = new Class(
   {
    this.item = item;
    this.itemType = itemType;
+   // init fills propsMap
+   this._init();
   },
   getSpecificValues: function() 
   {
-    var mapped = GponDataService.itemToIpdByIdMap(this.item);
+  	return this._specificValues;
+  },
+  /**
+   * fills:
+   *  - specific properties array (array of typic prop values)
+   *  - propsByName (property values by property name)
+   */
+  _init: function() 
+  {
+    var mapped = GponDataService.itemToIpByIdMap(this.item);
   
-    var specificPropArray = [];
+    this._specificValues = [];
+    this.propsByName = {};
   
     for (var i=0; i < this.itemType.itemPropertyDecls.length; i++) 
     {
@@ -191,11 +240,19 @@ var GponItemWrapper = new Class(
       {
         if (mapped['ipd'+ipd.id]) 
         {
-         specificPropArray.push(mapped['ipd'+ipd.id].value);
+         this._specificValues.push(mapped['ipd'+ipd.id].value);
         }
       }
+      
+      if (mapped['ipd'+ipd.id]) 
+      {
+       this.propsByName[ipd.name] = mapped['ipd'+ipd.id].value;
+      }
+      else 
+      {
+       this.propsByName[ipd.name] = null;
+      }
     } 
-    return specificPropArray;
   }
  }
 );

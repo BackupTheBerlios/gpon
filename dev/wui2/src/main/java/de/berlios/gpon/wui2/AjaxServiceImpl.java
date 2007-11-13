@@ -40,7 +40,16 @@ implements AjaxService
 	
 	GponDataDao  gponDataDao  = null;
 	GponModelDao gponModelDao = null;
+	ObjectConverter objectConverter = null;
 	
+	public ObjectConverter getObjectConverter() {
+		return objectConverter;
+	}
+
+	public void setObjectConverter(ObjectConverter remoteObjectConverter) {
+		this.objectConverter = remoteObjectConverter;
+	}
+
 	public RemoteItem[] searchItems(RemoteQuery query) {
 		
 		ItemType it = gponModelDao.findItemTypeById(query.getTypeId());
@@ -50,7 +59,7 @@ implements AjaxService
 		
 		Set result = gponDataDao.search(sq);
 		
-		return RemoteObjectConverter.convertItems(result);
+		return getObjectConverter().convertItems(result);
 	}
 
 	public GponDataDao getGponDataDao() {
@@ -73,19 +82,19 @@ implements AjaxService
 		
 		ItemType it = gponModelDao.findItemTypeById(id);
 		
-		return RemoteObjectConverter.
+		return getObjectConverter().
 		       convertItemType(it);
 		
 	}
 
 	public RemoteItem getItemById(Long id) {
 		Item item = gponDataDao.findItemById(id);
-		return RemoteObjectConverter.convertItem(item);
+		return getObjectConverter().convertItem(item);
 	}
 
 	public RemoteItem updateItem(RemoteItem rItem) {
-		Item item = convertToItem(rItem);
-		List assocList = convertToAssociations(rItem.getAssociations());
+		Item item = getObjectConverter().convertRemoteItem(rItem);
+		List assocList = getObjectConverter().convertRemoteAssociations(rItem.getAssociations());
 		List propList  = new ArrayList(item.getProperties());
 		
 		Item dbItem = gponDataDao.findItemById(item.getId()); 
@@ -98,18 +107,18 @@ implements AjaxService
 		
 		gponDataDao.updateItem(syncedItem,assocList);
 		
-		return RemoteObjectConverter.convertItem(syncedItem);
+		return getObjectConverter().convertItem(syncedItem);
 		
 	}
 
 	public RemoteItem createItem(RemoteItem rItem) {
 		
-		Item item = convertToItem(rItem);
-		List assocList = convertToAssociations(rItem.getAssociations());
+		Item item = getObjectConverter().convertRemoteItem(rItem);
+		List assocList = getObjectConverter().convertRemoteAssociations(rItem.getAssociations());
 		
 		gponDataDao.addItem(item,assocList);
 		
-		return RemoteObjectConverter.convertItem(item);
+		return getObjectConverter().convertItem(item);
 	}
 
 	public void deleteItem(Long id) {
@@ -118,11 +127,11 @@ implements AjaxService
 
 	public RemoteItemType createItemType(RemoteItemType type) {
 		
-		ItemType itemType = convertToItemType(type);
+		ItemType itemType = getObjectConverter().convertRemoteItemType(type);
 		
 		gponModelDao.addItemType(itemType);
 		
-		return RemoteObjectConverter.convertItemType(itemType);
+		return getObjectConverter().convertItemType(itemType);
 	}
 
 	public RemoteItemType updateItemType(RemoteItemType type) {
@@ -132,7 +141,7 @@ implements AjaxService
 		ItemTypeMappedById mDbIt =
 			  new ItemTypeMappedById(dbIt);
 		
-		ItemType guiIt = convertToItemType(type,true);
+		ItemType guiIt = getObjectConverter().convertRemoteItemType(type,true);
 
 		ItemTypeMappedById mGuiIt =
 			  new ItemTypeMappedById(guiIt);
@@ -190,7 +199,7 @@ implements AjaxService
 		// persist
 		gponModelDao.updateItemType(itemType);
 		
-		return RemoteObjectConverter.convertItemType(itemType);
+		return getObjectConverter().convertItemType(itemType);
 		
 	}
 
@@ -198,201 +207,46 @@ implements AjaxService
 		gponModelDao.deleteItemType(id);		
 	}
 	
-	private ItemType convertToItemType(RemoteItemType type) 
-	{
-		return convertToItemType(type,false);
-	}
-
-		
-		private ItemType convertToItemType(RemoteItemType type, boolean fakeIpdIds) {
-		
-		ItemType itemType = new ItemType();
-		
-		itemType.setId(type.getId());
-		
-		if (type.getBaseTypeId()!=null && type.getBaseTypeId().longValue() > 0L) 
-		{
-			itemType.setBaseType(
-			  gponModelDao.findItemTypeById(type.getBaseTypeId())	
-			);
-		}
-		
-		itemType.setDescription(type.getDescription());
-		itemType.setName(type.getName());
-		
-		if (type.getItemPropertyDecls()!=null) {
-		
-		Set propDecls = new HashSet();
-		
-		int id = -1;
-		
-		for (int i = 0; i < type.getItemPropertyDecls().length; i++) 
-		{
-			RemoteItemPropertyDecl rPropDecl =
-				type.getItemPropertyDecls()[i];
-			
-			ItemPropertyDecl ipd =
-				new ItemPropertyDecl();
-			ipd.setId(znnvl(rPropDecl.getId(), fakeIpdIds?(new Long(id--)):null));
-			ipd.setDescription(rPropDecl.getDescription());
-			ipd.setMandatory(new Boolean(rPropDecl.isMandatory()));
-			ipd.setTypic(new Boolean(rPropDecl.isTypic()));
-			ipd.setName(rPropDecl.getName());
-			ipd.setPropertyValueTypeId(rPropDecl.getValueTypeId());
-			ipd.setItemType(itemType);
-			propDecls.add(ipd);
-		}
-		itemType.setItemPropertyDecls(propDecls);
-		}
-		
-		return itemType;
-	}
-	
-	private Long znnvl(Long value, Long onZeroNegativeOrNull) 
-	{
-		if (value == null || value.longValue()<=0) 
-		{
-			return onZeroNegativeOrNull;
-		}
-		
-		return value;
-	}
-
 	public RemoteItemType[] getAllItemTypes() {
 		List itList = getGponModelDao().findAllItemTypes();
 		
-		return RemoteObjectConverter.convertItemTypes(itList);
+		return getObjectConverter().convertItemTypes(itList);
 		
 	}
 
 	public RemoteAssociationType[] getAllAssociationTypes() {
 		List atList = getGponModelDao().findAllAssociationTypes();
 		
-		return RemoteObjectConverter.convertAssociationTypes(atList);
+		return getObjectConverter().convertAssociationTypes(atList);
 	}
 
 	public RemoteAssociationType getAssociationTypeById(Long id) {
 		AssociationType at = gponModelDao.findAssociationTypeById(id);
 		
-		return RemoteObjectConverter.
+		return getObjectConverter().
 		       convertAssociatonType(at);
 	}
 
 	public RemoteAssociationType createAssociationType(RemoteAssociationType type) {
-		AssociationType at = convertToAssociationType(type);
+		AssociationType at = getObjectConverter().convertRemoteAssociationType(type);
 		
 		gponModelDao.addAssociationType(at);
 		
-		return RemoteObjectConverter.convertAssociatonType(at);
+		return getObjectConverter().convertAssociatonType(at);
 	}
 
 	public RemoteAssociationType updateAssociationType(RemoteAssociationType type) {
-        AssociationType at = convertToAssociationType(type);
+        AssociationType at = getObjectConverter().convertRemoteAssociationType(type);
 		
 		gponModelDao.updateAssociationType(at);
 		
-		return RemoteObjectConverter.convertAssociatonType(at);
+		return getObjectConverter().convertAssociatonType(at);
 	}
 
 	public void deleteAssociationType(Long id) {
 				
 	}
 	
-	private AssociationType convertToAssociationType(RemoteAssociationType rAt) 
-	{
-		AssociationType at = new AssociationType();
-		
-		BeanUtils.copyProperties(rAt,at);
-		
-		at.setItemAType(gponModelDao.findItemTypeById(rAt.getItemATypeId()));
-		at.setItemBType(gponModelDao.findItemTypeById(rAt.getItemBTypeId()));
-		
-		return at;
-	}
-	
-	private Item convertToItem(RemoteItem rItem) 
-    {
-		Item item = new Item();
-		ItemType itemType = gponModelDao.findItemTypeById(rItem.getTypeId());
-		
-		item.setId(rItem.getId());
-		item.setItemType(itemType);
-		item.setProperties(convertToProperties(rItem.getProperties(),itemType));
-		
-		return item;
-    }
-	
-	private Association convertToAssociation(RemoteAssociation rAssoc) 
-	{
-		Association assoc = new Association();
-		AssociationType assocT = gponModelDao.findAssociationTypeById(rAssoc.getTypeId());
-		
-		assoc.setId(rAssoc.getId());
-		assoc.setAssociationType(assocT);
-		
-		Item itemA = null;
-		Item itemB = null;
-		
-		if (rAssoc.getItemAId()!=null) {
-			itemA = gponDataDao.findItemById(rAssoc.getItemAId());
-		}
-		if (rAssoc.getItemBId()!=null) {
-			itemB = gponDataDao.findItemById(rAssoc.getItemBId());
-		}
-		
-		assoc.setItemA(itemA);
-		assoc.setItemB(itemB);
-		
-		return assoc;
-	}
-	
-	private List convertToAssociations(RemoteAssociation[] rAssoces) 
-	{
-		if (rAssoces==null || rAssoces.length==0) 
-		{
-			return null;
-		}		
-		
-		List list = new ArrayList();
-		
-		for (int i = 0; i < rAssoces.length; i++) 
-		{
-			RemoteAssociation rAssoc = rAssoces[i];
-			list.add(convertToAssociation(rAssoc));
-		}
-		
-		return list;
-	}
-
-	private Set convertToProperties(RemoteItemProperty[] properties, ItemType type) {
-		
-		Set set = new HashSet();
-		
-		if (properties != null) 
-		{
-			for (int i=0; i < properties.length; i++) 
-			{
-				RemoteItemProperty prop = properties[i];
-				set.add(convertToProperty(prop, type));
-			}
-		}
-		
-		return set;
-	}
-
-	private ItemProperty convertToProperty(RemoteItemProperty rProp, ItemType type) {
-		ItemProperty prop = new ItemProperty();
-		ItemTypeMappedById mappedType =
-			new ItemTypeMappedById(type);
-		
-		
-		prop.setId(rProp.getId());
-		prop.setPropertyDecl(mappedType.getItemPropertyDecl(rProp.getDeclId()+""));
-		prop.setValue(rProp.getValue());
-		
-		return prop;
-	}
-
 	public RemoteItem[] searchItemsFulltext(Long typeId, String searchText) {
 			
 	ItemType it =
@@ -433,7 +287,7 @@ implements AjaxService
 			
 	Set resultSet = gponDataDao.search(sq);
 	
-	return RemoteObjectConverter.convertItems(resultSet);
+	return getObjectConverter().convertItems(resultSet);
 	} 
 	
 }
