@@ -42,10 +42,8 @@ import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.ItemType;
 import de.berlios.gpon.common.AssociationType.MultiplicityConstants;
 import de.berlios.gpon.common.util.ItemTypeMappedByName;
-import de.berlios.gpon.common.validation.AssociationValidator;
 import de.berlios.gpon.common.validation.DataValidationError;
 import de.berlios.gpon.common.validation.DataValidator;
-import de.berlios.gpon.common.validation.DefaultDataValidator;
 import de.berlios.gpon.persistence.search.SimpleQuery;
 
 public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao {
@@ -53,6 +51,12 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 	Log log = LogFactory.getLog(GponDataDaoImpl.class);
 
 	private GponModelDao modelDao;
+
+	private DataValidator dataValidator;
+	
+	public void setDataValidator(DataValidator dataValidator) {
+		this.dataValidator = dataValidator;
+	}
 
 	public GponDataDaoImpl() {
 	}
@@ -99,10 +103,8 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 	// Data Manipulation
 	public void addItem(final Item item) {
 		try {
-
-			DataValidator dv = new DefaultDataValidator(item);
-
-			DataValidationError[] errors = dv.validate();
+			
+			DataValidationError[] errors = getDataValidator().validate(item);
 
 			if (errors != null && errors.length > 0) {
 				GponDataDaoException ex = new GponDataDaoException();
@@ -120,9 +122,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 	public void updateItem(Item item) {
 		try {
 
-			DataValidator dv = new DefaultDataValidator(item);
-
-			DataValidationError[] errors = dv.validate();
+			DataValidationError[] errors = getDataValidator().validate(item);
 
 			if (errors != null && errors.length > 0) {
 				GponDataDaoException ex = new GponDataDaoException();
@@ -150,9 +150,7 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 	public void addAssociation(Association assoc) {
 		try {
 			
-			DataValidator dv = new AssociationValidator(assoc);
-
-			DataValidationError[] errors = dv.validate();
+			DataValidationError[] errors = getDataValidator().validate(assoc);
 
 			if (errors != null && errors.length > 0) {
 				GponDataDaoException ex = new GponDataDaoException();
@@ -506,6 +504,10 @@ public class GponDataDaoImpl extends HibernateDaoSupport implements GponDataDao 
 						
 					}
 				});
+	}
+
+	public DataValidator getDataValidator() {
+		return dataValidator;
 	}
 	
 

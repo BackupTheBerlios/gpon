@@ -308,7 +308,7 @@ CREATE TABLE t_association_property_decl (
     id integer NOT NULL,
     name character varying(50) NOT NULL,
     description character varying(200),
-    property_value_type_id integer NOT NULL,
+    value_type character varying(200) NOT NULL,
     association_type_id integer
 );
 
@@ -370,7 +370,9 @@ CREATE TABLE t_item_property_decl (
     item_type_id integer,
     mandatory character(1),
     rank integer,
-    typic character(1)
+    typic character(1),
+    derived_type character varying(50),
+    value_type_properties text
 );
 
 

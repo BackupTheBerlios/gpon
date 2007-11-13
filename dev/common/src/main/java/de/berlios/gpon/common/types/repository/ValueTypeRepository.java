@@ -31,49 +31,41 @@ import de.berlios.gpon.common.types.ValueType;
 public class ValueTypeRepository 
 {
 
-  private static Hashtable typedefsById;
+  private static Hashtable typedefsByName;
   private static Hashtable typedefsByClassName;
   
   static {
   
-    typedefsById        = new Hashtable();
+    typedefsByName      = new Hashtable();
     typedefsByClassName = new Hashtable();
     
     // String type
-    typedefsById.put(       ShortText.SHORTTEXT_VTD.getId(), 
-                            ShortText.SHORTTEXT_VTD);
-    typedefsByClassName.put(ShortText.SHORTTEXT_VTD.getClassName(), 
-                            ShortText.SHORTTEXT_VTD);
+    typedefsByName.put(       Text.SHORTTEXT_VTD.getName(), 
+                            Text.SHORTTEXT_VTD);
+    typedefsByClassName.put(Text.SHORTTEXT_VTD.getClassName(), 
+                            Text.SHORTTEXT_VTD);
                             
     // URL type
-    typedefsById.put(       URL.URL_VTD.getId(), 
+    typedefsByName.put(       URL.URL_VTD.getName(), 
                             URL.URL_VTD);                     
     typedefsByClassName.put(URL.URL_VTD.getClassName(), 
                             URL.URL_VTD);                            
                             
   
     // Decimal Number Type
-    typedefsById.put       (DecimalNumber.DECIMALNUMBER_VTD.getId(), 
+    typedefsByName.put       (DecimalNumber.DECIMALNUMBER_VTD.getName(), 
                             DecimalNumber.DECIMALNUMBER_VTD);                     
     typedefsByClassName.put(DecimalNumber.DECIMALNUMBER_VTD.getClassName(), 
                             DecimalNumber.DECIMALNUMBER_VTD);                            
-
-
-    // Image URL Type
-    typedefsById.put       (ImageURL.IMAGEURL_VTD.getId(), 
-                            ImageURL.IMAGEURL_VTD);                     
-    typedefsByClassName.put(ImageURL.IMAGEURL_VTD.getClassName(), 
-                            ImageURL.IMAGEURL_VTD); 
-                            
                        
     // Date Type
-    typedefsById.put       (DateType.DATETYPE_VTD.getId(), 
+    typedefsByName.put       (DateType.DATETYPE_VTD.getName(), 
                             DateType.DATETYPE_VTD);                     
     typedefsByClassName.put(DateType.DATETYPE_VTD.getClassName(), 
                             DateType.DATETYPE_VTD);  
     
     // Boolean Type
-    typedefsById.put       (BooleanType.BOOLEANTYPE_VTD.getId(), 
+    typedefsByName.put       (BooleanType.BOOLEANTYPE_VTD.getName(), 
     						BooleanType.BOOLEANTYPE_VTD);                     
     typedefsByClassName.put(BooleanType.BOOLEANTYPE_VTD.getClassName(), 
     						BooleanType.BOOLEANTYPE_VTD); 
@@ -81,15 +73,15 @@ public class ValueTypeRepository
   }
 
   public static List getAllValueTypeDefinitions() {
-    return new ArrayList(typedefsById.values());
+    return new ArrayList(typedefsByName.values());
   }  
   
-  public static Value getValueTypeObjectByTypeId(Long id) 
+  public static Value getValueTypeObjectByTypeName(String name) 
   {
 	  try {
-      if (typedefsById.containsKey(id)) 
+      if (typedefsByName.containsKey(name)) 
       {
-        ValueType vtd = (ValueType)typedefsById.get(id);
+        ValueType vtd = (ValueType)typedefsByName.get(name);
         return (Value)Class.forName(vtd.getClassName()).newInstance();
       }
       else 
@@ -101,11 +93,11 @@ public class ValueTypeRepository
 	  }
   } 
   
-  public static ValueType getValueTypeByTypeId(Long id) 
+  public static ValueType getValueTypeByTypeName(String name) 
   {
-      if (typedefsById.containsKey(id)) 
+      if (typedefsByName.containsKey(name)) 
       {
-        ValueType vtd = (ValueType)typedefsById.get(id);
+        ValueType vtd = (ValueType)typedefsByName.get(name);
         return vtd;
       }
       else 
@@ -117,8 +109,8 @@ public class ValueTypeRepository
 	  return (ValueType)typedefsByClassName.get(name);
   } 
   
-  public static Map getValueTypeByTypeIdMap() 
+  public static Map getValueTypeByTypeNameMap() 
   {
-	return typedefsById;  
+	return typedefsByName;  
   }
 }

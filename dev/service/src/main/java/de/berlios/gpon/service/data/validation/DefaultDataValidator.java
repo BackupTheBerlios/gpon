@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 
-package de.berlios.gpon.common.validation;
+package de.berlios.gpon.service.data.validation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,33 +27,27 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import de.berlios.gpon.common.Association;
+import de.berlios.gpon.common.AssociationType;
 import de.berlios.gpon.common.Item;
 import de.berlios.gpon.common.ItemPropertyDecl;
 import de.berlios.gpon.common.types.Value;
 import de.berlios.gpon.common.types.ValueTypeValidationException;
 import de.berlios.gpon.common.util.ItemMappedById;
+import de.berlios.gpon.common.validation.DataValidationError;
+import de.berlios.gpon.common.validation.DataValidator;
 
 public class DefaultDataValidator implements DataValidator {
 
 	private static Log log = LogFactory.getLog(DefaultDataValidator.class);
 
-	private Item item;
+	public DataValidationError[] validate(Item pItem) {
 
-	/**
-	 * 
-	 * @note
-	 */
-	public DefaultDataValidator(Item pItem) {
-		this.item = pItem;
-	}
-
-	public DataValidationError[] validate() {
-
-		ItemMappedById mappedItem = new ItemMappedById(this.item);
+		ItemMappedById mappedItem = new ItemMappedById(pItem);
 
 		List errors = new ArrayList();
 
-		Iterator declIt = this.item.getItemType()
+		Iterator declIt = pItem.getItemType()
 				.getInheritedItemPropertyDecls().iterator();
 
 		while (declIt.hasNext()) {
@@ -117,4 +111,40 @@ public class DefaultDataValidator implements DataValidator {
 		return null;
 	}
 
+	public DataValidationError[] validate(Association pAssoc) {
+		
+		List errors = new ArrayList();		
+			
+		AssociationType at =
+			pAssoc.getAssociationType();
+		
+		Item a = pAssoc.getItemA();
+		
+		if (!at.getItemAType().getSpecializedTypesDeep().contains(a.getItemType())) 
+		{
+			errors.add(new DataValidationError(
+						DataValidationError.WRONG_ITEM_TYPE_ERROR,
+						new Object[] {a}));
+			log.error("Wrong item type for a: "+a);
+		}
+	
+		Item b = pAssoc.getItemB();
+		
+		if (!at.getItemBType().getSpecializedTypesDeep().contains(b.getItemType())) 
+		{
+			errors.add(new DataValidationError(
+						DataValidationError.WRONG_ITEM_TYPE_ERROR,
+						new Object[] {b}));
+			log.error("Wrong item type for b: "+b);
+		}
+	
+		
+		if (errors.size() > 0) {
+			return (DataValidationError[]) errors
+					.toArray(new DataValidationError[0]);
+		}
+
+		return null;
+	}
+	
 }

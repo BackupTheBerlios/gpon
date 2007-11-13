@@ -34,7 +34,7 @@ public class DateTypeTest extends TestCase
   public void testInput() 
     throws Exception
   {
-    Value v = ValueTypeRepository.getValueTypeObjectByTypeId(DateType.DATETYPE_TYPE_ID);
+    Value v = ValueTypeRepository.getValueTypeObjectByTypeName("date");
   
     v.setDataInInputForm("1.2.74");
     

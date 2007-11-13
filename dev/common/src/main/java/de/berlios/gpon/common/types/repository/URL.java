@@ -34,10 +34,8 @@ public class URL
 
   public static final String MALFORMED_URL_MESSAGE_KEY = URL.class.getName()+"MALFORMED_URL_MESSAGE";
 
-  public static final Long URL_TYPE_ID = new Long(2);
-
   static final ValueType URL_VTD =
-    new ValueType(URL_TYPE_ID,
+    new ValueType("url",
                             URL.class.getName(),
                             "urls",
                             false);

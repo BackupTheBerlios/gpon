@@ -20,6 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 package de.berlios.gpon.common.validation;
 
+import de.berlios.gpon.common.Association;
+import de.berlios.gpon.common.Item;
+
 public interface DataValidator {
-	public DataValidationError[] validate();
+	public DataValidationError[] validate(Item pItem);
+	public DataValidationError[] validate(Association pAssoc);
 }

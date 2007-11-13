@@ -245,7 +245,7 @@ public class GponModelDaoTest
     ipd.setMandatory(Boolean.TRUE);   
     ipd.setName("name");
     ipd.setDescription("Name");
-    ipd.setPropertyValueTypeId(new Long(0));
+    ipd.setValueType("text");
     ipd.setRank(new Integer(1));
     ipd.setItemType(type);
     
@@ -257,7 +257,7 @@ public class GponModelDaoTest
     ipd.setMandatory(Boolean.TRUE);   
     ipd.setName("name2");
     ipd.setDescription("Name2");
-    ipd.setPropertyValueTypeId(new Long(0));
+    ipd.setValueType("text");
     ipd.setRank(new Integer(2));
     ipd.setItemType(type);
     

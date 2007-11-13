@@ -7,15 +7,12 @@ import de.berlios.gpon.common.types.ValueTypeValidationException;
 public class BooleanType extends AbstractValue
 implements Value 
 {
-
-	public static final Long BOOLEANTYPE_TYPE_ID = new Long(6);
-	
 	static final ValueType BOOLEANTYPE_VTD =
-	    new ValueType(BOOLEANTYPE_TYPE_ID,
-	                            BooleanType.class.getName(),
-	                            "boolean",                    
-	                            false
-	                            );
+	    new ValueType("boolean",
+	                  BooleanType.class.getName(),
+	                  "boolean",                    
+	                  false
+	                  );
 	
 	String _data = null;
 	

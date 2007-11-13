@@ -159,8 +159,8 @@ public abstract class AbstractMappedItem  {
 			} else {
 				// INPUT_FORM
 				Value valueObject = ValueTypeRepository
-				.getValueTypeObjectByTypeId(prop.getPropertyDecl()
-						.getPropertyValueTypeId());
+				.getValueTypeObjectByTypeName(prop.getPropertyDecl()
+						.getValueType());
 				
 				valueObject.setDataInInputForm(value);
 				
@@ -222,8 +222,8 @@ public abstract class AbstractMappedItem  {
 		}
 		
 		Value value = ValueTypeRepository
-				.getValueTypeObjectByTypeId(ip.getPropertyDecl()
-						.getPropertyValueTypeId());
+				.getValueTypeObjectByTypeName(ip.getPropertyDecl()
+						.getValueType());
 
 		// item property is always in database normal form
 		// i.e. date is stored as YYYYMMDDhhmmss
@@ -280,43 +280,6 @@ public abstract class AbstractMappedItem  {
 	
 	public Map getMap() {
 		return propertyMap;
-	}
-
-	public String getJson() 
-	{
-		//
-		// {'<prop 1>':'<value 1>', .... , '<prop n>':'<value n>' }
-		//
-		
-		StringBuffer buf = new StringBuffer();
-		
-		buf.append("{");
-		
-		buf.append("\"Id\":"+getItem().getId());
-		
-		List list = new ArrayList(getMap().keySet());
-		
-		if (list.size()>0) 
-		{
-		
-			for (int i = 0; i < list.size(); i++) 
-			{
-				buf.append(" , ");
-				String key = (String)list.get(i);
-				buf.append("\""+key+"\" : ");
-				if (getValueObject(key)!=null) {
-					buf.append("\""+getValueObject(key).getInput()+"\"");
-				}
-				else
-				{
-					buf.append("\"\"");
-				}
-			}
-			
-		}
-		buf.append("}");
-		
-		return buf.toString();
 	}
 	
 }

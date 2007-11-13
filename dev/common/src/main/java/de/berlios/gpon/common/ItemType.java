@@ -214,7 +214,7 @@ public class ItemType
 
 		ItemType baseType = this;
 
-		while (baseType != null) {
+		while (baseType != null && baseType.getAssociationTypesA()!=null) {
 			set.addAll(baseType.getAssociationTypesA());
 			baseType = baseType.getBaseType();
 		}
@@ -237,7 +237,7 @@ public class ItemType
 
 		ItemType baseType = this;
 
-		while (baseType != null) {
+		while (baseType != null && baseType.getAssociationTypesB()!=null) {
 			set.addAll(baseType.getAssociationTypesB());
 			baseType = baseType.getBaseType();
 		}

@@ -1,0 +1,416 @@
+<GponScript xmlns="http://berlios.de/gpon/xmlscript">
+	<Processing>
+		<Commit>auto</Commit>
+		<Results>
+			<Smtp />
+		</Results>
+	</Processing>
+	<Creation id="OneCar" type="Car">
+		<OrUpdateUsingKeys>
+			<Key name="license.plate.no" />
+		</OrUpdateUsingKeys>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CA 123" />
+			<Property name="chassis.no" value="123" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CB 234" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CC 345" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 567" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 111" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CE 222" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CF 1" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CG 2" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CH 3" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CI 4" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CJ 5" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		
+				<CreateObject>
+			<Property name="license.plate.no" value="LOS-CA 1231" />
+			<Property name="chassis.no" value="123" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CB 2341" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CC 3451" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 5671" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 1111" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CE 2221" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CF 11" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CG 21" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CH 31" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CI 41" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CJ 51" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+
+				<CreateObject>
+			<Property name="license.plate.no" value="LOS-CA 12311" />
+			<Property name="chassis.no" value="123" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CB 23411" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CC 34511" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 56711" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 11111" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CE 22211" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CF 111" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CG 211" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CH 311" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CI 411" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CJ 511" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+
+						<CreateObject>
+			<Property name="license.plate.no" value="LOS-CA 123112" />
+			<Property name="chassis.no" value="123" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CB 234112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CC 345112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 567112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 111112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CE 222112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CF 1112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CG 2112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CH 3112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CI 4112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CJ 5112" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		
+						<CreateObject>
+			<Property name="license.plate.no" value="LOS-CA 123113" />
+			<Property name="chassis.no" value="123" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CB 234113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CC 345113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 567113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 111113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CE 222113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CF 1113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CG 2113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CH 3113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CI 4113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CJ 5113" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		
+						<CreateObject>
+			<Property name="license.plate.no" value="LOS-CA 123114" />
+			<Property name="chassis.no" value="123" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CB 234114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CC 345114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 567114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CD 111114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CE 222114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CF 1114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CG 2114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CH 3114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CI 4114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		<CreateObject>
+			<Property name="license.plate.no" value="LOS-CJ 5114" />
+			<Property name="chassis.no" value="TMBXY1234567890" />
+			<Property name="yom" value="1.10.2005" />
+			<Property name="color" value="black" />
+		</CreateObject>
+		
+		
+	</Creation>
+</GponScript>

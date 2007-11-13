@@ -57,7 +57,7 @@ extends TestCase
         xmlo.setLoadStripWhitespace();
         xmlo.setSavePrettyPrint();
         
-        GponScriptDocument gsd = GponScriptDocument.Factory.parse(new File("test.xml"),xmlo);
+        GponScriptDocument gsd = GponScriptDocument.Factory.parse(new File("cars.xml"),xmlo);
         
         gs = gsd.getGponScript();
         

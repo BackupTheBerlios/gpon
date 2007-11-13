@@ -41,7 +41,7 @@ public class ValueTypeRepositoryTest extends TestCase
     for (int i = 0; i < array.length; i++) {
       ValueType vt = array[i];
     
-      System.out.println(i+": "+vt.getId());
+      System.out.println(i+": "+vt.getName());
     
     }
     

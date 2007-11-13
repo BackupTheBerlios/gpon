@@ -1,14 +1,16 @@
--- drop 
---drop function CHECK_MULTIPLICITY;
---drop function GPON_TO_NUMBER;
---DROP TABLE t_association_property;
---DROP TABLE t_association_property_decl;
---drop table t_association;
---drop table t_association_type;
---DROP TABLE t_item_property;
---DROP TABLE t_item;
---DROP TABLE t_item_property_decl;
---DROP TABLE t_item_type;
+<?xml version="1.0" encoding="UTF-8"?>
+<SQLPage nameConnection="gpon_a">
+<Statement><![CDATA[-- drop 
+drop function CHECK_MULTIPLICITY;
+drop function GPON_TO_NUMBER;
+DROP TABLE t_association_property;
+DROP TABLE t_association_property_decl;
+drop table t_association;
+drop table t_association_type;
+DROP TABLE t_item_property;
+DROP TABLE t_item;
+DROP TABLE t_item_property_decl;
+DROP TABLE t_item_type;
 
 
 -- gpon_to_number
@@ -196,3 +198,5 @@ ALTER TABLE  t_item_property
 
 ALTER TABLE  t_item_type
     ADD CONSTRAINT t_item_type_fk FOREIGN KEY (base_item_type_id) REFERENCES t_item_type(id);
+]]></Statement>
+</SQLPage>

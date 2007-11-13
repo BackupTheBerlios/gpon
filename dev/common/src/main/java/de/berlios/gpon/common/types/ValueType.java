@@ -23,7 +23,7 @@ package de.berlios.gpon.common.types;
 
 public class ValueType 
 {
-  Long    id;
+  String  name;
   String  className;
   String  description;
   
@@ -33,13 +33,13 @@ public class ValueType
   {
   }
   
-  public ValueType(Long    pId,
+  public ValueType(			 String pName,
                              String pClassName, 
                              String pDescription,
                              boolean numeric
                              )
   {
-      setId(pId);
+      setName(pName);
       setClassName(pClassName);
       setDescription(pDescription);
       setNumeric(numeric);
@@ -57,15 +57,15 @@ public class ValueType
   }
 
 
-  public void setId(Long id)
+  public void setName(String name)
   {
-    this.id = id;
+    this.name = name;
   }
 
 
-  public Long getId()
+  public String getName()
   {
-    return id;
+    return name;
   }
 
 

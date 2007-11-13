@@ -24,18 +24,16 @@ import de.berlios.gpon.common.types.ValueType;
 import de.berlios.gpon.common.types.ValueTypeValidationException;
 
 
-public class ShortText 
+public class Text 
   extends AbstractValue
   implements Value 
 {
 
-  public static final Long SHORTTEXT_TYPE_ID = new Long(1);
-  
   private String _data;
   
   static final ValueType SHORTTEXT_VTD =
-    new ValueType(SHORTTEXT_TYPE_ID,
-                            de.berlios.gpon.common.types.repository.ShortText.class.getName(),
+    new ValueType("text",
+                            de.berlios.gpon.common.types.repository.Text.class.getName(),
                             "short text",
                             false);
   

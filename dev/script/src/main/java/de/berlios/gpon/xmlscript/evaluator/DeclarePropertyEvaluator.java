@@ -62,10 +62,11 @@ public class DeclarePropertyEvaluator implements Evaluator {
 		ipd.setName(declareProperty.getName());
 		
 		ValueType vt = ValueTypeRepository.
-			getValueTypeByClassName("de.berlios.gpon.common.types.repository."+
-									declareProperty.getType());
+			getValueTypeByTypeName(declareProperty.getType());
 		
-		ipd.setPropertyValueTypeId(vt.getId());
+		ipd.setValueType(declareProperty.getType());
+		ipd.setDerivedValueType(declareProperty.getDerivedType());
+		ipd.setValueTypeProperties(declareProperty.getTypeProperties());
 		
 		if (declareProperty.isSetRank()) {
 			ipd.setRank(new Integer(declareProperty.getRank().intValue()));

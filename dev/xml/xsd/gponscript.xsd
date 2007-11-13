@@ -53,10 +53,11 @@
 		</xs:complexType>
 		<xs:element name="DeclareProperty" type="DeclareProperty"/>
 		<xs:complexType name="DeclareProperty">
-			
 			<xs:attribute name="name" type="xs:string"/>
-			<xs:attribute name="description" type="xs:string"/>
+			<xs:attribute name="description" type="xs:string" use="optional"/>
 			<xs:attribute name="type" type="xs:string"/>
+			<xs:attribute name="derivedType" type="xs:string" use="optional"/>
+		    <xs:attribute name="typeProperties" type="xs:string" use="optional"/>
 			<xs:attribute name="mandatory" type="xs:boolean"/>
 			<xs:attribute name="typic" type="xs:boolean"/>
 			<xs:attribute name="rank" type="xs:integer"/>

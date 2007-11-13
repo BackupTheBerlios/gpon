@@ -110,9 +110,11 @@ public abstract class AbstractMappedItemType
 				propDecl.setDescription(pPropDecl.getDescription());
 				propDecl.setMandatory(pPropDecl.getMandatory());
 				propDecl.setName(pPropDecl.getName());
-				propDecl.setPropertyValueTypeId(pPropDecl.getPropertyValueTypeId());
+				propDecl.setValueType(pPropDecl.getValueType());
 				propDecl.setRank(pPropDecl.getRank());
 				propDecl.setTypic(pPropDecl.getTypic());
+				propDecl.setDerivedValueType(pPropDecl.getDerivedValueType());
+				propDecl.setValueTypeProperties(pPropDecl.getValueTypeProperties());
 		
 		}
 	  

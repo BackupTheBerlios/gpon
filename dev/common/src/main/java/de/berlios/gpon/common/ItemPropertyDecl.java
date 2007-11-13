@@ -32,7 +32,11 @@ extends Base
 
 	String description;
 
-	Long propertyValueTypeId;
+	String valueType;
+	
+	String derivedValueType;
+	
+	String valueTypeProperties;
 
 	ItemType itemType;
 
@@ -48,7 +52,7 @@ extends Base
 
 	public String toString() {
 		String s = "id=" + id + " name=" + name + " description=" + description
-				+ " propertyValueTypeId=" + propertyValueTypeId + " mandatory="
+				+ " propertyValueTypeId=" + valueType + " mandatory="
 				+ getMandatory() + " rank=" + rank;
 		return s;
 	}
@@ -69,28 +73,28 @@ extends Base
 		return description;
 	}
 
-	public void setPropertyValueTypeId(Long propertyValueTypeId) {
-		this.propertyValueTypeId = propertyValueTypeId;
+	public void setValueType(String valueType) {
+		this.valueType = valueType;
 	}
 
-	public Long getPropertyValueTypeId() {
-		return propertyValueTypeId;
+	public String getValueType() {
+		return valueType;
 	}
 
 	public boolean isComplete() {
 		return (this.getName() != null && this.getName().trim().length() > 0
 				&& this.getDescription() != null
 				&& this.getDescription().trim().length() > 0
-				&& this.getPropertyValueTypeId() != null && this
-				.getPropertyValueTypeId().longValue() > 0);
+				&& this.getValueType() != null && this
+				.getValueType().length() > 0);
 	}
 
 	public boolean isPartial() {
 		return (!isComplete() && ((this.getName() != null && this.getName()
 				.trim().length() > 0)
 				|| (this.getDescription() != null && this.getDescription()
-						.trim().length() > 0) || (this.getPropertyValueTypeId() != null && this
-				.getPropertyValueTypeId().longValue() > 0)));
+						.trim().length() > 0) || (this.getValueType() != null && this
+				.getValueType().length() > 0)));
 	}
 
 	public boolean isEmpty() {
@@ -152,14 +156,21 @@ extends Base
 	public Boolean getTypic() {
 		return typicCharacter.equals(TRUE) ? Boolean.TRUE : Boolean.FALSE;
 	}
+	
+	public String getDerivedValueType() {
+		return derivedValueType;
+	}
 
-	public String getPropertyValueTypeName() {
+	public void setDerivedValueType(String derivedType) {
+		this.derivedValueType = derivedType;
+	}
 
-		if (getPropertyValueTypeId() != null)
-			return ValueTypeRepository.getValueTypeByTypeId(
-					getPropertyValueTypeId()).getDescription();
+	public String getValueTypeProperties() {
+		return valueTypeProperties;
+	}
 
-		return null;
+	public void setValueTypeProperties(String valueTypeProperties) {
+		this.valueTypeProperties = valueTypeProperties;
 	}
 
 }

@@ -13,7 +13,7 @@
   </parent>
   <dependencies>
   <dependency>
-  <artifactId>persistence</artifactId>
+  <artifactId>service</artifactId>
   <groupId>de.berlios.gpon</groupId>
   <version>${project.version}</version>
   </dependency>

@@ -43,11 +43,9 @@ public class DateType
   // TODO: format should be a  system variable
   public static final SimpleDateFormat DATE_INPUT_FORMAT_2 = 
     new SimpleDateFormat("d.M.y");
-
-  public static final Long DATETYPE_TYPE_ID = new Long(5); 
   
   static final ValueType DATETYPE_VTD =
-    new ValueType(DATETYPE_TYPE_ID,
+    new ValueType("date",
                             DateType.class.getName(),
                             "date/time",                    
                             false

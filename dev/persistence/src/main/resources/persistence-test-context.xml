@@ -44,9 +44,13 @@
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
   <!-- Data Part Data Access Object -->
+  
+  <bean id="dataValidator" class="de.berlios.gpon.common.validation.NonValidatingDataValidator"/>
+  
   <bean id="gponDataDao" class="de.berlios.gpon.persistence.GponDataDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
     <property name="modelDao" ref="gponModelDao"/>
+    <property name="dataValidator" ref="dataValidator"/>
   </bean>
   <!-- -->
   <bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">

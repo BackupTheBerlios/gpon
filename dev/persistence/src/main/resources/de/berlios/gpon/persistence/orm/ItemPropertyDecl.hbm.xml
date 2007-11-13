@@ -9,10 +9,12 @@
     </id>
     <property name="name" column="NAME"/>
     <property name="description" column="DESCRIPTION"/>
-    <property name="propertyValueTypeId" column="property_value_type_id"/>
+    <property name="valueType" column="value_type"/>
     <property name="mandatoryCharacter" column="MANDATORY"/>
     <property name="typicCharacter" column="TYPIC"/>
     <property name="rank" column="RANK"/>
+    <property name="derivedValueType" column="derived_type"/>
+	<property name="valueTypeProperties" column="value_type_properties"/>
     <many-to-one name="itemType" class="ItemType" insert="false" update="false"
       column="item_type_id"/>
   </class>  

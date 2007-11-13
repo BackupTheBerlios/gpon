@@ -82,7 +82,7 @@ public class QueryStringHelper {
 				it.getItemPropertyDecl(pc.getName());
 			
 			ValueType vt =
-				ValueTypeRepository.getValueTypeByTypeId(ipd.getPropertyValueTypeId());
+				ValueTypeRepository.getValueTypeByTypeName(ipd.getValueType());
 			
 			switch (pc.getOp()) {
 				case SearchOp.OP_INCLUDES:

@@ -34,10 +34,8 @@ public class DecimalNumber
   private static final String TRAILING_ZEROS_REGEXP =
     "([.][0]*$)|([0]*$)";
 
-  public static final Long DECIMALNUMBER_TYPE_ID = new Long(3); 
-
-  static final ValueType DECIMALNUMBER_VTD =
-    new ValueType(DECIMALNUMBER_TYPE_ID,
+   static final ValueType DECIMALNUMBER_VTD =
+    new ValueType("decimal",
                             DecimalNumber.class.getName(),
                             "decimal numbers",
                             true);
