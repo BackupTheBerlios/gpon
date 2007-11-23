@@ -83,7 +83,22 @@ DWREngine.setAsync(false);
 
 function on() {
 
+var myLogReader = new YAHOO.widget.LogReader('__logger__',
+  {
+    verboseOutput:false, 
+    thresholdMin: 2000,
+    thresholdMax: 3000,
+    width: "40em" 
+   }
+  );
+myLogReader.hideSource('global');
+myLogReader.hideSource('LogReader');
+
+gpon.log("Start logging to gpon_new","info","gpon_new");
+
 var pm = new PluginManager({dataService: GponDataService});
+
+gpon.log("Logging further to gpon_new","info","gpon_new");
 
 pm.load();
 
@@ -110,13 +125,15 @@ panel.render($(gpon.ui.components.renderStageId));
 gpon.ui.components.wm.register(panel);
 panel.show();
 panel.focus();
+
+
 }
 
+YAHOO.util.Event.onDOMReady(on);
 </script>
 </head>
-<body class="yui-skin-sam" onload="on();">
+<body class="yui-skin-sam">
 <script type="text/javascript">
-// var myLogReader = new YAHOO.widget.LogReader('mylogger');
 </script>
 <div id="ui_renderstage" style="height:0px;width:0px;overflow:hidden;">
 <div id="start-btn-group" class="start-btn-group">

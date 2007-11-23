@@ -1,7 +1,6 @@
 YAHOO.namespace("gpon.ui.components");
 var gpon = YAHOO.gpon; 
 
-
 var GponBasicService = 
 {
   uiElementSequence: 0,
@@ -70,4 +69,11 @@ var GponBasicService =
     
     return targetList;
   }
+}
+
+gpon.logger = new YAHOO.widget.LogWriter("gpon");
+
+gpon.log = function (message, category) 
+{
+ gpon.logger.log(message, category);
 }

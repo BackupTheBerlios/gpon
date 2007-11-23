@@ -4,26 +4,10 @@
 <script type="text/javascript" src="scripts/yui23/yahoo/yahoo.js"></script>
 <script type="text/javascript" src="scripts/yui23/dom/dom.js"></script>
 <script type="text/javascript" src="scripts/yui23/event/event.js"></script>
-<!-- 
-<script type="text/javascript" src="scripts/yui23/element/element-beta.js"></script>
-<script type="text/javascript" src="scripts/yui23/logger/logger.js"></script>
-<script type="text/javascript" src="scripts/yui23/dragdrop/dragdrop.js"></script>
-<script type="text/javascript" src="scripts/yui23/datasource/datasource-beta.js"></script>
-<script type="text/javascript" src="scripts/yui23/datatable/datatable-beta.js"></script>
-<script type="text/javascript" src="scripts/yui23/container/container-debug.js"></script>
-<script type="text/javascript" src="scripts/yui23/animation/animation.js"></script>
-<script type="text/javascript" src="scripts/yui23/button/button-beta.js"></script>
-<script type="text/javascript" src="scripts/yui23/tabview/tabview.js"></script>
-<script type="text/javascript" src="scripts/yui23/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script type="text/javascript" src="scripts/yui23/autocomplete/autocomplete-debug.js"></script>
-<script type="text/javascript" src="scripts/yui22-user/resize-panel.js"></script>
--->
-<!-- 
-<script type="text/javascript" src="scripts/gpon/gpon-data.js"></script>
--->
 <script type="text/javascript" src="scripts/gpon/gpon-base.js"></script>
 <script type="text/javascript" src="scripts/gpon/gpon-templates.js"></script>
-<script type="text/javascript" src="scripts/gpon/gpon-forms-pluggable.js"></script>
+<script type="text/javascript" src="scripts/gpon/gpon-forms.js"></script>
+<script type="text/javascript" src="scripts/gpon/ext/simpletypes.js"></script>
 <script type="text/javascript" src="scripts/gpon/gpon-ui-addons.js"></script>
 
 <script type="text/javascript">
@@ -84,7 +68,7 @@ function start()
 	var gfe = new GponFormElement(
 		{  targetObject       : mappedItem,
 	       targetPropertyExpr : 'ipd112',
-	       customInputElementClass: gpon.ui.addons.defaults.DefaultTextInput
+	       ipd: {valueType: 'text'}
 	       }
 	);
 	
@@ -98,7 +82,8 @@ function start()
 		{  targetObject       : mappedItem,
 	       targetPropertyExpr : 'img',
 	       customInputElementClass: MyCustomInput2,
-	       readOnly: true
+	       readOnly: true,
+	       ipd: { valueType: 'text' , derivedType: 'longtext'}
 	       }
 	);
 	
@@ -109,7 +94,7 @@ function start()
 	var gfe3 = new GponFormElement(
 		{  targetObject       : mappedItem,
 	       targetPropertyExpr : 'flag',
-	       customInputElementClass: gpon.ui.addons.defaults.DefaultBooleanInput,
+	       ipd: { valueType: 'boolean'},
 	       readOnly: false
 	       }
 	);

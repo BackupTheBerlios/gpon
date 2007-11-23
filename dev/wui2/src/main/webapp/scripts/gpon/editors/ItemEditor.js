@@ -169,7 +169,7 @@ new Class({
  },
  getInputNode: function() 
  {
-   me = this;
+   var me = this;
  
    // mission: build up a tabview container
    var tabContainer = new Element('div').injectInside(this._getRenderArea());

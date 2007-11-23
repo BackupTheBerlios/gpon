@@ -39,6 +39,7 @@ var PluginManager = new Class(
 		  		if (plugin.register && $type(plugin.register)=='function') {
 		  		 gpon.plugins[entry.propsByName['name']] = plugin;
 		  		 plugin.register(this); 
+		  		 gpon.log("Registered plugin: "+entry.propsByName['name']);
 		  		}
 	  		} 
 	  		catch (e) 
@@ -47,10 +48,10 @@ var PluginManager = new Class(
 	  		}
 	  	}
 	  
-	    alert("Plugins loaded.");
+	    gpon.log("Plugins loaded.","error");
 	  }
 	  else {
-	    alert("No plugins registered.");
+	    YAHOO.log("No plugins registered.");
 	  }
 	  
 	}

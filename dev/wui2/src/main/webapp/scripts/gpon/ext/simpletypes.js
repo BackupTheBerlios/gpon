@@ -82,10 +82,10 @@ gpon.dst['text'] = {
   }, 
   getView: function(value) 
   {
-  	var span = new Element('span');
-  	span.addClass('dst-text-view');
-  	span.appendText(value);
-  	return span;
+  	var div = new Element('div');
+  	div.addClass('dst-text-view');
+  	div.appendText(value);
+  	return div;
   }, 
   /* conversion */
   // converts input to normal form
@@ -153,10 +153,10 @@ gpon.dst['text:longtext'] = {
   }, 
   getView: function(value) 
   {
-  	var span = new Element('span');
-	span.addClass('dst-longtext-view');
-  	span.appendText(value);
-  	return span;
+  	var div = new Element('div');
+	div.addClass('dst-longtext-view');
+  	div.appendText(value);
+  	return div;
   }, 
   /* conversion */
   // converts input to normal form

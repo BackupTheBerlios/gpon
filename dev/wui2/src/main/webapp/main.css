@@ -265,6 +265,12 @@ color:#FFFFFF;
  border: 1px solid green;
 }
 
+.dst-longtext-view  
+{
+ width: 50px;
+ overflow: hidden;
+}
+
 .dst-boolean-editor, .dst-boolean-view 
 {
 

@@ -229,12 +229,14 @@ new Class({
    //  is triggered by simpleType Changes 
    
    var no = idx;	 
-   var derivedTypeParentEl = ipdTemplate.getAp('derivedtype')
+   var derivedTypeParentEl     = ipdTemplate.getAp('derivedtype')
+   var derivedTypeOptsParentEl = ipdTemplate.getAp('derivedtypeOpts');
    var me = this;
       
    var onValueTypeChangeFnc = function(argument, associatedObject) 
    {
      me._showDerivedTypeEditor(derivedTypeParentEl, 
+                               derivedTypeOptsParentEl,
                                no, 
                                argument.newValue, 
                                readOnly, 
@@ -242,7 +244,8 @@ new Class({
    }    
    
    simpleTypeElement.subscribe("propertyChanged", onValueTypeChangeFnc);
-   this._showDerivedTypeEditor(derivedTypeParentEl, 
+   this._showDerivedTypeEditor(derivedTypeParentEl,
+                               derivedTypeOptsParentEl, 
                                no, 
                                this.itemTypeObject.itemPropertyDecls[no].valueType, 
                                readOnly,
@@ -279,9 +282,10 @@ new Class({
    }
    return ipdNode;
  },
- _showDerivedTypeEditor: function(parentEl, ipdNo, simpleType, readOnly, reset) 
+ _showDerivedTypeEditor: function(parentEl, optsEl, ipdNo, simpleType, readOnly, reset) 
  {
     parentEl.empty();
+    optsEl.empty();
 
     if (reset) 
     {
@@ -326,6 +330,16 @@ new Class({
     derivedTypeElement.setEnumBase(derivedTypes);
     derivedTypeElement.subscribe("propertyChanged", this.onChange.bind(this));
     derivedTypeElement.getInputNode().injectInside(parentEl);
+    
+    // props
+    var valueTypeProperties = new GponFormElement(
+      { targetObject       : this.itemTypeObject,
+	    targetPropertyExpr : 'itemPropertyDecls['+ipdNo+'].valueTypeProperties',
+	    targetPropertyType : 'shorttext',
+	    readOnly           : readOnly
+	    });
+	    
+	valueTypeProperties.getInputNode().injectInside(optsEl);
  },
  removeIpd: function(nodeId, index) 
  {
